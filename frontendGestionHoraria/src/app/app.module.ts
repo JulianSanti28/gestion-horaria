@@ -8,10 +8,12 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { CauploadComponent } from './components/caupload/caupload.component';
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent
+    NavComponent,
+    CauploadComponent
   ],
   imports: [
     BrowserModule,
