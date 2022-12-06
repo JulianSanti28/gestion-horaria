@@ -1,0 +1,44 @@
+
+<div class="show-mobile">
+  <div>
+    <button (click)="toggleMenu()">
+      <img src="./assets/svg/icon_menu.svg" alt="menu">
+    </button>
+    <a href="">
+      <img src="./assets/png/icon_logo.png" alt="logo">
+    </a>
+
+
+  </div>
+  <div class="side-menu" [class.active]="activeMenu">
+    <button (click)="toggleMenu()">Close</button>
+    <ul>
+      <li><a href="">Cargar Oferta </a></li>
+      <li><a href="">Asignar Horario</a></li>
+      <li><a href="">Recursos y ambiente</a></li>
+      <li><a href="">Reporte</a></li>
+    </ul>
+  </div>
+</div>
+<div class="hide-mobile">
+  <div>
+    <nav>
+      <a class="logo" href="">
+        <img src="./assets/png/icon_logo.png" alt="logo" >
+      </a>
+      <ul>
+        <li><a href="">Cargar Oferta </a></li>
+        <li><a href="">Asignar Horario</a></li>
+        <li><a href="">Recursos y ambiente</a></li>
+        <li><a href="">Reporte</a></li>
+      </ul>
+    </nav>
+    <div class="info">
+      <div class="account">
+        <button *ngIf="!profile; else elseBlock" (click)="login()">Login</button>
+        <ng-template #elseBlock >{{profile?.email}}  <button>Cerrar sesión</button></ng-template>
+      </div>
+
+    </div>
+  </div>
+</div>
