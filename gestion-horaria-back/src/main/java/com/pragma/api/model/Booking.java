@@ -1,4 +1,4 @@
-package com.pragma.api.model.enums;
+package com.pragma.api.model;
 
 import com.pragma.api.model.Schedule;
 import lombok.*;
@@ -18,5 +18,9 @@ public class Booking {
     private Long id;
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="id_schedule", nullable=false)
-    Schedule schedule;
+    private Schedule schedule;
+    @ManyToOne
+    @JoinColumn(name="id_period", nullable=false)
+    private Period period;
+
 }

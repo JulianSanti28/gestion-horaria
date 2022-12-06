@@ -1,2 +1,5 @@
-package com.pragma.api.model.enums;public enum PeriodStateEnumeration {
+package com.pragma.api.model.enums;
+
+public enum PeriodStateEnumeration {
+    IN_PROGRESS, FINISHED
 }

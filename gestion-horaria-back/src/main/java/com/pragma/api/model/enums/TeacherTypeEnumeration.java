@@ -1,2 +1,5 @@
-package com.pragma.api.model.enums;public class TeacherTypeEnumeration {
+package com.pragma.api.model.enums;
+
+public enum TeacherTypeEnumeration {
+
 }
