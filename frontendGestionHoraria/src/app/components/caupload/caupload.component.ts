@@ -14,7 +14,6 @@ export class CauploadComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-  this.colaPendientes.push('OA2022.2-Licenciatura en ingles');
 
   }
 
