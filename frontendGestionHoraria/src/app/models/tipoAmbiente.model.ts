@@ -1,5 +1,5 @@
 export interface TipoAmbiente
 {
-  idTipoAmbiente:number;
+  idTipoAmbiente:string;
   nombreTipoAmbiente:string;
 }

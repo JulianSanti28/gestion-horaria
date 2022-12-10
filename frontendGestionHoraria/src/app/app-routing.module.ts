@@ -30,9 +30,14 @@ const routes: Routes = [
     component:RegisterComponent
   },
   {
+    path:'ambientes',
+    component:AmbientesComponent
+  },
+  {
     path:'ambientes/:idTipoAmbiente',
     component:AmbientesComponent
   }
+
 ];
 
 @NgModule({

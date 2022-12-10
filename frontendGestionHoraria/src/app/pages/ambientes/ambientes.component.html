@@ -1,24 +1,10 @@
 <!--nav var de gestionar ambiente -->
-Listar ambiente | Crear ambiente
+<br>
+<app-navambientes>
 
-<div class="container">
-<table>
-  <thead>
-    <tr>
-      <th *ngFor="let c of columns">{{c}} </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let ambiente of ambientes">
-      <td>{{ambiente.id}} </td>
-      <td>{{ambiente.tipoAmbiente.nombreTipoAmbiente}} </td>
-      <td>{{ambiente.nombre}} </td>
-      <td>{{ambiente.ubicacion}}</td>
-      <td>{{ambiente.capacidad}} </td>
-    </tr>
-  </tbody>
-</table>
+</app-navambientes>
+<app-ambientescomp [ambientes]="ambientes" >
 
-</div>
+</app-ambientescomp>
 
 
