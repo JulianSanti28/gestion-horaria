@@ -6,9 +6,15 @@
         <li><a href="">Crear ambientes</a></li>
         <li><a href="">Editar ambiente</a></li>
         <li>Filtrar por tipo ambiente
-          <select name="" id="">
-            <option value="">x</option>
-            <option value="">w</option>
+          <!-- (change)="onNavigate($event.target.value) -->
+          <select name="" id="" (change)="onNavigate($event)">
+            <option value="" default>Escoje una opcion</option>
+            <option *ngFor="let tipo of tipoAmbientes"
+                    value="ambientes/{{tipo.idTipoAmbiente}}"
+                     >
+              {{tipo.nombreTipoAmbiente}}
+            </option>
+
           </select>
         </li>
       </ul>
