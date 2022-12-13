@@ -1,5 +1,6 @@
 package com.pragma.api.model;
 
+import com.pragma.api.model.enums.ResourceTypeEnumeration;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,14 +13,13 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "academic_offer")
-public class AcademicOffer {
+public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "academic_offer_id")
-    private Integer academicOfferId;
+    private Integer id;
+    @Column(length = 40)
+    private String name;
+    @Column(name = "resource_type")
+    private ResourceTypeEnumeration resourceType;
 
-    @ManyToOne
-    @JoinColumn(name = "course_id")
-    private Course course;
 }

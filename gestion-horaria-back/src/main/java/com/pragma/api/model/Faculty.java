@@ -20,9 +20,12 @@ public class Faculty {
     @Id
     @Column(name = "faculty_id", length = 20)
     private String facultyId;
-    @Column(name = "faculty_name", nullable = false)
+    @Column(name = "faculty_name", nullable = false, unique = true)
     private String facultyName;
 
     @OneToMany(mappedBy = "faculty")
     private Set<Department> departments;
+
+    @OneToMany(mappedBy = "faculty")
+    private Set<Environment> environments;
 }

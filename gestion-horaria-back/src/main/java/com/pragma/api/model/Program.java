@@ -16,10 +16,14 @@ import java.util.Set;
 @Table(name = "Program")
 public class Program {
     @Id
-    @Column(name = "program_id",length = 20)
+    @Column(name = "program_id", length = 30)
     private String programId;
     @Column(name = "name")
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     @OneToMany(mappedBy = "program")
     private Set<Subject> subjects;
