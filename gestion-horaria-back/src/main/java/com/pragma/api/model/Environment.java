@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -27,4 +28,11 @@ public class Environment {
     @ManyToOne
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
+
+    @ManyToMany
+    @JoinTable(
+            name = "available_resources",
+            joinColumns = @JoinColumn(name = "environment_id"),
+            inverseJoinColumns = @JoinColumn(name = "resource_id"))
+    private Set<Resource> availableResources;
 }

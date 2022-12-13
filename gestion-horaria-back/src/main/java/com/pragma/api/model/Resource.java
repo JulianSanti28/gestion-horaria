@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -22,4 +23,6 @@ public class Resource {
     @Column(name = "resource_type")
     private ResourceTypeEnumeration resourceType;
 
+    @ManyToMany(mappedBy = "availableResources")
+    private Set<Environment> resourceLocations;
 }
