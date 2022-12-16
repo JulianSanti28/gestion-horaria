@@ -1,0 +1,17 @@
+<div class="container">
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let c of columns">{{c}} </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let recurso of recursos">
+        <td>{{recurso.id}} </td>
+        <td>{{recurso.tipoRecurso.nombreTipoRecurso}} </td>
+        <td>{{recurso.nombre}} </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

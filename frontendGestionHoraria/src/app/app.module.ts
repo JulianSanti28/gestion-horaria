@@ -24,6 +24,7 @@ import { NavambientesComponent } from './components/navambientes/navambientes.co
 import { AmbienteDetailComponent } from './pages/ambiente-detail/ambiente-detail.component';
 import { BasicFormComponent } from './components/basic-form/basic-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RecursosAmbienteComponent } from './components/recursos-ambiente/recursos-ambiente.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AmbientescompComponent,
     NavambientesComponent,
     AmbienteDetailComponent,
-    BasicFormComponent
+    BasicFormComponent,
+    RecursosAmbienteComponent
 
   ],
   imports: [

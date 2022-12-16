@@ -1,8 +1,17 @@
 <button (click)="goToBack()" >Volver</button>
-<p>{{ambiente?.id}} </p>
+<!-- <p>{{ambiente?.id}} </p>
 <p>{{ambiente?.tipoAmbiente?.nombreTipoAmbiente}} </p>
 <p>{{ambiente?.nombre}} </p>
 <p>{{ambiente?.ubicacion}}</p>
-<p>{{ambiente?.capacidad}} </p>
+<p>{{ambiente?.capacidad}} </p> -->
 
 <app-basic-form [ambiente]="ambiente" ></app-basic-form>
+<p>Capacidad : {{ambiente.capacidad}} </p>
+<h2>Recursos</h2>
+
+<app-recursos-ambiente [recursos]="recursos">
+
+</app-recursos-ambiente>
+<p>
+  <br><br>
+</p>

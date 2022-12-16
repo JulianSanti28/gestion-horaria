@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Ambiente } from 'src/app/models/ambiente.model';
 import { switchMap } from 'rxjs';
-
 import { Location } from '@angular/common';
+
+import { Ambiente } from 'src/app/models/ambiente.model';
+import { Recurso } from 'src/app/models/recurso.model';
+
 import { AmbienteService } from 'src/app/services/ambiente.service';
+import { RecursoService } from 'src/app/services/recurso.service';
+
 
 @Component({
   selector: 'app-ambiente-detail',
@@ -16,6 +20,7 @@ export class AmbienteDetailComponent implements OnInit {
   constructor(
     private route:ActivatedRoute,
     private ambienteService:AmbienteService,
+    private recursoService:RecursoService,
     private location:Location
   ) { }
 
@@ -30,6 +35,7 @@ export class AmbienteDetailComponent implements OnInit {
 
   };
 
+  recursos:Recurso[]=[];
   ngOnInit(): void {
     //obteniendo el id de la url debe llamarse igual que en el app-routing
 
@@ -55,6 +61,8 @@ export class AmbienteDetailComponent implements OnInit {
 
     }
     )
+    //recursos correspondientes a un ambiente
+    this.recursos= this.recursoService.getRecursosByAmbienteId(this.ambiente.id);
   }
 
   goToBack(){
