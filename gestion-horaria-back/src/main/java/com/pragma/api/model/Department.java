@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -14,12 +15,18 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Department {
     @Id
-    @Column(length = 20, name = "department_id")
+    @Column(name = "department_id", length = 20)
     private String departmentId;
-    @Column(name = "department_name")
+    @Column(name = "department_name", length = 40)
     private String departmentName;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
+
+    @OneToMany(mappedBy = "department")
+    private Set<Teacher> teachers;
+
+    @OneToMany(mappedBy = "department")
+    private Set<Program> programs;
 }

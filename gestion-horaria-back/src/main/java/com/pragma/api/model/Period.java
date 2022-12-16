@@ -14,14 +14,10 @@ import java.util.Set;
 @Builder
 public class Period {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(length = 40)
+    private String id;
     private PeriodStateEnumeration state;
-    @OneToMany(mappedBy = "period", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Booking> bookings;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="teacher_period",
-            joinColumns={@JoinColumn(name="period_id")},
-            inverseJoinColumns={@JoinColumn(name="teacher_id")})
-    private Set<Teacher> teachers;
+
+    @OneToMany(mappedBy = "period")
+    private Set<Course> courses;
 }

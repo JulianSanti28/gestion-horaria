@@ -1,5 +1,6 @@
 package com.pragma.api.model;
 
+import com.pragma.api.model.enums.DaysEnumeration;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -21,12 +22,18 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date initialDate;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date finalDate;
-    private LocalTime startTime;
-    private LocalTime finalTime;
-    @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Booking> bookings;
+    @Column(nullable = false)
+    private DaysEnumeration day;
+    @Column(name = "starting_time")
+    @Temporal(TemporalType.TIME)
+    private Date startingTime;
+    @Column(name = "ending_time")
+    @Temporal(TemporalType.TIME)
+    private Date endingTime;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+
 }

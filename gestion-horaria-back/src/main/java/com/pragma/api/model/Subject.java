@@ -15,16 +15,16 @@ import java.util.Set;
 @NoArgsConstructor
 public class Subject {
     @Id
-    @Column(name = "subject_code",length = 20)
+    @Column(name = "subject_code",length = 30)
     private String subjectCode;
-    @Column(nullable = false)
+    @Column(length = 45, nullable = false)
     private String name;
-    @Column(nullable = false,name = "weekly_overload")
+    @Column(name = "weekly_overload", nullable = false)
     private Integer weeklyOverload;
-    @Column(nullable = false,name = "time_block")
+    @Column(name = "time_block", nullable = false)
     private Boolean timeBlock;
     @Column(nullable = false)
-    private String semester;
+    private Integer semester;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "program_id")

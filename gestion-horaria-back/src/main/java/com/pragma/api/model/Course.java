@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -17,15 +18,23 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "course_id")
     private Integer courseId;
-    // Pendiente relacionar Periodo
-    //@Column(nullable = false, length = 20)
-    //private String period;
-    @Column(nullable = false, length = 20,name = "course_group")
+    @Column(name = "course_group", nullable = false, length = 20)
     private String courseGroup;
-    @Column(nullable = false, name = "course_capacity")
+    @Column(name = "course_capacity", nullable = false)
     private Integer courseCapacity;
+
+    @ManyToOne
+    @JoinColumn()
+    private Period period;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "subject_code")
     private Subject subject;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "teacher_code")
+    private Teacher teacher;
+
+    @OneToMany(mappedBy = "course")
+    private Set<Schedule> schedules;
 }
