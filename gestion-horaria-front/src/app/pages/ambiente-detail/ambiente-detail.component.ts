@@ -26,7 +26,7 @@ export class AmbienteDetailComponent implements OnInit {
 
   ambienteId:number | null = null;
   ambiente :Ambiente={
-    'id':0,
+    'idAmbiente':0,
     'tipoAmbiente':{'idTipoAmbiente':'4','nombreTipoAmbiente':'prueba'},
     'nombre':'salon fun',
     'ubicacion':'Humanidades',
@@ -62,7 +62,7 @@ export class AmbienteDetailComponent implements OnInit {
     }
     )
     //recursos correspondientes a un ambiente
-    this.recursos= this.recursoService.getRecursosByAmbienteId(this.ambiente.id);
+    this.recursos= this.recursoService.getRecursosByAmbienteId(this.ambiente.idAmbiente);
   }
 
   goToBack(){

@@ -1,7 +1,7 @@
 import { TipoRecurso } from "./tipoRecurso.model";
 
 export interface Recurso{
-  id:number;
+  idRecurso:number;
   nombre:string;
   tipoRecurso:TipoRecurso;
 }

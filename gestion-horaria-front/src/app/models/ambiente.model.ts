@@ -1,6 +1,6 @@
 import { TipoAmbiente } from "./tipoAmbiente.model";
 export interface Ambiente{
-  id:number;
+  idAmbiente:number;
   nombre:string;
   ubicacion:string;
   capacidad:number;

@@ -11,9 +11,10 @@ import { NavComponent } from './components/nav/nav.component';
 import { AmbienteComponent } from './components/ambiente/ambiente.component';
 import { TablerowComponent } from './components/tablerow/tablerow.component';
 import { AmbientescompComponent } from './components/ambientescomp/ambientescomp.component';
-
-import { TokenInterceptor } from './interceptors/token.interceptor';
 import { CauploadComponent } from './components/caupload/caupload.component';
+import { RecursosAmbienteComponent } from './components/recursos-ambiente/recursos-ambiente.component';
+import { RecursoFormComponent } from './components/recurso-form/recurso-form.component';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -24,7 +25,7 @@ import { NavambientesComponent } from './components/navambientes/navambientes.co
 import { AmbienteDetailComponent } from './pages/ambiente-detail/ambiente-detail.component';
 import { BasicFormComponent } from './components/basic-form/basic-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RecursosAmbienteComponent } from './components/recursos-ambiente/recursos-ambiente.component';
+
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { RecursosAmbienteComponent } from './components/recursos-ambiente/recurs
     NavambientesComponent,
     AmbienteDetailComponent,
     BasicFormComponent,
-    RecursosAmbienteComponent
+    RecursosAmbienteComponent,
+    RecursoFormComponent
 
   ],
   imports: [

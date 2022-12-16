@@ -32,7 +32,7 @@ export class BasicFormComponent implements OnInit {
 // <p>{{ambiente?.capacidad}} </p>
   ngOnInit(): void {
     const ambienteFill = {
-      'id':this.ambiente.id,
+      'id':this.ambiente.idAmbiente,
       'tipoAmbiente':this.ambiente.tipoAmbiente.nombreTipoAmbiente,
       'nombre':this.ambiente.nombre,
       'ubicacion':this.ambiente.ubicacion,

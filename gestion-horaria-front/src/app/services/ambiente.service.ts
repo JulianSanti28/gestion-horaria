@@ -9,10 +9,10 @@ export class AmbienteService {
 
 
   ambientes:Ambiente[]=[
-    {id:1, nombre:'salon fundador',ubicacion:'Humanidades',capacidad:30,descripcion:'salon',tipoAmbiente:{idTipoAmbiente:'1',nombreTipoAmbiente:'salon'}},
-    {id:2, nombre:'salon entral',ubicacion:'Humanidades',capacidad:25,descripcion:'salon',tipoAmbiente:{idTipoAmbiente:'1',nombreTipoAmbiente:'salon audiovisual'}},
-    {id:3, nombre:'laboratorio',ubicacion:'Humanidades',capacidad:20,descripcion:'laboratorio',tipoAmbiente:{idTipoAmbiente:'2',nombreTipoAmbiente:'laboratorio'}},
-    {id:4, nombre:'super laboratorio',ubicacion:'Humanidades',capacidad:20,descripcion:'laboratorio',tipoAmbiente:{idTipoAmbiente:'2',nombreTipoAmbiente:'laboratorio'}}
+    {idAmbiente:1, nombre:'salon fundador',ubicacion:'Humanidades',capacidad:30,descripcion:'salon',tipoAmbiente:{idTipoAmbiente:'1',nombreTipoAmbiente:'salon'}},
+    {idAmbiente:2, nombre:'salon entral',ubicacion:'Humanidades',capacidad:25,descripcion:'salon',tipoAmbiente:{idTipoAmbiente:'1',nombreTipoAmbiente:'salon audiovisual'}},
+    {idAmbiente:3, nombre:'laboratorio',ubicacion:'Humanidades',capacidad:20,descripcion:'laboratorio',tipoAmbiente:{idTipoAmbiente:'2',nombreTipoAmbiente:'laboratorio'}},
+    {idAmbiente:4, nombre:'super laboratorio',ubicacion:'Humanidades',capacidad:20,descripcion:'laboratorio',tipoAmbiente:{idTipoAmbiente:'2',nombreTipoAmbiente:'laboratorio'}}
 
   ]
   constructor() { }
