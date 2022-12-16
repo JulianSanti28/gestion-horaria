@@ -33,4 +33,7 @@ export class AmbienteService {
     //obtener ambientes por tipo de ambientes
     return this.ambientes.filter(ambiente => ambiente.tipoAmbiente.idTipoAmbiente ==idTipoAmbiente);
   }
+  updateAmbiente(id:string , ambiente:Ambiente){
+    return ambiente;
+  }
 }

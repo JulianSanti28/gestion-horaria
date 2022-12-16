@@ -20,7 +20,15 @@ export class AmbienteDetailComponent implements OnInit {
   ) { }
 
   ambienteId:number | null = null;
-  ambiente :Ambiente |null=null;
+  ambiente :Ambiente={
+    'id':0,
+    'tipoAmbiente':{'idTipoAmbiente':'4','nombreTipoAmbiente':'prueba'},
+    'nombre':'salon fun',
+    'ubicacion':'Humanidades',
+    'capacidad':30,
+    'descripcion':'Es un salon'
+
+  };
 
   ngOnInit(): void {
     //obteniendo el id de la url debe llamarse igual que en el app-routing
@@ -42,7 +50,7 @@ export class AmbienteDetailComponent implements OnInit {
         this.ambiente=this.ambienteService.getByAmbienteId(this.ambienteId);
       }
       else{
-        this.ambiente=null;
+        //this.ambiente=null;
       }
 
     }

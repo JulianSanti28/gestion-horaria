@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
+import { ReactiveFormsModule ,FormsModule} from '@angular/forms';
+import { MaterialModule } from './material/material.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +22,8 @@ import { AmbientesComponent } from './pages/ambientes/ambientes.component';
 import { CargarofertaComponent } from './pages/cargaroferta/cargaroferta.component';
 import { NavambientesComponent } from './components/navambientes/navambientes.component';
 import { AmbienteDetailComponent } from './pages/ambiente-detail/ambiente-detail.component';
+import { BasicFormComponent } from './components/basic-form/basic-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -36,13 +40,18 @@ import { AmbienteDetailComponent } from './pages/ambiente-detail/ambiente-detail
     TablerowComponent,
     AmbientescompComponent,
     NavambientesComponent,
-    AmbienteDetailComponent
+    AmbienteDetailComponent,
+    BasicFormComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:TokenInterceptor,multi:true}
