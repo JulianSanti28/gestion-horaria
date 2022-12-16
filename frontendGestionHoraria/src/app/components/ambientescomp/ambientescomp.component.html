@@ -12,6 +12,7 @@
         <td>{{ambiente.nombre}} </td>
         <td>{{ambiente.ubicacion}}</td>
         <td>{{ambiente.capacidad}} </td>
+        <td><a [routerLink]="['../ambiente',ambiente.id]">Ver</a> </td>
       </tr>
     </tbody>
   </table>

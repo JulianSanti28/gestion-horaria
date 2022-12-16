@@ -13,7 +13,7 @@ export class AmbientescompComponent implements OnInit {
   @Input()ambientes:Ambiente[]=[];
 
   characters: string[]=['a','e','i','o','u'];
-  columns:string[]=['Id','Tipo','Nombre','Ubicacion','Capacidad'];
+  columns:string[]=['Id','Tipo','Nombre','Ubicacion','Capacidad','Recursos'];
 
   constructor(
     private ambienteService : AmbienteService

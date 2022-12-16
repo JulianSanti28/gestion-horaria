@@ -19,6 +19,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { AmbientesComponent } from './pages/ambientes/ambientes.component';
 import { CargarofertaComponent } from './pages/cargaroferta/cargaroferta.component';
 import { NavambientesComponent } from './components/navambientes/navambientes.component';
+import { AmbienteDetailComponent } from './pages/ambiente-detail/ambiente-detail.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { NavambientesComponent } from './components/navambientes/navambientes.co
     AmbienteComponent,
     TablerowComponent,
     AmbientescompComponent,
-    NavambientesComponent
+    NavambientesComponent,
+    AmbienteDetailComponent
   ],
   imports: [
     BrowserModule,

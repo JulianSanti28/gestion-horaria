@@ -21,10 +21,12 @@ export class AmbienteService {
     //obternet todos los ambientes
     return this.ambientes;
   }
-  getByAmbienteId(ambienteId:string){
+  getByAmbienteId(idAmbiente:number){
     //obtener un ambiente por ID
 
-    //return this.http.get<Ambiente[]>
+    //return this.http.get<Ambiente>(`${this.apiUrl}/ambientes/${id}`)
+
+    return this.ambientes[idAmbiente-1];
   }
 
   getByTipoAmbienteId(idTipoAmbiente:string){
