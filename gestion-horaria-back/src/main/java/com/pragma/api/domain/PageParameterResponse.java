@@ -1,4 +1,4 @@
-package com.pragma.api.business;
+package com.pragma.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;

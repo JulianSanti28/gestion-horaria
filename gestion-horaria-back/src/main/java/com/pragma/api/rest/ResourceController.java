@@ -1,6 +1,6 @@
 package com.pragma.api.rest;
 
-import com.pragma.api.business.GenericPageableResponse;
+import com.pragma.api.domain.GenericPageableResponse;
 import com.pragma.api.business.IResourceService;
 import com.pragma.api.domain.ResourceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +11,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/resource")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ResourceController {
 
     @Autowired
     private IResourceService resourceService;
 
     @PostMapping
-    public ResponseEntity<ResourceDTO> saveResource(@RequestBody ResourceDTO request) {
+    public ResponseEntity<ResourceDTO> saveResource(@Valid @RequestBody ResourceDTO request) {
         ResourceDTO saved = this.resourceService.saveResource(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
@@ -39,7 +40,7 @@ public class ResourceController {
     }
 
     @PutMapping
-    public ResponseEntity<ResourceDTO> updateResourceById(@RequestParam("id") Integer id, @RequestBody ResourceDTO update) {
+    public ResponseEntity<ResourceDTO> updateResourceById(@RequestParam("id") Integer id, @Valid @RequestBody ResourceDTO update) {
         ResourceDTO resource = this.resourceService.updateResource(id, update);
         return ResponseEntity.status(HttpStatus.OK).body(resource);
     }

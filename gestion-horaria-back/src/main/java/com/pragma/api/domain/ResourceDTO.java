@@ -16,6 +16,7 @@ public class ResourceDTO {
     private Integer id;
     @NotNull
     private String name;
+    @NotNull
     @Enumerated(EnumType.STRING)
     private ResourceTypeEnumeration resourceType;
 }

@@ -1,7 +1,7 @@
 package com.pragma.api.util;
 
-import com.pragma.api.business.GenericPageableResponse;
-import com.pragma.api.business.PageParameterResponse;
+import com.pragma.api.domain.GenericPageableResponse;
+import com.pragma.api.domain.PageParameterResponse;
 import org.springframework.data.domain.Page;
 
 public class PageableUtils {

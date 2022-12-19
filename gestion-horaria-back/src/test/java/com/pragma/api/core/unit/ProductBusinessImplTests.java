@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.pragma.api.business.ProductBusinessImpl;
-import com.pragma.api.domain.ProductDTO;
 import com.pragma.api.exception.CoreException;
-import com.pragma.api.repository.ProductRepository;
 
 /**
  * Clase que permite ejecutar las pruebas unitarias sobre los metodos auxiliares de la clase {@link ProductBusinessImpl}
