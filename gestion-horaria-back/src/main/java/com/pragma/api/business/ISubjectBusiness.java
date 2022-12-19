@@ -1,16 +1,16 @@
 package com.pragma.api.business;
 
 
+import com.pragma.api.domain.GenericPageableResponse;
 import com.pragma.api.domain.Response;
 import com.pragma.api.domain.SubjectDTO;
-
-import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 
 /**
  * Interface que permite definir las operaciones de negocio a realizar sobre la entidad Subject.
  */
-public interface SubjectBusiness {
+public interface ISubjectBusiness {
 
     /**
      * Metodo que permite crear un nuevo registro en base de datos, sobre la tabla SUBJECT, insertando la informacion de la materia que se
@@ -38,5 +38,5 @@ public interface SubjectBusiness {
      * @return {@link Response} Objeto de respuesta para el servicio, el cual contiene información sobre el resultado de la consulta,
      *         además de la información de las materias consultadas
      */
-    Response<List<SubjectDTO>> findAll();
+    Response<GenericPageableResponse> findAll(final Pageable pageable);
 }
