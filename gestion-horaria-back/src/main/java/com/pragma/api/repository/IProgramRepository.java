@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * Repository de Spring para las operaciones CRUD sobre la tabla PROGRAM.
  */
 @Repository
-public interface ProgramRepository extends JpaRepository<Program, String> {
+public interface IProgramRepository extends JpaRepository<Program, String> {
 }

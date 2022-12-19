@@ -5,8 +5,8 @@ import com.pragma.api.domain.Response;
 import com.pragma.api.domain.SubjectDTO;
 import com.pragma.api.exception.ScheduleBadRequestException;
 import com.pragma.api.model.Subject;
-import com.pragma.api.repository.ProgramRepository;
-import com.pragma.api.repository.SubjectRepository;
+import com.pragma.api.repository.IProgramRepository;
+import com.pragma.api.repository.ISubjectRepository;
 import com.pragma.api.util.PageableUtils;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -30,10 +30,10 @@ public class ISubjectBusinessImpl implements ISubjectBusiness {
     private ModelMapper modelMapper;
 
     @Autowired
-    private SubjectRepository subjectRepository;
+    private ISubjectRepository subjectRepository;
 
     @Autowired
-    private ProgramRepository programRepository;
+    private IProgramRepository programRepository;
 
     @Override
     @Transactional

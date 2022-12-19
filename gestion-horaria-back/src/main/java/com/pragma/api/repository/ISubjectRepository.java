@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
  * Repository de Spring para las operaciones CRUD sobre la tabla SUBJECT.
  */
 @Repository
-public interface SubjectRepository extends JpaRepository<Subject,String> {
+public interface ISubjectRepository extends JpaRepository<Subject,String> {
 }

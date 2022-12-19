@@ -16,6 +16,7 @@ public class Period {
     @Id
     @Column(length = 40)
     private String id;
+    @Enumerated(EnumType.STRING)
     private PeriodStateEnumeration state;
 
     @OneToMany(mappedBy = "period")
