@@ -21,10 +21,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ISubjectBusinessImpl implements ISubjectBusiness {
+public class SubjectBusinessImpl implements ISubjectBusiness {
 
     /** Logger */
-    private static final Logger logger = LoggerFactory.getLogger(ISubjectBusinessImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(SubjectBusinessImpl.class);
 
     @Autowired
     private ModelMapper modelMapper;
@@ -42,7 +42,7 @@ public class ISubjectBusinessImpl implements ISubjectBusiness {
         Response<SubjectDTO> response = new Response<>();
 
         if(!programRepository.existsById(subjectDTO.getProgramId())){
-            throw new ScheduleBadRequestException("bad.create.idExist", subjectDTO.getProgramId());
+            throw new ScheduleBadRequestException("bad.request.program.id", subjectDTO.getProgramId());
         }
 
         Subject subject = modelMapper.map(subjectDTO,Subject.class);
@@ -82,7 +82,7 @@ public class ISubjectBusinessImpl implements ISubjectBusiness {
         response.setMoreInfo("localhost:8080/api/subject");
         response.setErrorCode("");
         response.setData(this.validatePageList(subjectPage));
-        logger.debug("Finish createSubject Business");
+        logger.debug("Finish findAllSubjects Business");
         return response;
     }
 
