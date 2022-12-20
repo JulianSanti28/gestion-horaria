@@ -42,7 +42,7 @@ public class ISubjectBusinessImpl implements ISubjectBusiness {
         Response<SubjectDTO> response = new Response<>();
 
         if(!programRepository.existsById(subjectDTO.getProgramId())){
-            throw new ScheduleBadRequestException("bad.request.resource.id_program", subjectDTO.getProgramId());
+            throw new ScheduleBadRequestException("bad.create.idExist", subjectDTO.getProgramId());
         }
 
         Subject subject = modelMapper.map(subjectDTO,Subject.class);

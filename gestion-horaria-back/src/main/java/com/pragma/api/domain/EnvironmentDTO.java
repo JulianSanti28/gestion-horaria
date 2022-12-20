@@ -1,5 +1,6 @@
 package com.pragma.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pragma.api.model.Faculty;
 import com.pragma.api.model.Resource;
 import com.pragma.api.model.enums.EnvironmentTypeEnumeration;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class EnvironmentDTO {
 
     private Integer id;
@@ -20,14 +22,8 @@ public class EnvironmentDTO {
     private String location;
     private Integer capacity;
     private EnvironmentTypeEnumeration environmentType;
-    @ManyToOne
-    @JoinColumn(name = "faculty_id")
-    private Faculty faculty;
 
-    @ManyToMany
-    @JoinTable(
-            name = "available_resources",
-            joinColumns = @JoinColumn(name = "environment_id"),
-            inverseJoinColumns = @JoinColumn(name = "resource_id"))
-    private Set<Resource> availableResources;
+    private String facultyId;
+
+    private Set<ResourceDTO> availableResources;
 }
