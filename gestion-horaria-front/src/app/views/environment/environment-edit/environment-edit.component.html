@@ -1,0 +1,21 @@
+<c-card>
+  <c-card-header>
+
+  </c-card-header>
+  <c-card-body>
+    <app-environment-form #child [isEdit]="true" [environment]="environment"></app-environment-form>
+  </c-card-body>
+</c-card>
+<br>
+<c-card >
+  <!-- <c-card *ngIf="true"> -->
+
+    <c-card-body>
+      <app-resources #listResources [isEdit]="true" (addedResource)="onAddedResource($event)" [environment]="environment"></app-resources>
+    </c-card-body>
+    <br>
+  </c-card>
+  <br>
+  <button cButton color="primary" size="lg" [disabled]= "child.form.invalid" (click)="child.setValues() ;getInfo()" >
+    Guardar este ambiente
+  </button>

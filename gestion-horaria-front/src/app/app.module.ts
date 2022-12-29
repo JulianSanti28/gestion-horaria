@@ -1,65 +1,105 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
-import { ReactiveFormsModule ,FormsModule} from '@angular/forms';
-import { MaterialModule } from './material/material.module';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NavComponent } from './components/nav/nav.component';
-import { AmbienteComponent } from './components/ambiente/ambiente.component';
-import { TablerowComponent } from './components/tablerow/tablerow.component';
-import { AmbientescompComponent } from './components/ambientescomp/ambientescomp.component';
-import { CauploadComponent } from './components/caupload/caupload.component';
-import { RecursosAmbienteComponent } from './components/recursos-ambiente/recursos-ambiente.component';
-import { RecursoFormComponent } from './components/recurso-form/recurso-form.component';
-import { TokenInterceptor } from './interceptors/token.interceptor';
-
-import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { AmbientesComponent } from './pages/ambientes/ambientes.component';
-import { CargarofertaComponent } from './pages/cargaroferta/cargaroferta.component';
-import { NavambientesComponent } from './components/navambientes/navambientes.component';
-import { AmbienteDetailComponent } from './pages/ambiente-detail/ambiente-detail.component';
-import { BasicFormComponent } from './components/basic-form/basic-form.component';
+import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
+import {
+  PERFECT_SCROLLBAR_CONFIG,
+  PerfectScrollbarConfigInterface,
+  PerfectScrollbarModule,
+} from 'ngx-perfect-scrollbar';
+
+// Import routing module
+import { AppRoutingModule } from './app-routing.module';
+
+// Import app component
+import { AppComponent } from './app.component';
+
+// Import containers
+import {
+  DefaultFooterComponent,
+  DefaultHeaderComponent,
+  DefaultLayoutComponent,
+} from './containers';
+
+import {
+  AvatarModule,
+  BadgeModule,
+  BreadcrumbModule,
+  ButtonGroupModule,
+  ButtonModule,
+  CardModule,
+  DropdownModule,
+  FooterModule,
+  FormModule,
+  GridModule,
+  HeaderModule,
+  ListGroupModule,
+  NavModule,
+  ProgressModule,
+  SharedModule,
+  SidebarModule,
+  TabsModule,
+  UtilitiesModule,
+} from '@coreui/angular';
+
+import { IconModule, IconSetService } from '@coreui/icons-angular';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true,
+};
+
+const APP_CONTAINERS = [
+  DefaultFooterComponent,
+  DefaultHeaderComponent,
+  DefaultLayoutComponent,
+];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavComponent,
-    CauploadComponent,
-    HomeComponent,
-    LoginComponent,
-    RegisterComponent,
-    AmbientesComponent,
-    CargarofertaComponent,
-    AmbienteComponent,
-    TablerowComponent,
-    AmbientescompComponent,
-    NavambientesComponent,
-    AmbienteDetailComponent,
-    BasicFormComponent,
-    RecursosAmbienteComponent,
-    RecursoFormComponent
-
-  ],
+  declarations: [AppComponent, ...APP_CONTAINERS],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
     BrowserAnimationsModule,
-    MaterialModule
+    AppRoutingModule,
+    AvatarModule,
+    BreadcrumbModule,
+    FooterModule,
+    DropdownModule,
+    GridModule,
+    HeaderModule,
+    SidebarModule,
+    IconModule,
+    PerfectScrollbarModule,
+    NavModule,
+    ButtonModule,
+    FormModule,
+    UtilitiesModule,
+    ButtonGroupModule,
+    ReactiveFormsModule,
+    SidebarModule,
+    SharedModule,
+    TabsModule,
+    ListGroupModule,
+    ProgressModule,
+    BadgeModule,
+    ListGroupModule,
+    CardModule,
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS, useClass:TokenInterceptor,multi:true}
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
+    },
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+    },
+    IconSetService,
+    Title
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+}
