@@ -23,9 +23,10 @@ public class Environment {
     @Column(length = 60)
     private String location;
     private Integer capacity;
+    @Enumerated(EnumType.STRING)
     private EnvironmentTypeEnumeration environmentType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 

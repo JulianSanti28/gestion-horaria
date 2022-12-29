@@ -15,7 +15,8 @@ import java.util.Set;
 public class Period {
     @Id
     @Column(length = 40)
-    private String id;
+    private String periodId;
+    @Enumerated(EnumType.STRING)
     private PeriodStateEnumeration state;
 
     @OneToMany(mappedBy = "period")

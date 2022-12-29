@@ -1,5 +1,6 @@
 package com.pragma.api.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pragma.api.model.enums.ResourceTypeEnumeration;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,8 +22,9 @@ public class Resource {
     @Column(length = 40)
     private String name;
     @Column(name = "resource_type")
+    @Enumerated(EnumType.STRING)
     private ResourceTypeEnumeration resourceType;
 
-    @ManyToMany(mappedBy = "availableResources")
+    @ManyToMany(mappedBy = "availableResources", fetch = FetchType.LAZY)
     private Set<Environment> resourceLocations;
 }
