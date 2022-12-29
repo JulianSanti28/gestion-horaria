@@ -16,6 +16,7 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
   counter:number=0;
   envResource:any
   @Output() addedResource = new EventEmitter();
+  @Output() removeResource=new EventEmitter();
   @Input('isEdit')isEdit!:boolean;
   @Input('environment')environment!:Environment;
   constructor(
@@ -43,35 +44,29 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
     // }
   }
   inResourceList(resource:Resource){
-    
+
     if(this.environment.availableResources.find(x=> x.id ==resource.id)!=null){
       return true
     }
-    // for (let index = 0; index < this.environment.availableResources.length; index++) {
 
-    //   if(this.environment.availableResources[index].id == resource.id){
-
-    //     return true
-    //   }
-    // }
-
-    // console.log("entra aqui x ")
      return false
   }
   updateTableResources(type:string){
-    console.log("entra a ng change")
+    // console.log("entra a ng change")
     //update de la tabla haciendo busqueda en un servicio de los recursos que sean de ese tipo seleccionado
     this.resources=this.resourceService.getResourcesByResourceType(type);
   }
   onAddEnvironment(resource:Resource, e:Event){
-    console.log("llega a onAddEnvironment",resource)
+    // console.log("llega a onAddEnvironment",resource)
     const x = e.target as HTMLInputElement
     if(x.checked){
       this.addedResource.emit(resource)
       this.counter+=1;
-    }else{
+    }else if(!x.checked){
+      this.removeResource.emit(resource)
       this.counter -=1;
     }
 
   }
+
 }

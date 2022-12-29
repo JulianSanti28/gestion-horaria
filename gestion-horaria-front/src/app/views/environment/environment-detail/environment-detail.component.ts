@@ -42,6 +42,10 @@ export class EnvironmentDetailComponent implements OnInit {
     //agregar resource a la lista del environment que ya esta aqui
     this.environment.availableResources.push(resource)
   }
+  onRemoveResource(resource:Resource){
+    const index = this.environment.availableResources.indexOf(resource)
+    this.environment.availableResources.splice(index,1);
+  }
 
   getInfo(){
     console.log("Environment : ",this.environment)
@@ -49,7 +53,7 @@ export class EnvironmentDetailComponent implements OnInit {
     this.showEnvironment= JSON.stringify(this.environment)
     this.visible=true
   }
-  
+
 
 
   toggleLiveDemo() {

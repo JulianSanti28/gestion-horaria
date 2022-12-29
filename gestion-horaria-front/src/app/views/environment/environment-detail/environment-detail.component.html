@@ -25,7 +25,10 @@
 <!-- <c-card *ngIf="true"> -->
 
   <c-card-body>
-    <app-resources #listResources (addedResource)="onAddedResource($event)"></app-resources>
+    <app-resources
+      #listResources [isEdit]="false" (addedResource)="onAddedResource($event)" [environment]="environment"
+      (removeResource)="onRemoveResource($event)"
+      ></app-resources>
   </c-card-body>
   <br>
 </c-card>
