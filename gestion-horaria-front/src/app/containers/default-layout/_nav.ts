@@ -32,7 +32,7 @@ export const navItems: INavData[] = [
   {
     name:'Environment',
     url:'/environment',
-    iconComponent:{name:'cil-pencil'},
+    iconComponent:{name:'cilHome'},
     children:[
       {
         name: 'Environments',
@@ -45,6 +45,25 @@ export const navItems: INavData[] = [
       {
         name:'Edit environment',
         url:'/environment/edit/1'
+      }
+    ]
+  },
+  {
+    name:'Resource',
+    url:'/resource',
+    iconComponent:{name:'cil-pencil'},
+    children:[
+      {
+        name:'Resources',
+        url:'/resource/all'
+      },
+      {
+        name:'Create resource',
+        url:'/resource/create'
+      },
+      {
+        name:'Edit resource',
+        url:'/resource/edit/1'
       }
     ]
   },

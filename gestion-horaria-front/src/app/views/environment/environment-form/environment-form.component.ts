@@ -72,11 +72,11 @@ export class EnvironmentFormComponent {
   private buildForm(){
     this.form = this.formBuilder.group({
       id: ['', []],
-      name: ['', []],
-      location: ['',[]],
-      capacity: ['', []],
-      environmentType: ['', []],
-      faculty:[],
+      name: ['', [Validators.required]],
+      location: ['',[Validators.required]],
+      capacity: ['', [Validators.required]],
+      environmentType: ['', [Validators.required]],
+      faculty:['',[Validators.required]],
     });
   }
 

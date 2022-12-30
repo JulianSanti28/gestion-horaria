@@ -31,11 +31,12 @@
             "inlineStyleLanguage": "scss",
             "preserveSymlinks": true,
             "assets": [
-              "src/favicon.ico",
+              "src/assets/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/scss/styles.scss"
+              "src/scss/styles.scss",
+              "node_modules/@coreui/icons/css/all.css"
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [

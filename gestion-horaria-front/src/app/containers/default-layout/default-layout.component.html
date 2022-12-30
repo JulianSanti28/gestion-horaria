@@ -5,15 +5,17 @@
   id="sidebar"
   visible
 >
+<!-- src: 'assets/img/brand/coreui-angular.svg',
+src: 'assets/img/brand/coreui-signet-white.svg', -->
   <c-sidebar-brand
     [brandFull]="{
-      src: 'assets/img/brand/coreui-angular.svg',
+      src:'assets/img/png/logo.png',
       width: 200,
       height: 46,
-      alt: 'CoreUI Logo'
+      alt: 'UDC Logo'
     }"
     [brandNarrow]="{
-      src: 'assets/img/brand/coreui-signet-white.svg',
+
       width: 46,
       height: 46,
       alt: 'CoreUI Logo'
@@ -44,7 +46,7 @@
   <!--app-body-->
   <div class="body flex-grow-1 px-3">
     <c-container breakpoint="lg" class="h-auto">
-      <router-outlet></router-outlet> 
+      <router-outlet></router-outlet>
     </c-container>
   </div>
   <!--app footer-->

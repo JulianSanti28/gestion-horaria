@@ -32,10 +32,18 @@ import {
 
 import { FormsModule } from '@angular/forms';
 import { ResourcesComponent } from './resources/resources.component';
+import { ResourcesAllComponent } from './resources-all/resources-all.component';
+import { ResourcesFormComponent } from './resources-form/resources-form.component';
+import { ResourcesCreateComponent } from './resources-create/resources-create.component';
+import { ResourcesEditComponent } from './resources-edit/resources-edit.component';
 
 @NgModule({
   declarations: [
-    ResourcesComponent
+    ResourcesComponent,
+    ResourcesAllComponent,
+    ResourcesFormComponent,
+    ResourcesCreateComponent,
+    ResourcesEditComponent
   ],
   imports: [
     CommonModule,

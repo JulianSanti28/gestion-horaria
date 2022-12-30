@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
+import { cilEnvelopeOpen, flagSet } from '@coreui/icons';
 import { IconSetService } from '@coreui/icons-angular';
 import { iconSubset } from './icons/icon-subset';
 import { Title } from '@angular/platform-browser';
@@ -10,7 +11,7 @@ import { Title } from '@angular/platform-browser';
   template: '<router-outlet></router-outlet>',
 })
 export class AppComponent implements OnInit {
-  title = 'CoreUI Free Angular Admin Template';
+  title = 'Gestion Horaria UDC';
 
   constructor(
     private router: Router,
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
     titleService.setTitle(this.title);
     // iconSet singleton
     iconSetService.icons = { ...iconSubset };
+    // iconSetService.icons = { cilEnvelopeOpen, ...flagSet };
   }
 
   ngOnInit(): void {
