@@ -55,7 +55,6 @@ export class EnvironmentDetailComponent implements OnInit {
   }
 
 
-
   toggleLiveDemo() {
     this.visible = !this.visible;
   }

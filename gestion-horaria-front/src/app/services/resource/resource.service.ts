@@ -24,7 +24,7 @@ export class ResourceService {
   getAllRemainingResources(){
     //obtener todos los recursos que no estan en un ambiente
   }
-  getResourceById(idResource:number){
+  getResourceByResourceId(idResource:number){
     return this.resources[idResource-1];
   }
   getResourcesByResourceType(resourceType:string){

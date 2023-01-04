@@ -39,7 +39,7 @@ const routes: Routes = [
         }
       },
       {
-        path:'edit/:environmentId',
+        path:'edit/:resourceId',
         component:ResourcesEditComponent,
         data:{
           title:'edit'

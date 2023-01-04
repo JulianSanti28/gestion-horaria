@@ -16,6 +16,8 @@ export class EnvironmentsComponent {
   environmentTypes:string[]=[];
   environmentType!: string | null;
 
+  @Input('fromResource') fromResource:boolean=false;
+  @Input('resourceId') resourceId:number=0;
   constructor(
     private environmentService : EnvironmentService,
     private route : ActivatedRoute
@@ -23,18 +25,23 @@ export class EnvironmentsComponent {
   ngOnInit(): void {
     //todos los ambientes
     //obteniendo el id de la url debe llamarse igual que en el app-routing
-    this.route.paramMap.subscribe(
-      params=> {this.environmentType=params.get('environmentType');
-      if(this.environmentType!= null ){
-        this.environments=this.environmentService.getEnvironmentsByEnvironmentType(this.environmentType);
+    if(this.fromResource==true){
+      this.environments = this.environmentService.getEnvironmentsFromResource(this.resourceId);
+    }else {
+      this.route.paramMap.subscribe(
+        params=> {this.environmentType=params.get('environmentType');
+        if(this.environmentType!= null ){
+          this.environments=this.environmentService.getEnvironmentsByEnvironmentType(this.environmentType);
+
+        }
+        else{
+          this.environments=this.environmentService.getAllEnvironments();
+        }
 
       }
-      else{
-        this.environments=this.environmentService.getAllEnvironments();
-      }
-
+      )
     }
-    )
+
     //todos  los tipos de ambientes
     this.environmentTypes=this.environmentService.getAllEnvironmentTypes();
   }

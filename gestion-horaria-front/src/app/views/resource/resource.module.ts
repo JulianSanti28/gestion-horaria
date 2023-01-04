@@ -27,7 +27,8 @@ import {
   TableModule,
   TabsModule,
   TooltipModule,
-  UtilitiesModule
+  UtilitiesModule,
+  ModalModule
 } from '@coreui/angular';
 
 import { FormsModule } from '@angular/forms';
@@ -36,6 +37,8 @@ import { ResourcesAllComponent } from './resources-all/resources-all.component';
 import { ResourcesFormComponent } from './resources-form/resources-form.component';
 import { ResourcesCreateComponent } from './resources-create/resources-create.component';
 import { ResourcesEditComponent } from './resources-edit/resources-edit.component';
+import { EnvironmentsFromResourceComponent } from './environments-from-resource/environments-from-resource.component';
+
 
 @NgModule({
   declarations: [
@@ -43,14 +46,18 @@ import { ResourcesEditComponent } from './resources-edit/resources-edit.componen
     ResourcesAllComponent,
     ResourcesFormComponent,
     ResourcesCreateComponent,
-    ResourcesEditComponent
+    ResourcesEditComponent,
+    EnvironmentsFromResourceComponent
   ],
   imports: [
     CommonModule,
     ResourceRoutingModule,
 
+
+
     ReactiveFormsModule,
     FormsModule,
+    ModalModule,
 
     AccordionModule,
     BadgeModule,

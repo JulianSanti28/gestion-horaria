@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Resource } from 'src/app/models/resource.model';
 import { ResourceService } from 'src/app/services/resource/resource.service';
 
 @Component({
@@ -8,13 +9,22 @@ import { ResourceService } from 'src/app/services/resource/resource.service';
   templateUrl: './resources-form.component.html',
   styleUrls: ['./resources-form.component.scss']
 })
+//F:\Universidad\2022.2\Proyecto i\gestion-horaria\gestion-horaria-front\src\scss\_formsUDC.scss
 export class ResourcesFormComponent {
-
   form!: FormGroup;
   //si vamos a editar un ambiente el input de ese id deberia ser readonly=true osea is edit=true
   @Input('isEdit')isEdit!:boolean;
   resourceTypes:string[]=[]
+  @Input('resource') resource!:Resource;
+  //emitir al padre el abiente creado en el emmiter form
+  @Output()emitterForm= new EventEmitter<Resource>();
 
+  formResource:Resource={
+    'id':0,
+    'name':'',
+    'resourceType':'',
+    'resourceLocations':[]
+  }
   constructor(
     private formBuilder:FormBuilder,
     private router: Router,
@@ -23,6 +33,19 @@ export class ResourcesFormComponent {
   ){
 
     this.buildForm();
+  }
+  ngOnInit(){
+    this.resourceTypes=this.resourceService.getAllResourceTypes()
+
+    if(this.isEdit==true){
+      const resourceFill={
+        'id':this.resource.id,
+        'name':this.resource.name,
+        'resourceType':this.resource.resourceType
+
+      }
+      this.form.patchValue(resourceFill);
+    }
   }
 
   private buildForm(){
@@ -35,5 +58,13 @@ export class ResourcesFormComponent {
   onSelectedValue(event:Event){
 
     this.form.controls['resourceType'].setValue((event.target as HTMLInputElement).value);
+  }
+
+  setValues(){
+    this.formResource.id=this.form.get('id')?.value;
+    this.formResource.name=this.form.get('name')?.value;
+    this.formResource.resourceType=this.form.get('resourceType')?.value;
+
+    this.emitterForm.emit(this.formResource)
   }
 }
