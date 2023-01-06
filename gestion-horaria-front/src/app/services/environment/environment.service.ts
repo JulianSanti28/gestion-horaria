@@ -17,9 +17,8 @@ export class EnvironmentService {
       {'id':2,'name':'Computador','resourceType':'TECNOLOGICO','resourceLocations':[]},
       {'id':3,'name':'Video bean','resourceType':'TECNOLOGICO','resourceLocations':[]}
     ]},
-
-
   ]
+  
   environmentTypes=['all','AUDITORIO', 'LABORATORIO', 'SALON'];
   facultys=[this.faculty];
   constructor() { }

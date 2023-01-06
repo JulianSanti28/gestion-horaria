@@ -68,6 +68,17 @@ export const navItems: INavData[] = [
     ]
   },
   {
+    name:'Schedule',
+    url:'/schedule',
+    iconComponent:{name:'cil-puzzle'},
+    children:[
+      {
+        name:'Create schedule',
+        url:'/schedule/create'
+      }
+    ]
+  },
+  {
     name: 'Base',
     url: '/base',
     iconComponent: { name: 'cil-puzzle' },

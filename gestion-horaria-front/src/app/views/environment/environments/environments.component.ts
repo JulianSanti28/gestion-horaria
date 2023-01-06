@@ -12,7 +12,6 @@ export class EnvironmentsComponent {
 
   environments:Environment[]=[];
   columns:string[]=['Id','Tipo Ambiente','Nombre','Ubicacion','Capacidad','Facultad','Editar','Recursos'];
-  colors = ['primary', 'secondary', 'success', 'info', 'warning', 'danger'];
   environmentTypes:string[]=[];
   environmentType!: string | null;
 

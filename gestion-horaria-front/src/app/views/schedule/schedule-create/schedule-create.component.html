@@ -1,0 +1,47 @@
+<!-- Progreso de llenar el form -->
+<c-progress class="mb-3">
+  <c-progress-bar id="progressProgramSemester" [value]="progressMadeProgramSemester" variant="striped">
+    {{progressMadeProgramSemester}}%
+  </c-progress-bar>
+  <c-progress-bar id="progressCreateForm" [value]="progressMadeForm" variant="striped" color="danger">
+    {{progressMadeForm}}%
+  </c-progress-bar>
+</c-progress>
+
+<c-card>
+  <c-card-header>
+    <strong>Seleccionar programa y semestre </strong>
+  </c-card-header>
+  <c-card-body>
+
+<!-- Antes de crear schedule seleccionar el programa y semestre para mostrar las materias -->
+  <app-schedule-before-create-form
+  #beforeForm
+  (progress)="getProgressMadeProgramSemester($event)" (programa)="getProgram($event)"
+  >
+  </app-schedule-before-create-form>
+<!-- Llamar al form para crear un schedule el avance de este afecta el progress bar, se emite-->
+
+</c-card-body>
+
+</c-card>
+<br>
+
+<!-- <c-card *ngIf="progressMadeProgramSemester==100"> -->
+<c-card>
+  <c-card-header>
+    <strong>Crear Horario para un curso</strong>
+  </c-card-header>
+  <c-card-body>
+
+<!-- Form para crear horario para el curso-->
+  <app-schedule-create-form
+  (progress)="getProgressMadeForm($event)"
+  >
+  </app-schedule-create-form>
+<!-- Llamar al form para crear un schedule el avance de este afecta el progress bar, se emite-->
+
+</c-card-body>
+
+</c-card>
+<br>
