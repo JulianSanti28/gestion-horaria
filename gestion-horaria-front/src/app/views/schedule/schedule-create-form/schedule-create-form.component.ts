@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Course } from 'src/app/models/course.model';
 import { Program } from 'src/app/models/program.model';
 
 import {ProgramService} from 'src/app/services/program/program.service';
@@ -11,7 +12,12 @@ import {ProgramService} from 'src/app/services/program/program.service';
 export class ScheduleCreateFormComponent {
 
   @Output() progress = new EventEmitter<number>()
+  @Output() course = new EventEmitter<Course>() //emitir el curso seleccionado a componente create
+  @Input('selectedProgram')  program!:Program;
+  @Input('selectedSemester')  semester!:number;
   @Input('isEdit')isEdit!:boolean;
+
+  courseSelected!:Course;
   progressMade:number=0;
   form!: FormGroup;
   sumProgres:number=10;
@@ -30,6 +36,7 @@ export class ScheduleCreateFormComponent {
 
     this.buildForm();
     this.programs=this.programService.getAllPrograms();
+    console.log("programa y semestre que llegan al create form ", this.program, this.semester)
   }
 
   private buildForm(){
@@ -45,5 +52,13 @@ export class ScheduleCreateFormComponent {
   onSelectedSemester(event:Event){
     //actualizar la tabla de
     this.progress.emit(this.sumProgres)
+  }
+
+  getSelectedCourse(course:Course){
+    //recibe el curso desde courses
+    this.courseSelected=course
+
+    //emitir el curso hasta componente create
+    this.course.emit(this.courseSelected)
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Course } from 'src/app/models/course.model';
 import { Program } from 'src/app/models/program.model';
 
 @Component({
@@ -10,11 +11,26 @@ export class ScheduleCreateComponent {
 
   progressMadeProgramSemester:number=0;
   progressMadeForm:number=0;
-  program!:Program;
+  sumProgress:number=10;
+  program:Program={
+    'id':'0',
+    'name':''
+  };
+  semester:number=0;
+  course!:Course;
 
-  getProgram(program:Program){
-    console.log("programa es ",program)
+  getSelectedProgram(program:Program){
+
     this.program=program;
+  }
+  getSelectedSemester(semestre:number){
+
+    this.semester=semestre;
+  }
+  getSelectedCourse(course:Course){
+    console.log("curso que llega al create component",course)
+    this.course=course
+    this.getProgressMadeForm(this.sumProgress)
   }
   getProgressMadeProgramSemester(progress:number){
     this.progressMadeProgramSemester += progress
@@ -23,4 +39,5 @@ export class ScheduleCreateComponent {
   getProgressMadeForm(progress:number){
     this.progressMadeForm += progress
   }
+
 }

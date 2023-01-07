@@ -12,8 +12,10 @@ export class ScheduleBeforeCreateFormComponent implements OnInit{
 
   @Output() progress = new EventEmitter<number>()
   @Output() programa= new EventEmitter<Program>()
+  @Output() semestre= new EventEmitter<number>()
   @Input('isEdit')isEdit!:boolean;
   selectedProgram!:Program;
+  selectedSemester!:number;
   progressMade:number=0;
   form!: FormGroup;
   sumProgres:number=50;
@@ -42,18 +44,19 @@ export class ScheduleBeforeCreateFormComponent implements OnInit{
   }
   onSelectedProgram(event:Event){
     //TODO traer el numero de semestres de ese programa
-    //asignar el programa seleccionado del dropdown al input
+
     this.form.controls['program'].setValue((event.target as HTMLOptionElement).value);
     //emitir el programa
-
     console.log("valor a emitir desde before create ",(event.target as HTMLOptionElement).value )
     this.selectedProgram=this.programService.getProgramById( (event.target as HTMLOptionElement).value)
     this.programa.emit(this.selectedProgram)
     this.progress.emit(this.sumProgres)
   }
   onSelectedSemester(event:Event){
-    //actualizar la tabla de
+    this.form.controls['semester'].setValue((event.target as HTMLOptionElement).value);
+    this.selectedSemester = Number((event.target as HTMLOptionElement).value)
     this.progress.emit(this.sumProgres)
+    this.semestre.emit(this.selectedSemester)
   }
 }
 

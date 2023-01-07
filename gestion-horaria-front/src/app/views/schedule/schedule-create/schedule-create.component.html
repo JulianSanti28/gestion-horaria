@@ -17,31 +17,40 @@
 <!-- Antes de crear schedule seleccionar el programa y semestre para mostrar las materias -->
   <app-schedule-before-create-form
   #beforeForm
-  (progress)="getProgressMadeProgramSemester($event)" (programa)="getProgram($event)"
+  (progress)="getProgressMadeProgramSemester($event)"
+  (programa)="getSelectedProgram($event)" (semestre)="getSelectedSemester($event)"
   >
   </app-schedule-before-create-form>
-<!-- Llamar al form para crear un schedule el avance de este afecta el progress bar, se emite-->
+
 
 </c-card-body>
 
 </c-card>
 <br>
 
-<!-- <c-card *ngIf="progressMadeProgramSemester==100"> -->
-<c-card>
+<!-- Llamar al form para crear un schedule el avance de este afecta el progress bar, se emite-->
+<!-- <c-card> -->
+<c-card *ngIf="beforeForm.form.valid">
   <c-card-header>
     <strong>Crear Horario para un curso</strong>
   </c-card-header>
   <c-card-body>
+  <c-row class="mb-3">
+    <label cLabel class="col-sm-10 ">
+      Los cursos del programa <strong>{{program.name}}</strong> del semestre <strong>{{semester}}</strong> son :
+    </label>
 
+  </c-row>
 <!-- Form para crear horario para el curso-->
   <app-schedule-create-form
   (progress)="getProgressMadeForm($event)"
+  [selectedProgram]="program"
+  [selectedSemester]="semester"
+  (course)="getSelectedCourse($event)"
   >
   </app-schedule-create-form>
 <!-- Llamar al form para crear un schedule el avance de este afecta el progress bar, se emite-->
 
 </c-card-body>
-
 </c-card>
 <br>

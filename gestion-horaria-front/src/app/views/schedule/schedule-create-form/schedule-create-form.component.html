@@ -1,7 +1,11 @@
 <form  [formGroup]="form"  >
 
   <!-- cursos del programa y semestre seleccionado, solo seleccionar 1-->
-  <app-courses></app-courses>
+  <app-courses
+  [selectedProgram]="program" [selectedSemester]="semester"
+  (selectedCourse)="getSelectedCourse($event)"
+  >
+</app-courses>
   <!-- horarios y dia  -->
 
  <!-- <div class="d-grid gap-2 ">
