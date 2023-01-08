@@ -12,12 +12,13 @@ export class ScheduleCreateComponent {
   progressMadeProgramSemester:number=0;
   progressMadeForm:number=0;
   sumProgress:number=10;
+  showForm:boolean=true;
   program:Program={
     'id':'0',
     'name':''
   };
   semester:number=0;
-  course!:Course;
+  course:Course={'courseId':0,'courseGroup':'','courseCapacity':0,'period':{'periodId':'','state':''},'subject':{'subjectCode':'','name':'','weeklyOverload':0,'timeBlock':true,'semester':0,'program':{'id':'','name':''}},'teacher':{'teacherCode':'','fullName':'','department':{}}}
 
   getSelectedProgram(program:Program){
 
@@ -28,9 +29,9 @@ export class ScheduleCreateComponent {
     this.semester=semestre;
   }
   getSelectedCourse(course:Course){
-    console.log("curso que llega al create component",course)
+
     this.course=course
-    this.getProgressMadeForm(this.sumProgress)
+    
   }
   getProgressMadeProgramSemester(progress:number){
     this.progressMadeProgramSemester += progress
@@ -38,6 +39,10 @@ export class ScheduleCreateComponent {
   }
   getProgressMadeForm(progress:number){
     this.progressMadeForm += progress
+  }
+  changeShowForm(){
+    console.log("entra")
+    this.showForm=!this.showForm
   }
 
 }

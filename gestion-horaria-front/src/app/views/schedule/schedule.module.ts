@@ -29,25 +29,29 @@ import {
   TableModule,
   TabsModule,
   TooltipModule,
-  UtilitiesModule
+  UtilitiesModule,
+  AlertModule
 } from '@coreui/angular';
 import { IconModule } from '@coreui/icons-angular';
 import { ScheduleBeforeCreateFormComponent } from './schedule-before-create-form/schedule-before-create-form.component';
 import { CoursesComponent } from './courses/courses.component';
 
 import { FormsModule } from '@angular/forms';
+import { ScheduleEnvironmentsComponent } from './schedule-environments/schedule-environments.component';
 @NgModule({
   declarations: [
     ScheduleCreateComponent,
     ScheduleCreateFormComponent,
     ScheduleBeforeCreateFormComponent,
-    CoursesComponent
+    CoursesComponent,
+    ScheduleEnvironmentsComponent
   ],
   imports: [
     CommonModule,
     ScheduleRoutingModule,
 
     FormsModule,
+    AlertModule,
     AccordionModule,
     BadgeModule,
     BreadcrumbModule,

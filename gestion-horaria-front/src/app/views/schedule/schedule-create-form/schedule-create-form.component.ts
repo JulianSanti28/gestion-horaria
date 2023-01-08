@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Course } from 'src/app/models/course.model';
+import { Environment } from 'src/app/models/environment.model';
 import { Program } from 'src/app/models/program.model';
 
 import {ProgramService} from 'src/app/services/program/program.service';
@@ -11,19 +12,27 @@ import {ProgramService} from 'src/app/services/program/program.service';
 })
 export class ScheduleCreateFormComponent {
 
+  form!: FormGroup;
   @Output() progress = new EventEmitter<number>()
-  @Output() course = new EventEmitter<Course>() //emitir el curso seleccionado a componente create
   @Input('selectedProgram')  program!:Program;
   @Input('selectedSemester')  semester!:number;
   @Input('isEdit')isEdit!:boolean;
 
-  courseSelected!:Course;
-  progressMade:number=0;
-  form!: FormGroup;
-  sumProgres:number=10;
-
+  courseSelected: Course | null = { 'courseId': 0, 'courseGroup': '', 'courseCapacity': 0, 'period': { 'periodId': '', 'state': '' }, 'subject': { 'subjectCode': '', 'name': '', 'weeklyOverload': 0, 'timeBlock': true, 'semester': 0, 'program': { 'id': '', 'name': '' } }, 'teacher': { 'teacherCode': '', 'fullName': '', 'department': {} } }
+  environmentSelected: Environment |null = {
+    id: 0,
+    name: '',
+    location: '',
+    capacity: 0,
+    environmentType: '',
+    faculty: {facultyId:0,facultyName:'',departments:[],environments:[]},
+    availableResources: []
+  }
   programs:Program[]=[];
   semesters:number[]=[];
+
+  sumProgres:number=10;
+  showEnvironments:boolean=false
 
   constructor(
     private formBuilder:FormBuilder,
@@ -54,11 +63,26 @@ export class ScheduleCreateFormComponent {
     this.progress.emit(this.sumProgres)
   }
 
-  getSelectedCourse(course:Course){
-    //recibe el curso desde courses
-    this.courseSelected=course
+  getSelectedCourse(course:Course|null){
+    if(course != null){
+        //recibe el curso desde courses
+      this.courseSelected=course
+      //emitir progreso curso hasta componente create
+      this.progress.emit(this.sumProgres)
+      this.showEnvironments=true
+    }else{
+      this.progress.emit(-this.sumProgres)
+    }
 
-    //emitir el curso hasta componente create
-    this.course.emit(this.courseSelected)
+  }
+
+  getSelectedEnvironment(environment:Environment | null){
+    if(environment != null){
+      this.environmentSelected=environment
+      this.progress.emit(this.sumProgres)
+    }else{
+      this.progress.emit(-this.sumProgres)
+    }
+
   }
 }
