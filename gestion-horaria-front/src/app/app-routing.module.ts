@@ -7,6 +7,7 @@ import { Page500Component } from './views/pages/page500/page500.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
 import { ScheduleModule } from './views/schedule/schedule.module';
+import {ToshareModule} from './views/toshare/toshare.module';
 
 const routes: Routes = [
   {
@@ -35,6 +36,11 @@ const routes: Routes = [
         path:'schedule',
         loadChildren:()=>
         import('./views/schedule/schedule.module').then(m => m.ScheduleModule)
+      },
+      {
+        path:'toshare',
+        loadChildren:()=>
+        import('./views/toshare/toshare.module').then(m => m.ToshareModule)
       },
       {
         path: 'dashboard',

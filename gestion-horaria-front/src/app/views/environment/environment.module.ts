@@ -22,7 +22,7 @@ import {
   PlaceholderModule,
   PopoverModule,
   ProgressModule,
-  SharedModule,
+
   SpinnerModule,
   TableModule,
   TabsModule,
@@ -40,12 +40,16 @@ import { EnvironmentEditComponent } from './environment-edit/environment-edit.co
 import { FormsModule } from '@angular/forms';
 
 import { ResourceModule } from '../resource/resource.module';
+import { ToshareModule } from 'src/app/views/toshare/toshare.module';
+
 @NgModule({
   declarations: [
     EnvironmentsComponent,
     EnvironmentFormComponent,
     EnvironmentDetailComponent,
     EnvironmentEditComponent
+
+
   ],
   imports: [
     CommonModule,
@@ -56,6 +60,8 @@ import { ResourceModule } from '../resource/resource.module';
     ModalModule,
 
     ResourceModule,
+    ToshareModule,
+
 
     AccordionModule,
     BadgeModule,
@@ -73,7 +79,7 @@ import { ResourceModule } from '../resource/resource.module';
     PlaceholderModule,
     PopoverModule,
     ProgressModule,
-    SharedModule,
+
     SpinnerModule,
     TableModule,
     TabsModule,

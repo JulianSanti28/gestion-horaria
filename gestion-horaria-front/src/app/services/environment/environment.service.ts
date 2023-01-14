@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Environment } from 'src/app/models/environment.model';
 import { Faculty } from 'src/app/models/faculty.model';
 
@@ -18,11 +20,35 @@ export class EnvironmentService {
       {'id':3,'name':'Video bean','resourceType':'TECNOLOGICO','resourceLocations':[]}
     ]},
   ]
-  
+
   environmentTypes=['all','AUDITORIO', 'LABORATORIO', 'SALON'];
   facultys=[this.faculty];
-  constructor() { }
+  endPoint:String = 'http://localhost:8080/environment'
+  itemsPerPage:number =10;
 
+  constructor(
+    private http : HttpClient
+  ) { }
+  ngOnInit(){
+    //llamar metodo para cargar todos los tipos de ambientes
+    //this.loadEnvironmentTypes();
+
+
+
+  }
+
+  getAllEnvironmentsPage(page:number):Observable<any>{
+    //{ headers: this.userServie.agregarAuthorizationHeader() }
+    return this.http.get<any>(this.endPoint+`?page=${page}&size=${this.itemsPerPage}`).pipe(
+      catchError((e) => {
+        // this.router.navigate(['/documentos']);
+
+        console.log('Error obteniendo todos los ambientes', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    );
+  }
   getAllEnvironments(){
     return this.environments;
   }
