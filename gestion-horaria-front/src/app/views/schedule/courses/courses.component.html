@@ -1,4 +1,45 @@
-<c-row ngPreserveWhitespaces>
+<c-accordion-item >
+    <ng-template cTemplateId="accordionHeader">
+      <div *ngIf="!showSelectedCourse" >
+        <strong>Cursos </strong>
+      </div>
+
+      <div class="container" *ngIf="showSelectedCourse">
+        <label  >
+          Curso seleccionado : <strong>{{curso.subject.name}}</strong>
+          Semestre : <strong>{{semester}} </strong>
+        </label>
+          <button cButton  id="btnChangeSelection" color="danger" variant="outline" size="sm" type="submit" (click)="changeSelectedCourse()">
+            Cambiar curso
+          </button>
+      </div>
+    </ng-template>
+    <ng-template cTemplateId="accordionBody">
+      <table cTable>
+        <thead cTableColor="dark">
+        <tr>
+          <th *ngFor="let c of columns">{{c}} </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let course of courses">
+          <td>{{course.courseId}} </td>
+          <td>{{course.courseGroup}} </td>
+          <td>{{course.courseCapacity}} </td>
+          <td>{{course.period.periodId}}</td>
+          <td>{{course.subject.name}} </td>
+          <td>{{course.teacher.fullName}} </td>
+          <td><a [routerLink]="['../edit',course.courseId]">Ver detalles</a> </td>
+          <td><input [disabled]="isCheckboxDisabled" #checkboxes  id="selectedCourse"  type="checkbox" (click)="onSelectingCourse(course,$event)"></td>
+
+        </tr>
+        </tbody>
+
+      </table>
+    </ng-template>
+</c-accordion-item>
+
+<!-- <c-row ngPreserveWhitespaces>
 
   <c-col xs="12">
     <c-card class="mb-4">
@@ -12,16 +53,7 @@
             Filtrar por materia :
           </label>
           <c-col md="5">
-          <!-- <c-dropdown>
-            <button cButton cDropdownToggle color="light">
-              Selecciona tipo ambiente
-            </button>
-            <ul cDropdownMenu>
-              <li><h6 cDropdownHeader>Tipos de ambiente</h6></li>
-              <li *ngFor="let tipo of environmentTypes"><a (click)="updateTableEnvironments(tipo)" cDropdownItem>{{tipo}}</a></li>
 
-            </ul>
-          </c-dropdown> -->
           </c-col>
           <c-col md="5" *ngIf="isCheckboxDisabled">
             <button cButton  id="btnChangeSelection"color="danger" variant="outline" size="sm" type="submit" (click)="changeSelectedCourse()">
@@ -59,5 +91,15 @@
     </c-card>
   </c-col>
 
-</c-row>
+</c-row> -->
 
+<!-- <c-dropdown>
+            <button cButton cDropdownToggle color="light">
+              Selecciona tipo ambiente
+            </button>
+            <ul cDropdownMenu>
+              <li><h6 cDropdownHeader>Tipos de ambiente</h6></li>
+              <li *ngFor="let tipo of environmentTypes"><a (click)="updateTableEnvironments(tipo)" cDropdownItem>{{tipo}}</a></li>
+
+            </ul>
+          </c-dropdown> -->

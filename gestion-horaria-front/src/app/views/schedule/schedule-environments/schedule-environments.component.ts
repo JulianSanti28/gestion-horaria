@@ -17,6 +17,8 @@ export class ScheduleEnvironmentsComponent implements OnInit {
   environmentType!: string | null;
   isDisabled:boolean=false;
   isEnvironmentSelected:boolean=false;
+  showSelectedEnvironment:boolean=false;
+  ambiente!:Environment;
   @Output()selectedEnvironment = new EventEmitter<Environment|null>();
   @ViewChildren("checkboxes") checkboxes!: QueryList<ElementRef>;
 
@@ -49,8 +51,10 @@ export class ScheduleEnvironmentsComponent implements OnInit {
 
     const x = e.target as HTMLInputElement
     if(x.checked){
+      this.ambiente=environment;
       this.selectedEnvironment.emit(environment)
       this.isDisabled=true
+      this.showSelectedEnvironment=true;
     }
   }
   changeSelectedEnvironment(){

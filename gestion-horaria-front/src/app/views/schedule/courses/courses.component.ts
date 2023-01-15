@@ -13,8 +13,11 @@ export class CoursesComponent implements OnInit{
 
   columns:string[]=['Id curso','Grupo','Capacidad','Periodo','Materia','Profesor','Ver detalles','Seleccionar'];
   courses:Course[]=[];
+  curso!:Course;
   isCourseSelected:boolean=false;
   isCheckboxDisabled:boolean=false;
+  showSelectedCourse:boolean=false;
+
   @Input('selectedProgram')  program!:Program;
   @Input('selectedSemester')  semester!:number;
   @Output() selectedCourse = new EventEmitter<Course| null>()
@@ -35,10 +38,11 @@ export class CoursesComponent implements OnInit{
     const x = e.target as HTMLInputElement
     if(x.checked){
       // Seleccionaron el curso
+      this.curso=course;
       this.selectedCourse.emit(course)
       this.isCourseSelected=true //ya hay un curso seleccionado esto le da paso a escoger un ambiente
       this.isCheckboxDisabled=true //deshabilitar que peuda seleccionar otros cursos
-
+      this.showSelectedCourse=true;
     }
 
   }

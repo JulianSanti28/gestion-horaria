@@ -1,4 +1,69 @@
-<c-row ngPreserveWhitespaces>
+<c-accordion-item >
+  <ng-template cTemplateId="accordionHeader">
+    <div *ngIf="!showSelectedEnvironment" >
+      <strong>Ambientes </strong>
+    </div>
+
+    <div class="container" *ngIf="showSelectedEnvironment">
+      <label  >
+        Ambiente seleccionado : <strong>{{ambiente.id}} <br></strong>
+        Capacidad :             <strong>{{ambiente.capacity}} </strong>
+
+      </label>
+      <div md="5" *ngIf="isDisabled">
+        <button cButton id="btnChangeSelection" color="danger" variant="outline" size="sm" type="submit" (click)="changeSelectedEnvironment()">
+          Cambiar seleccion de ambiente
+        </button>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template cTemplateId="accordionBody">
+    <c-row class="mb-3">
+
+      <label cLabel  >
+        Filtrar por tipo de ambiente :
+      </label>
+      <c-col md="5">
+      <c-dropdown>
+        <button cButton cDropdownToggle color="light">
+          Selecciona tipo ambiente
+        </button>
+        <ul cDropdownMenu>
+          <li><h6 cDropdownHeader>Tipos de ambiente</h6></li>
+          <li *ngFor="let tipo of environmentTypes"><a (click)="updateTableEnvironments(tipo)" cDropdownItem>{{tipo}}</a></li>
+
+        </ul>
+      </c-dropdown>
+      </c-col>
+
+
+    </c-row>
+
+
+    <table cTable  >
+      <thead cTableColor="dark">
+      <tr>
+        <th *ngFor="let c of columns">{{c}} </th>
+      </tr>
+      </thead>
+      <tbody >
+      <tr *ngFor="let ambiente of environments" >
+        <td>{{ambiente.id}} </td>
+        <td>{{ambiente.environmentType}} </td>
+        <td>{{ambiente.name}} </td>
+        <td>{{ambiente.location}}</td>
+        <td>{{ambiente.capacity}} </td>
+        <td>{{ambiente.faculty.facultyName}} </td>
+        <td><input [disabled]="isDisabled" #checkboxes  id="selectedEnv"  type="checkbox" (click)="onSelectingEnvironment(ambiente,$event)">  </td>
+      </tr>
+      </tbody>
+
+    </table>
+  </ng-template>
+
+</c-accordion-item>
+<!-- <c-row ngPreserveWhitespaces>
 
   <c-col xs="12">
     <c-card class="mb-4">
@@ -58,5 +123,5 @@
     </c-card>
   </c-col>
 
-</c-row>
+</c-row> -->
 
