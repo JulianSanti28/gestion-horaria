@@ -39,6 +39,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { FormsModule } from '@angular/forms';
 import { ScheduleEnvironmentsComponent } from './schedule-environments/schedule-environments.component';
 import { ScheduleTimeAllComponent } from './schedule-time-all/schedule-time-all.component';
+import { ScheduleViewComponent } from './schedule-view/schedule-view.component';
 @NgModule({
   declarations: [
     ScheduleCreateComponent,
@@ -46,7 +47,8 @@ import { ScheduleTimeAllComponent } from './schedule-time-all/schedule-time-all.
     ScheduleBeforeCreateFormComponent,
     CoursesComponent,
     ScheduleEnvironmentsComponent,
-    ScheduleTimeAllComponent
+    ScheduleTimeAllComponent,
+    ScheduleViewComponent
   ],
   imports: [
     CommonModule,

@@ -20,6 +20,7 @@ export class ScheduleCreateComponent {
   };
   @ViewChild('beforeFormAccordion',{static:true}) beforeFormAccordion !:ElementRef ;
   showSelectedProgramAndSemester:boolean=false;
+  showScheduleView:boolean=false;
   semester:number=0;
   course:Course={'courseId':0,'courseGroup':'','courseCapacity':0,'period':{'periodId':'','state':''},'subject':{'subjectCode':'','name':'','weeklyOverload':0,'timeBlock':true,'semester':0,'program':{'id':'','name':''}},'teacher':{'teacherCode':'','fullName':'','department':{}}}
 
@@ -50,6 +51,12 @@ export class ScheduleCreateComponent {
   }
   getProgressMadeForm(progress:number){
     this.progressMadeForm += progress
+
+    if(this.progressMadeForm >= 60){
+      this.showScheduleView=true
+    }else{
+      this.showScheduleView=false
+    }
   }
   changeShowForm(){
     console.log("entra")
