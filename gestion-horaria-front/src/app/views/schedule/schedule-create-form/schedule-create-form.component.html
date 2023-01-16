@@ -9,7 +9,7 @@
       (selectedCourse)="getSelectedCourse($event)"
     ></app-courses>
   </div>
-  <br>
+  <!-- <br> -->
   <c-row *ngIf="courses.isCourseSelected">
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -36,16 +36,26 @@
     ></app-schedule-environments>
   </div>
 
-  <!-- horarios y dia  -->
-  <div >
 
+  <!-- Se debe poder ver la vista del horario -->
+  <div *ngIf="showSelectedEnvironment">
+    <app-schedule-time-all
+      (selectedSchedule)="getSelectedSchedule($event)"
+    ></app-schedule-time-all>
   </div>
-</c-accordion>
 
+  <!-- seleccionar horarios y dia  -->
+
+</c-accordion>
  <!-- <div class="d-grid gap-2 ">
    <button cButton color="danger" variant="outline" size="lg" type="submit" [disabled]="form.invalid" (click)="showResource()">Añadir recursos a este ambiente</button>
  </div> -->
 
 
 </form>
+
+<div *ngIf="showSelectedEnvironment">
+  <!-- vista del horario -->
+
+</div>
 

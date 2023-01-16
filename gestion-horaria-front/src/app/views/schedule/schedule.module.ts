@@ -38,13 +38,15 @@ import { CoursesComponent } from './courses/courses.component';
 
 import { FormsModule } from '@angular/forms';
 import { ScheduleEnvironmentsComponent } from './schedule-environments/schedule-environments.component';
+import { ScheduleTimeAllComponent } from './schedule-time-all/schedule-time-all.component';
 @NgModule({
   declarations: [
     ScheduleCreateComponent,
     ScheduleCreateFormComponent,
     ScheduleBeforeCreateFormComponent,
     CoursesComponent,
-    ScheduleEnvironmentsComponent
+    ScheduleEnvironmentsComponent,
+    ScheduleTimeAllComponent
   ],
   imports: [
     CommonModule,
