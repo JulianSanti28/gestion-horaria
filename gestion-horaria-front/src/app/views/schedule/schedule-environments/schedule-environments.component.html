@@ -21,13 +21,13 @@
   <ng-template cTemplateId="accordionBody">
     <c-row class="mb-3">
 
-      <label cLabel  >
+      <!-- <label cLabel  >
         Filtrar por tipo de ambiente :
-      </label>
+      </label> -->
       <c-col md="5">
       <c-dropdown>
         <button cButton cDropdownToggle color="light">
-          Selecciona tipo ambiente
+          Filtrar tipo ambiente
         </button>
         <ul cDropdownMenu>
           <li><h6 cDropdownHeader>Tipos de ambiente</h6></li>
@@ -63,65 +63,3 @@
   </ng-template>
 
 </c-accordion-item>
-<!-- <c-row ngPreserveWhitespaces>
-
-  <c-col xs="12">
-    <c-card class="mb-4">
-      <c-card-header>
-        <strong>Ambientes </strong>
-      </c-card-header>
-      <c-card-body>
-
-        <c-row class="mb-3">
-
-          <label cLabel class="col-sm-2 col-form-label" >
-            Filtrar por tipo de ambiente :
-          </label>
-          <c-col md="5">
-          <c-dropdown>
-            <button cButton cDropdownToggle color="light">
-              Selecciona tipo ambiente
-            </button>
-            <ul cDropdownMenu>
-              <li><h6 cDropdownHeader>Tipos de ambiente</h6></li>
-              <li *ngFor="let tipo of environmentTypes"><a (click)="updateTableEnvironments(tipo)" cDropdownItem>{{tipo}}</a></li>
-
-            </ul>
-          </c-dropdown>
-          </c-col>
-          <c-col md="5" *ngIf="isDisabled">
-            <button cButton id="btnChangeSelection" color="danger" variant="outline" size="sm" type="submit" (click)="changeSelectedEnvironment()">
-              Cambiar seleccion de ambiente
-            </button>
-          </c-col>
-
-        </c-row>
-
-
-        <table cTable  >
-          <thead cTableColor="dark">
-          <tr>
-            <th *ngFor="let c of columns">{{c}} </th>
-          </tr>
-          </thead>
-          <tbody >
-          <tr *ngFor="let ambiente of environments" >
-            <td>{{ambiente.id}} </td>
-            <td>{{ambiente.environmentType}} </td>
-            <td>{{ambiente.name}} </td>
-            <td>{{ambiente.location}}</td>
-            <td>{{ambiente.capacity}} </td>
-            <td>{{ambiente.faculty.facultyName}} </td>
-            <td><input [disabled]="isDisabled" #checkboxes  id="selectedEnv"  type="checkbox" (click)="onSelectingEnvironment(ambiente,$event)">  </td>
-          </tr>
-          </tbody>
-
-        </table>
-
-
-      </c-card-body>
-    </c-card>
-  </c-col>
-
-</c-row> -->
-

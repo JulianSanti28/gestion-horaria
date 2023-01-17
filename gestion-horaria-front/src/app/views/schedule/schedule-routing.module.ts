@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ScheduleCreateComponent } from './schedule-create/schedule-create.component';
-
+import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.component';
 const routes: Routes = [
   {
     path: '',
@@ -27,6 +27,13 @@ const routes: Routes = [
         component:ScheduleCreateComponent,
         data:{
           title:'create'
+        }
+      },
+      {
+        path:'detail',
+        component:ScheduleDetailComponent,
+        data:{
+          title:'detail'
         }
       }
     ]

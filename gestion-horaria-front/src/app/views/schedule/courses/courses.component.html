@@ -6,7 +6,7 @@
 
       <div class="container" *ngIf="showSelectedCourse">
         <label  >
-          Curso seleccionado : <strong>{{curso.subject.name}}</strong>
+          Curso    : <strong>{{curso.subject.name}}</strong> <br>
           Semestre : <strong>{{semester}} </strong>
         </label>
           <button cButton  id="btnChangeSelection" color="danger" variant="outline" size="sm" type="submit" (click)="changeSelectedCourse()">

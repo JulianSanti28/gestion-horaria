@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 // import { NgxBootstrapService } from '@coreui/angular';
 import { Course } from 'src/app/models/course.model';
+import { Environment } from 'src/app/models/environment.model';
 import { Program } from 'src/app/models/program.model';
 
 @Component({
@@ -23,7 +24,7 @@ export class ScheduleCreateComponent {
   showScheduleView:boolean=false;
   semester:number=0;
   course:Course={'courseId':0,'courseGroup':'','courseCapacity':0,'period':{'periodId':'','state':''},'subject':{'subjectCode':'','name':'','weeklyOverload':0,'timeBlock':true,'semester':0,'program':{'id':'','name':''}},'teacher':{'teacherCode':'','fullName':'','department':{}}}
-
+  environmentSelected!: Environment;
   // constructor(private ngxService: NgxBootstrapService
   //   ) { }
   getSelectedProgram(program:Program){
@@ -43,7 +44,7 @@ export class ScheduleCreateComponent {
     this.progressMadeProgramSemester += progress
     if(this.progressMadeProgramSemester == 100){
       this.showSelectedProgramAndSemester =true;
-      
+
     }else{
       this.showSelectedProgramAndSemester =false;
     }
@@ -61,6 +62,9 @@ export class ScheduleCreateComponent {
   changeShowForm(){
     console.log("entra")
     this.showForm=!this.showForm
+  }
+  getSelectedEnvironment(environment:Environment){
+    this.environmentSelected = environment;
   }
 
 }

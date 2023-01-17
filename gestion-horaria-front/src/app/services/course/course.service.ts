@@ -9,19 +9,6 @@ import { Teacher } from 'src/app/models/teacher.model';
 })
 export class CourseService {
 
-  // courseId: number;
-  // courseGroup:string;
-  // courseCapacity:number;
-  // period:Period;
-  // subject:Subject;
-  // teacher:Teacher;
-
-  // subjectCode:string;
-  // name:string;
-  // weeklyOverload:number;
-  // timeBlock:boolean;
-  // semester:number;
-  // program:Program;
   period:Period={'periodId':'2022.2','state':'true'}
   program:Program={'id':'PIS','name':'Ingenieria de sistemas'}
   subject:Subject={'subjectCode':'1','name':'Programacion orientada a objetos','weeklyOverload':6,'timeBlock':true,'semester':2,'program':this.program}
@@ -32,7 +19,7 @@ export class CourseService {
   constructor() { }
   getAllCoursesFromProgramAndSemester(programId:string,semester:number){
 
-    //consumir servicio que develva todos los cursos del semestre y programa seleccionados 
+    //consumir servicio que develva todos los cursos del semestre y programa seleccionados
     return this.courses
   }
 }

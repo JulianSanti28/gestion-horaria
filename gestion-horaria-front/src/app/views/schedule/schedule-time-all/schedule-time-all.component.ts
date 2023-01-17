@@ -37,9 +37,9 @@ export class ScheduleTimeAllComponent {
       // Seleccionaron un horario
       this.schedule=schedule;
       this.selectedSchedule.emit(schedule)
-      this.isScheduleSelected=true //ya hay un curso horario seleccionado 
+      this.isScheduleSelected=true //ya hay un curso horario seleccionado
       this.isCheckboxDisabled=true //deshabilitar que peuda seleccionar otros cursos
-
+      this.showSelectedSchedule=true
     }
   }
 

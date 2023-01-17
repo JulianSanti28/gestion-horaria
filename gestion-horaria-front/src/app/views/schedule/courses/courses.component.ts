@@ -50,7 +50,7 @@ export class CoursesComponent implements OnInit{
 
     this.isCheckboxDisabled=false
     this.isCourseSelected=false
-
+    this.showSelectedCourse=false
     this.checkboxes.forEach((element) => {
       element.nativeElement.checked = false;
     });

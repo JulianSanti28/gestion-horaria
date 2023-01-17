@@ -15,6 +15,7 @@ export class ScheduleCreateFormComponent {
 
   form!: FormGroup;
   @Output() progress = new EventEmitter<number>()
+  @Output() selectedEnvironment = new EventEmitter<Environment>();
   @Input('selectedProgram')  program!:Program;
   @Input('selectedSemester')  semester!:number;
   @Input('isEdit')isEdit!:boolean;
@@ -44,8 +45,8 @@ export class ScheduleCreateFormComponent {
       faculty: {facultyId:0,facultyName:'',departments:[],environments:[]},
       availableResources: []
     }
-    
-  } 
+
+  }
   programs:Program[]=[];
   semesters:number[]=[];
 
@@ -100,6 +101,7 @@ export class ScheduleCreateFormComponent {
       this.environmentSelected=environment
       this.showSelectedEnvironment=true
       this.progress.emit(this.sumProgres)
+      this.selectedEnvironment.emit(this.environmentSelected)
     }else{
       this.progress.emit(-this.sumProgres)
     }

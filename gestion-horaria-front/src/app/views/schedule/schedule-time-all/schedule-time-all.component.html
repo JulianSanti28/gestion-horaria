@@ -6,7 +6,7 @@
 
     <div class="container" *ngIf="showSelectedSchedule">
       <label  >
-        Dia Seleccionado : <strong>{{schedule.day}}</strong>
+        Dia Seleccionado : <strong>{{schedule.day}}</strong> <br>
         Hora : <strong>{{schedule.startingTime}} </strong>
       </label>
         <button cButton  id="btnChangeSelection" color="danger" variant="outline" size="sm" type="submit" (click)="changeSelectedSchedule()">

@@ -59,6 +59,7 @@
               (progress)="getProgressMadeForm($event)"
               [selectedProgram]="program"
               [selectedSemester]="semester"
+              (selectedEnvironment)="getSelectedEnvironment($event)"
               >
 
             </app-schedule-create-form>
@@ -72,8 +73,8 @@
 
   <!-- vista del horario por dias -->
   <div *ngIf="showScheduleView">
-    <app-schedule-view>
-
-    </app-schedule-view>
+    <app-schedule-view
+      [ambiente]="environmentSelected"
+    ></app-schedule-view>
   </div>
 </div>

@@ -1,0 +1,20 @@
+<div class="grid-container">
+  <c-accordion [alwaysOpen]="false" class="shadow accordion-custom rounded-2 " #beforeFormAccordion>
+    <div class="elemnt">
+      <app-schedule-environments
+            #environments
+            (selectedEnvironment)="getSelectedEnvironment($event)"
+      ></app-schedule-environments>
+    </div>
+  </c-accordion>
+
+  <div class="elemnt" *ngIf="showScheduleView" >
+
+      <app-schedule-view
+        [ambiente]="ambiente"
+      ></app-schedule-view>
+
+  </div>
+
+
+</div>
