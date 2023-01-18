@@ -30,13 +30,17 @@ public class ResourceController {
         ResourceDTO saved = this.resourceService.saveResource(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
-    /*TODO*/
-    //findAllByEnvironment: Recibe el id del ambiente, paginado
 
-    /*TODO*/
-    @GetMapping
-    public ResponseEntity<GenericPageableResponse> getAllByEnvironment(@RequestParam Integer environmentId, @RequestParam Integer page, @RequestParam Integer size, @RequestParam String sort, @RequestParam String order){
-        return null;
+    @GetMapping("/byEnvironment")
+    public ResponseEntity<GenericPageableResponse> getAllResourceByEnvironment(@RequestParam Integer environmentId, @RequestParam Integer page, @RequestParam Integer size, @RequestParam String sort, @RequestParam String order){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(order),sort));
+        return ResponseEntity.ok(this.resourceService.findAllResourceByEnvironment(environmentId,pageable));
+    }
+
+    @GetMapping("/byType")
+    public ResponseEntity<GenericPageableResponse> getAllResourceByResourceType(@RequestParam String resourceType, @RequestParam Integer page, @RequestParam Integer size, @RequestParam String sort, @RequestParam String order){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(order),sort));
+        return ResponseEntity.ok(this.resourceService.findAllResourceByResourceType(resourceType,pageable));
     }
 
     @GetMapping
