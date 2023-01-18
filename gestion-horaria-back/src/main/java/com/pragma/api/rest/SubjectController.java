@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,8 +18,17 @@ import javax.validation.Valid;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SubjectController {
 
-    @Autowired()
-    private ISubjectBusiness subjectBusiness;
+    private final ISubjectBusiness subjectBusiness;
+    /*TODO*/
+    @GetMapping
+    private Response<GenericPageableResponse> findAllByProgramAndSemester(@RequestParam String programId, @RequestParam Integer semester, @RequestParam Integer page, @RequestParam Integer size, @RequestParam String sort, @RequestParam String order){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(order),sort));
+        return null;
+    }
+    @Autowired
+    public SubjectController(ISubjectBusiness subjectBusiness){
+        this.subjectBusiness = subjectBusiness;
+    }
 
     @PostMapping()
     public Response<SubjectDTO> createSubject(@Valid @RequestBody SubjectDTO subjectDTO) {

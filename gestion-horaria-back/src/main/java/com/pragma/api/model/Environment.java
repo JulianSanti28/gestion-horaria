@@ -36,4 +36,7 @@ public class Environment {
             joinColumns = @JoinColumn(name = "environment_id"),
             inverseJoinColumns = @JoinColumn(name = "resource_id"))
     private Set<Resource> availableResources;
+
+    @OneToMany(mappedBy = "environment", fetch = FetchType.LAZY)
+    private Set<Schedule> schedules;
 }

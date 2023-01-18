@@ -25,7 +25,6 @@ public class Subject {
     private Boolean timeBlock;
     @Column(nullable = false)
     private Integer semester;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "program_id")
     private Program program;

@@ -6,9 +6,7 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.*;
-import java.time.LocalTime;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "schedule")
@@ -30,10 +28,10 @@ public class Schedule {
     @Column(name = "ending_time")
     @Temporal(TemporalType.TIME)
     private Date endingTime;
-
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
-
+    @ManyToOne
+    private Environment environment;
 
 }
