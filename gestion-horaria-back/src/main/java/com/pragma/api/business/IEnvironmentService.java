@@ -1,7 +1,10 @@
 package com.pragma.api.business;
 
 import com.pragma.api.domain.*;
+import com.pragma.api.model.Environment;
 import org.springframework.data.domain.Pageable;
+
+import java.util.Optional;
 
 public interface IEnvironmentService {
     /**
@@ -12,7 +15,7 @@ public interface IEnvironmentService {
      *            {@link EnvironmentDTO} Objeto con la información a insertar, recibido en el cuerpo de la petición al servicio Rest
      * @return {@link Response} Objeto de respuesta para el servicio, el cual contiene la informacion sobre el resultado de la transaccion
      */
-    public Response<EnvironmentDTO> createEnvironment(EnvironmentDTO environmentDTO);
+     Response<EnvironmentDTO> createEnvironment(EnvironmentDTO environmentDTO);
 
     /**
      * Método que permite consultar la información de una materia mediante su codigo
@@ -32,6 +35,7 @@ public interface IEnvironmentService {
      */
     Response<GenericPageableResponse> findAll(final Pageable pageable);
 
+    Environment findById(final Integer id);
     /**
      * Método que permite agregar un recurso a un ambiente
      *

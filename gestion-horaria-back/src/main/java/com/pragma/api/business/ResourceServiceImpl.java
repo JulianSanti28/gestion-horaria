@@ -4,6 +4,7 @@ import com.pragma.api.domain.GenericPageableResponse;
 import com.pragma.api.domain.ResourceDTO;
 import com.pragma.api.exception.ScheduleBadRequestException;
 import com.pragma.api.model.Resource;
+import com.pragma.api.model.enums.ResourceTypeEnumeration;
 import com.pragma.api.repository.IResourceRepository;
 import com.pragma.api.util.PageableUtils;
 import org.modelmapper.ModelMapper;
@@ -22,10 +23,13 @@ public class ResourceServiceImpl implements IResourceService{
 
     private final IResourceRepository resourceRepository;
 
+    private final IEnvironmentService environmentService;
+
     @Autowired
-    public ResourceServiceImpl(IResourceRepository resourceRepository, ModelMapper modelMapper){
+    public ResourceServiceImpl(IResourceRepository resourceRepository, ModelMapper modelMapper, IEnvironmentService environmentService){
         this.resourceRepository = resourceRepository;
         this.modelMapper = modelMapper;
+        this.environmentService = environmentService;
     }
 
     @Override
@@ -39,6 +43,27 @@ public class ResourceServiceImpl implements IResourceService{
         Page<Resource> resourcesPage = this.resourceRepository.findAll(pageable);
         if(resourcesPage.isEmpty()) throw new ScheduleBadRequestException("bad.request.resource.empty", "");
         return this.validatePageList(resourcesPage);
+    }
+
+    @Override
+    public GenericPageableResponse findAllResourceByEnvironment(final Integer environmentId, final Pageable pageable) {
+        this.environmentService.findById(environmentId);
+        Page<Resource> resourcesByEnvironmentPage = this.resourceRepository.findAllByResourceLocationsId(environmentId,pageable);
+        if(resourcesByEnvironmentPage.isEmpty()) throw new ScheduleBadRequestException("bad.request.resource.empty", "");
+        return this.validatePageList(resourcesByEnvironmentPage);
+    }
+
+    @Override
+    public GenericPageableResponse findAllResourceByResourceType(String resourceType, Pageable pageable) {
+        ResourceTypeEnumeration resourceTypeEnum;
+        try {
+            resourceTypeEnum = ResourceTypeEnumeration.valueOf(resourceType);
+        }catch (Exception e){
+            throw new ScheduleBadRequestException("bad.request.resource.type", resourceType);
+        }
+        Page<Resource> resourcesByTypePage = this.resourceRepository.findAllByResourceType(resourceTypeEnum,pageable);
+        if(resourcesByTypePage.isEmpty()) throw new ScheduleBadRequestException("bad.request.resource.empty", "");
+        return this.validatePageList(resourcesByTypePage);
     }
 
     @Override
@@ -65,6 +90,8 @@ public class ResourceServiceImpl implements IResourceService{
         this.resourceRepository.deleteById(code);
         return true;
     }
+
+
 
     private GenericPageableResponse validatePageList(Page<Resource> resourcesPage){
         List<ResourceDTO> resourcesDTOS = resourcesPage.stream().map(x->modelMapper.map(x, ResourceDTO.class)).collect(Collectors.toList());

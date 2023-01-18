@@ -20,3 +20,6 @@ INSERT INTO `subject` (`subject_code`, `name`, `semester`, `time_block`, `weekly
 INSERT INTO `environment` (`id`, `capacity`, `environmentType`, `location`, `name`, `faculty_id`) VALUES (NULL, '30', 'LABORATORIO', 'Edificio IPET FIET', 'Sala 4', 'FIET');
 --Resource
 INSERT INTO `resource` (`id`, `name`, `resource_type`) VALUES (NULL, 'Video Beam', 'TECNOLOGICO');
+
+--Resource environment
+INSERT INTO `available_resources` (`environment_id`, `resource_id`) VALUES (1,1);
