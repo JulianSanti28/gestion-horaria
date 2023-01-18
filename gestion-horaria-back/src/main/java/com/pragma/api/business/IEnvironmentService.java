@@ -1,6 +1,7 @@
 package com.pragma.api.business;
 
 import com.pragma.api.domain.*;
+import com.pragma.api.model.Environment;
 import com.pragma.api.model.enums.EnvironmentTypeEnumeration;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,4 +48,6 @@ public interface IEnvironmentService {
     public Response<GenericPageableResponse> findAllByFacultyId(Pageable pageable, String facultyId);
 
     public Response<GenericPageableResponse> findAllByEnvironmentType(Pageable pageable, EnvironmentTypeEnumeration environmentType);
+
+    Environment findById(final Integer id);
 }
