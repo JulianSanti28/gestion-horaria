@@ -50,8 +50,8 @@
           </tbody>
 
         </table>
-
-        <app-paginador (pageChanged)="loadTableEnvironments($event)" [totalItems]="10" [pageSize]="3" ></app-paginador>
+        <br>
+        <app-paginador (pageChanged)="loadTableEnvironments($event)" [totalItems]="totalItems"  ></app-paginador>
       </c-card-body>
     </c-card>
   </c-col>

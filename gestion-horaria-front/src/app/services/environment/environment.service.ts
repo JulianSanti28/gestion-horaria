@@ -37,9 +37,10 @@ export class EnvironmentService {
 
   }
 
-  getAllEnvironmentsPage(page:number):Observable<any>{
+  getAllEnvironmentsPage(page:number, pageSize:number):Observable<any>{
+    console.log("llegan page y size ",page, " ", pageSize)
     //{ headers: this.userServie.agregarAuthorizationHeader() }
-    return this.http.get<any>(this.endPoint+`?page=${page}&size=${this.itemsPerPage}`).pipe(
+    return this.http.get<any>(this.endPoint+`?page=${page}&size=${pageSize}`).pipe(
       catchError((e) => {
         // this.router.navigate(['/documentos']);
 

@@ -9,12 +9,13 @@ import {ResourceService} from 'src/app/services/resource/resource.service'
 })
 export class ResourcesComponent implements OnInit,AfterViewChecked{
   resources:Resource[]=[];
-  columns:string[]=['Id','Nombre','Tipo recurso','Checked'];
+  columns:string[]=['Id','Nombre','Tipo recurso','Agregar'];
   colors = ['primary', 'secondary', 'success', 'info', 'warning', 'danger'];
   resourceTypes:string[]=[];
   resourceType!: string | null;
   counter:number=0;
-  envResource:any
+  paginadorResource:any
+  totalItems:number=1
   @Output() addedResource = new EventEmitter();
   @Output() removeResource=new EventEmitter();
   @Input('isEdit')isEdit!:boolean;
@@ -36,6 +37,8 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
     }else{
       this.counter =0;
     }
+    //this.totalItems=this.resourceService.getTotalItems()
+    this.totalItems=10
   }
   ngAfterViewChecked(){
     // for (let index = 0; index < this.resources.length; index++) {
@@ -67,6 +70,24 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
       this.counter -=1;
     }
 
+  }
+
+  loadTableResource(args: number[]) {
+    //this.http.get(`http://localhost:8080/users?page=${page}&size=${this.paginationConfig.itemsPerPage}`)
+    //this.http.get(this.endPoint+`?page=${page}&size=${this.itemsPerPage}`)
+    let pageSolicitud:number = args[0];
+    let pageSize: number = args[1]
+      if(!pageSolicitud){
+        pageSolicitud = 0;
+      }
+      if(!pageSize){
+        pageSize=10
+      }
+    this.resourceService.getAllEnvironmentsPage(pageSolicitud,pageSize).subscribe((response) =>{
+
+        this.resources = response.content;
+        this.paginadorResource=response;
+      });
   }
 
 }

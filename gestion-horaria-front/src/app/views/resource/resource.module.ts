@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ResourceRoutingModule } from './resource-routing.module';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { ToshareModule } from 'src/app/views/toshare/toshare.module';
 // CoreUI Modules
 import {
   AccordionModule,
@@ -52,7 +53,7 @@ import { EnvironmentsFromResourceComponent } from './environments-from-resource/
   imports: [
     CommonModule,
     ResourceRoutingModule,
-
+    ToshareModule,
 
 
     ReactiveFormsModule,

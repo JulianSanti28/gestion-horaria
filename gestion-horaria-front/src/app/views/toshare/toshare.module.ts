@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ToshareRoutingModule } from './toshare-routing.module';
 import { PaginadorComponent } from './paginador/paginador.component';
 import {
-  PaginationModule
+  PaginationModule,
+  DropdownModule
 }from '@coreui/angular'
 
 @NgModule({
@@ -14,7 +15,8 @@ import {
   imports: [
     CommonModule,
     ToshareRoutingModule,
-    PaginationModule
+    PaginationModule,
+    DropdownModule
   ],
   exports:[
     PaginadorComponent

@@ -51,7 +51,8 @@
           </tbody>
 
         </table>
-
+        <br>
+        <app-paginador (pageChanged)="loadTableResource($event)" [totalItems]="totalItems"  ></app-paginador>
 
       </c-card-body>
     </c-card>

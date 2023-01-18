@@ -5,6 +5,7 @@ import { SlicePipe } from '@angular/common';
 import {Environment} from 'src/app/models/environment.model'
 import {EnvironmentService} from 'src/app/services/environment/environment.service'
 import { HttpClient } from '@angular/common/http';
+import { ignoreElements } from 'rxjs';
 @Component({
   selector: 'app-environments',
   templateUrl: './environments.component.html',
@@ -17,9 +18,7 @@ export class EnvironmentsComponent {
   columns:string[]=['Id','Tipo Ambiente','Nombre','Ubicacion','Capacidad','Facultad','Editar','Recursos'];
   environmentTypes:string[]=[];
   environmentType!: string | null;
-  total:number=1;
-  itemsPerPage:number=1;
-  page:number=1;
+  totalItems:number=1;
   paginadorEnvironment: any;
 
 
@@ -51,6 +50,9 @@ export class EnvironmentsComponent {
       )
     }
 
+    // this.totalItems=this.environmentService.getTotalItems()
+    this.totalItems=10
+
     //todos  los tipos de ambientes
     this.environmentTypes=this.environmentService.getAllEnvironmentTypes();
   }
@@ -64,15 +66,19 @@ export class EnvironmentsComponent {
 
   }
 
-  loadTableEnvironments(page: number) {
+  // aqui viene el numero de pagina solicitada y el tamaño que debe tener
+  loadTableEnvironments(args: number[]) {
     //this.http.get(`http://localhost:8080/users?page=${page}&size=${this.paginationConfig.itemsPerPage}`)
     //this.http.get(this.endPoint+`?page=${page}&size=${this.itemsPerPage}`)
-    let pageSolicitud:number = page;
-
+    let pageSolicitud:number = args[0];
+    let pageSize: number = args[1]
       if(!pageSolicitud){
         pageSolicitud = 0;
       }
-    this.environmentService.getAllEnvironmentsPage(pageSolicitud).subscribe((response) =>{
+      if(!pageSize){
+        pageSize=10
+      }
+    this.environmentService.getAllEnvironmentsPage(pageSolicitud,pageSize).subscribe((response) =>{
 
         this.environments = response.content;
         this.paginadorEnvironment=response;
