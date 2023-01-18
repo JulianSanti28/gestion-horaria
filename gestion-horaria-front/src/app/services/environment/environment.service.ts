@@ -23,7 +23,9 @@ export class EnvironmentService {
 
   environmentTypes=['all','AUDITORIO', 'LABORATORIO', 'SALON'];
   facultys=[this.faculty];
-  endPoint:String = 'http://localhost:8080/environment'
+  // endPoint:String = 'http://localhost:8080/api/environment'
+  endPoint:String = 'api/environment'
+
   itemsPerPage:number =10;
 
   constructor(
