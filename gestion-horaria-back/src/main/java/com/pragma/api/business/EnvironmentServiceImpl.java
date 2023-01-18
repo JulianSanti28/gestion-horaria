@@ -6,6 +6,7 @@ import com.pragma.api.domain.Response;
 import com.pragma.api.exception.ScheduleBadRequestException;
 import com.pragma.api.model.Environment;
 import com.pragma.api.model.Resource;
+import com.pragma.api.model.enums.EnvironmentTypeEnumeration;
 import com.pragma.api.repository.IEnvironmentRepository;
 import com.pragma.api.repository.IFacultyRepository;
 import com.pragma.api.repository.IResourceRepository;
@@ -95,6 +96,55 @@ public class EnvironmentServiceImpl implements IEnvironmentService {
         response.setMoreInfo("localhost:8080/api/subject");
         response.setErrorCode("");
         response.setData(true);
+
+        return response;
+    }
+
+    @Override
+    public Response<GenericPageableResponse> findAllByResourceId(Pageable pageable, Integer resourceId) {
+        Page<Environment> environmentPage = this.environmentRepository.findAllByAvailableResourcesId(resourceId, pageable);
+        if(environmentPage.isEmpty()) throw new ScheduleBadRequestException("bad.request.environment.empty", "");
+
+        Response<GenericPageableResponse> response = new Response<>();
+        response.setStatus(200);
+        response.setUserMessage("Environments found");
+        response.setDeveloperMessage("Environments found");
+        response.setMoreInfo("localhost:8080/api/environment");
+        response.setErrorCode("");
+        response.setData(this.validatePageList(environmentPage));
+
+        return response;
+    }
+
+    @Override
+    public Response<GenericPageableResponse> findAllByFacultyId(Pageable pageable, String facultyId) {
+
+        Page<Environment> environmentPage = this.environmentRepository.findAllByFacultyFacultyId(facultyId, pageable);
+        if(environmentPage.isEmpty()) throw new ScheduleBadRequestException("bad.request.environment.empty", "");
+
+        Response<GenericPageableResponse> response = new Response<>();
+        response.setStatus(200);
+        response.setUserMessage("Environments found");
+        response.setDeveloperMessage("Environments found");
+        response.setMoreInfo("localhost:8080/api/environment");
+        response.setErrorCode("");
+        response.setData(this.validatePageList(environmentPage));
+
+        return response;
+    }
+
+    @Override
+    public Response<GenericPageableResponse> findAllByEnvironmentType(Pageable pageable, EnvironmentTypeEnumeration environmentType) {
+        Page<Environment> environmentPage = this.environmentRepository.findAllByEnvironmentType(environmentType, pageable);
+        if(environmentPage.isEmpty()) throw new ScheduleBadRequestException("bad.request.environment.empty", "");
+
+        Response<GenericPageableResponse> response = new Response<>();
+        response.setStatus(200);
+        response.setUserMessage("Environments found");
+        response.setDeveloperMessage("Environments found");
+        response.setMoreInfo("localhost:8080/api/environment");
+        response.setErrorCode("");
+        response.setData(this.validatePageList(environmentPage));
 
         return response;
     }
