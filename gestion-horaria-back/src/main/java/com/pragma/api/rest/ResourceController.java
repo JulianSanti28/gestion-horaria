@@ -18,13 +18,25 @@ import javax.validation.Valid;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ResourceController {
 
+    private final IResourceService resourceService;
+
     @Autowired
-    private IResourceService resourceService;
+    public ResourceController(IResourceService resourceService){
+        this.resourceService = resourceService;
+    }
 
     @PostMapping
     public ResponseEntity<ResourceDTO> saveResource(@Valid @RequestBody ResourceDTO request) {
         ResourceDTO saved = this.resourceService.saveResource(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }
+    /*TODO*/
+    //findAllByEnvironment: Recibe el id del ambiente, paginado
+
+    /*TODO*/
+    @GetMapping
+    public ResponseEntity<GenericPageableResponse> getAllByEnvironment(@RequestParam Integer environmentId, @RequestParam Integer page, @RequestParam Integer size, @RequestParam String sort, @RequestParam String order){
+        return null;
     }
 
     @GetMapping

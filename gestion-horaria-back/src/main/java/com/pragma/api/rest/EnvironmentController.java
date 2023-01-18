@@ -1,5 +1,6 @@
 package com.pragma.api.rest;
 
+<<<<<<< Updated upstream
 import com.pragma.api.business.IEnvironmentService;
 import com.pragma.api.domain.EnvironmentDTO;
 import com.pragma.api.domain.GenericPageableResponse;
@@ -36,4 +37,18 @@ public class EnvironmentController {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(order),sort));
         return this.environmentService.findAll(pageable);
     }
+=======
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/resource")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+public class EnvironmentController {
+    /*TODO*/
+    //Todos los ambientes a los que está asociado unun recurso
+    //Todos los ambientes filtrados por tipo.
+    //Ambientes por facultad
+>>>>>>> Stashed changes
 }
