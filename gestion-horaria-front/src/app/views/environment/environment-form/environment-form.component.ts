@@ -33,11 +33,12 @@ export class EnvironmentFormComponent {
     'location':'',
     'capacity':0,
     'environmentType':'',
-    'faculty':{'facultyId':0,'facultyName':'','environments':[],'departments':[]},
+    'facultyId':'',
     'availableResources':[]
   };
   environmentTypes:string[]=[]
-  facultys:Faculty[]=[];
+  // facultys:Faculty[]=[];
+  facultys:string[]=[];
 
   constructor(
     private formBuilder:FormBuilder,
@@ -62,7 +63,7 @@ export class EnvironmentFormComponent {
         'location':this.environment.location,
         'capacity':this.environment.capacity,
         'environmentType':this.environment.environmentType,
-        'faculty':this.environment.faculty.facultyName
+        'faculty':this.environment.facultyId
       }
       this.form.patchValue(environmentFill);
     }
@@ -97,7 +98,7 @@ export class EnvironmentFormComponent {
     this.formEnvironment.location=this.form.get('location')?.value;
     this.formEnvironment.capacity=this.form.get('capacity')?.value;
     this.formEnvironment.environmentType=this.form.get('environmentType')?.value;
-    this.formEnvironment.faculty=this.form.get('faculty')?.value;
+    this.formEnvironment.facultyId=this.form.get('faculty')?.value;
 
     this.emitterForm.emit(this.formEnvironment);
 

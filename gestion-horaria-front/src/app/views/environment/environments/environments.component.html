@@ -41,7 +41,7 @@
             <td>{{ambiente.name}} </td>
             <td>{{ambiente.location}}</td>
             <td>{{ambiente.capacity}} </td>
-            <td>{{ambiente.faculty.facultyName}} </td>
+            <td>{{ambiente.facultyId}} </td>
             <td><a [routerLink]="['../edit',ambiente.id]">Editar</a> </td>
             <td><a [routerLink]="['../edit',ambiente.id]">Ver detalles</a> </td>
 
@@ -51,7 +51,7 @@
 
         </table>
         <br>
-        <app-paginador (pageChanged)="loadTableEnvironments($event)" [totalItems]="totalItems"  ></app-paginador>
+        <app-paginador (pageChanged)="loadTableEnvironments($event)" [totalItems]="totalItems" [totalNumberPage]="totalNumberPage" [pageSize]="pageSize" ></app-paginador>
       </c-card-body>
     </c-card>
   </c-col>

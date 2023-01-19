@@ -11,19 +11,19 @@ export class EnvironmentService {
 
   faculty:Faculty={facultyId:1,facultyName:'Ciencias humanas',departments:[],environments:[]}
   environments:Environment[]=[
-    {id:1,name:'Salon fundador',location:'Bloque C',capacity:30,environmentType:'SALON',faculty:this.faculty,availableResources:[]},
-    {id:2,name:'Salon prueba',location:'Bloque D',capacity:30,environmentType:'AUDITORIO',faculty:this.faculty,availableResources:[
+    {id:1,name:'Salon fundador',location:'Bloque C',capacity:30,environmentType:'SALON',facultyId:"FIET",availableResources:[]},
+    {id:2,name:'Salon prueba',location:'Bloque D',capacity:30,environmentType:'AUDITORIO',facultyId:"FIET",availableResources:[
       {'id':3,'name':'Video bean','resourceType':'TECNOLOGICO','resourceLocations':[]}
     ]},
-    {id:3,name:'Salon prueba',location:'Bloque D',capacity:30,environmentType:'SALON',faculty:this.faculty,availableResources:[
+    {id:3,name:'Salon prueba',location:'Bloque D',capacity:30,environmentType:'SALON',facultyId:"FIET",availableResources:[
       {'id':2,'name':'Computador','resourceType':'TECNOLOGICO','resourceLocations':[]},
       {'id':3,'name':'Video bean','resourceType':'TECNOLOGICO','resourceLocations':[]}
     ]},
   ]
 
   environmentTypes=['all','AUDITORIO', 'LABORATORIO', 'SALON'];
-  facultys=[this.faculty];
-  // endPoint:String = 'http://localhost:8080/api/environment'
+  facultys=["FIET","Ciencias"];
+  // endPoint:String = 'http://localhost:8081/api/environment'
   endPoint:String = 'api/environment'
 
   itemsPerPage:number =10;
@@ -40,9 +40,9 @@ export class EnvironmentService {
   }
 
   getAllEnvironmentsPage(page:number, pageSize:number):Observable<any>{
-    console.log("llegan page y size ",page, " ", pageSize)
+    console.log("service get All envi llegan page  ",page, " y size ", pageSize)
     //{ headers: this.userServie.agregarAuthorizationHeader() }
-    return this.http.get<any>(this.endPoint+`?page=${page}&size=${pageSize}`).pipe(
+    return this.http.get<any>(this.endPoint+`?page=${page-1}&size=${pageSize}&sort=id&order=ASC`).pipe(
       catchError((e) => {
         // this.router.navigate(['/documentos']);
 

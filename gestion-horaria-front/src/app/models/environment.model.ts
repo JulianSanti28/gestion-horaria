@@ -9,7 +9,8 @@ export interface Environment
   capacity:number;
   //environmentType:EnvironmentTypeEnumeration ;
   environmentType:string;
-  faculty:Faculty;
+  // faculty:Faculty;
+  facultyId:string;
   availableResources:Resource[];
 
 

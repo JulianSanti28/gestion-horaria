@@ -18,9 +18,10 @@ export class EnvironmentsComponent {
   columns:string[]=['Id','Tipo Ambiente','Nombre','Ubicacion','Capacidad','Facultad','Editar','Recursos'];
   environmentTypes:string[]=[];
   environmentType!: string | null;
-  totalItems:number=1;
+  totalItems:number=0;
+  totalNumberPage:number=1;
   paginadorEnvironment: any;
-
+  pageSize:number=0;
 
   @Input('fromResource') fromResource:boolean=false;
   @Input('resourceId') resourceId:number=0;
@@ -43,15 +44,23 @@ export class EnvironmentsComponent {
 
         }
         else{
-          this.environments=this.environmentService.getAllEnvironments();
+          // this.environments=this.environmentService.getAllEnvironments();
+          this.environmentService.getAllEnvironmentsPage(1,5).subscribe(response =>{
+            console.log("Data : ",response)
+            this.environments=response.data.elements as Environment[]
+            this.totalItems=response.data.pagination.totalNumberElements as number
+            this.totalNumberPage=response.data.pagination.totalNumberPage as number
+            this.pageSize=response.data.pagination.size as number
+          })
+
         }
 
       }
       )
     }
 
-    // this.totalItems=this.environmentService.getTotalItems()
-    this.totalItems=10
+
+
 
     //todos  los tipos de ambientes
     this.environmentTypes=this.environmentService.getAllEnvironmentTypes();
@@ -80,8 +89,10 @@ export class EnvironmentsComponent {
       }
     this.environmentService.getAllEnvironmentsPage(pageSolicitud,pageSize).subscribe((response) =>{
 
-        this.environments = response.content;
-        this.paginadorEnvironment=response;
+        this.environments = response.data.elements as Environment[]
+        this.totalItems=response.data.pagination.totalNumberElements as number
+        this.totalNumberPage=response.data.pagination.totalNumberPage as number
+        
       });
   }
   onPageChange(event:any){

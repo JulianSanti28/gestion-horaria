@@ -18,7 +18,7 @@
     <a cPageLink (click)="onChangePage(pagina)"  >{{pagina}} </a>
   </li>
 
-  <li cPageItem [disabled]="currentPage == paginas.length" >
+  <li cPageItem [disabled]="currentPage == paginas.length || paginas.length ==0" >
     <a cPageLink (click)="onNextPage()" >Next</a>
   </li>
 

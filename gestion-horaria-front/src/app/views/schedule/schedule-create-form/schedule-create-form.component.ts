@@ -27,7 +27,7 @@ export class ScheduleCreateFormComponent {
     location: '',
     capacity: 0,
     environmentType: '',
-    faculty: {facultyId:0,facultyName:'',departments:[],environments:[]},
+    facultyId: '',
     availableResources: []
   }
   scheduleSelected:Schedule | null ={
@@ -42,7 +42,7 @@ export class ScheduleCreateFormComponent {
       location: '',
       capacity: 0,
       environmentType: '',
-      faculty: {facultyId:0,facultyName:'',departments:[],environments:[]},
+      facultyId: '',
       availableResources: []
     }
 

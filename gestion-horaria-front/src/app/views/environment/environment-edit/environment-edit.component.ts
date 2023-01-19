@@ -25,7 +25,7 @@ export class EnvironmentEditComponent {
     'location':'',
     'capacity':0,
     'environmentType':'',
-    'faculty':{'facultyId':0,'facultyName':'','departments':[],'environments':[]},
+    'facultyId':'',
     'availableResources':[]
 
    }
