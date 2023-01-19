@@ -13,7 +13,7 @@ export class PaginadorComponent implements OnInit,OnChanges{
   @Input('pageSize') pageSize: number=5;
   @Output() pageChanged = new EventEmitter<number[]>();
   currentPage:number=1;
-  selectPageSize:number[]=[1,5,10,15,20,30]
+  selectPageSize:number[]=[5,10,15,20,30]
 
   constructor(){
 
@@ -38,8 +38,9 @@ export class PaginadorComponent implements OnInit,OnChanges{
       if(changes['pageSize']){
         this.pageSize=changes['pageSize'].currentValue
       }
+      
       this.paginas = this.fillPaginas();
-      console.log("total Items ",this.totalItems, " total paginas ",this.totalNumberPage , " Items por pagina ",this.pageSize)
+      // console.log("total Items ",this.totalItems, " total paginas ",this.totalNumberPage , " Items por pagina ",this.pageSize)
   }
   fillPaginas(){
     // const size = Math.ceil(this.totalItems/this.pageSize);
@@ -55,7 +56,7 @@ export class PaginadorComponent implements OnInit,OnChanges{
 
   onChangePage(page:number){
     this.currentPage=page;
-    console.log("Emitiendo ",this.currentPage , " page size ",this.pageSize)
+    // console.log("Emitiendo ",this.currentPage , " page size ",this.pageSize)
     this.pageChanged.emit([this.currentPage,this.pageSize]);
   }
 
@@ -70,6 +71,7 @@ export class PaginadorComponent implements OnInit,OnChanges{
     this.pageChanged.emit([this.currentPage,this.pageSize]);
   }
   onSelectingPageSize(size:number){
+    // console.log("size seleccionado ",size)
     this.pageSize=size
     this.pageChanged.emit([this.currentPage,this.pageSize])
     this.fillPaginas()

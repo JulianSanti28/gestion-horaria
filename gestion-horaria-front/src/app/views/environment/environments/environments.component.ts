@@ -17,7 +17,8 @@ export class EnvironmentsComponent {
   environments:Environment[]=[];
   columns:string[]=['Id','Tipo Ambiente','Nombre','Ubicacion','Capacidad','Facultad','Editar','Recursos'];
   environmentTypes:string[]=[];
-  environmentType!: string | null;
+  environmentType!: string ;
+  isTypeSelected:boolean=false
   totalItems:number=0;
   totalNumberPage:number=1;
   paginadorEnvironment: any;
@@ -37,29 +38,17 @@ export class EnvironmentsComponent {
     if(this.fromResource==true){
       this.environments = this.environmentService.getEnvironmentsFromResource(this.resourceId);
     }else {
-      this.route.paramMap.subscribe(
-        params=> {this.environmentType=params.get('environmentType');
-        if(this.environmentType!= null ){
-          this.environments=this.environmentService.getEnvironmentsByEnvironmentType(this.environmentType);
 
-        }
-        else{
-          // this.environments=this.environmentService.getAllEnvironments();
-          this.environmentService.getAllEnvironmentsPage(1,5).subscribe(response =>{
-            console.log("Data : ",response)
-            this.environments=response.data.elements as Environment[]
-            this.totalItems=response.data.pagination.totalNumberElements as number
-            this.totalNumberPage=response.data.pagination.totalNumberPage as number
-            this.pageSize=response.data.pagination.size as number
-          })
+      // this.environments=this.environmentService.getAllEnvironments();
+      this.environmentService.getAllEnvironmentsPage(1,5).subscribe(response =>{
+        console.log("Data : ",response)
+        this.environments=response.data.elements as Environment[]
+        this.totalItems=response.data.pagination.totalNumberElements as number
+        this.totalNumberPage=response.data.pagination.totalNumberPage as number
+        this.pageSize=response.data.pagination.size as number
+      })
 
-        }
-
-      }
-      )
     }
-
-
 
 
     //todos  los tipos de ambientes
@@ -67,11 +56,14 @@ export class EnvironmentsComponent {
   }
 
   updateTableEnvironments(type:string){
+
     if(type == 'all'){
-      this.environments=this.environmentService.getAllEnvironments();
+      this.isTypeSelected=false
     }else{
-      this.environments=this.environmentService.getEnvironmentsByEnvironmentType(type);
+      this.isTypeSelected=true
+      this.environmentType=type
     }
+    this.loadTableEnvironments([1,5])
 
   }
 
@@ -87,13 +79,25 @@ export class EnvironmentsComponent {
       if(!pageSize){
         pageSize=10
       }
-    this.environmentService.getAllEnvironmentsPage(pageSolicitud,pageSize).subscribe((response) =>{
+    if(!this.isTypeSelected){
+      this.environmentService.getAllEnvironmentsPage(pageSolicitud,pageSize).subscribe((response) =>{
 
         this.environments = response.data.elements as Environment[]
         this.totalItems=response.data.pagination.totalNumberElements as number
         this.totalNumberPage=response.data.pagination.totalNumberPage as number
-        
+
       });
+    }else{
+      this.environmentService.getAllEnvironmentsByEnvironmentTypePage(this.environmentType,pageSolicitud,pageSize).subscribe(response =>{
+        console.log("Data en load Type: ",response)
+        this.environments=response.data.elements as Environment[]
+        this.totalItems=response.data.pagination.totalNumberElements as number
+        this.totalNumberPage=response.data.pagination.totalNumberPage as number
+
+
+      })
+    }
+
   }
   onPageChange(event:any){
 

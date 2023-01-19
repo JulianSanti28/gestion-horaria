@@ -51,7 +51,10 @@
 
         </table>
         <br>
-        <app-paginador (pageChanged)="loadTableEnvironments($event)" [totalItems]="totalItems" [totalNumberPage]="totalNumberPage" [pageSize]="pageSize" ></app-paginador>
+        <app-paginador
+        (pageChanged)="loadTableEnvironments($event)" [totalItems]="totalItems" [totalNumberPage]="totalNumberPage" [pageSize]="pageSize"
+        
+        ></app-paginador>
       </c-card-body>
     </c-card>
   </c-col>

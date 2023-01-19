@@ -40,7 +40,7 @@ export class EnvironmentService {
   }
 
   getAllEnvironmentsPage(page:number, pageSize:number):Observable<any>{
-    console.log("service get All envi llegan page  ",page, " y size ", pageSize)
+
     //{ headers: this.userServie.agregarAuthorizationHeader() }
     return this.http.get<any>(this.endPoint+`?page=${page-1}&size=${pageSize}&sort=id&order=ASC`).pipe(
       catchError((e) => {
@@ -52,6 +52,21 @@ export class EnvironmentService {
       })
     );
   }
+  getAllEnvironmentsByEnvironmentTypePage(type:string,page:number, pageSize:number):Observable<any>{
+    
+    // localhost:8081/api/environment/byEnvironmentType?page=0&size=10&sort=id&order=ASC&environmentType=LABORATORIO
+    //{ headers: this.userServie.agregarAuthorizationHeader() }
+    return this.http.get<any>(this.endPoint+'/byEnvironmentType'+`?page=${page-1}&size=${pageSize}&sort=id&order=ASC&environmentType=${type}`).pipe(
+      catchError((e) => {
+        // this.router.navigate(['/documentos']);
+
+        console.log('Error obteniendo todos los ambientes', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    );
+  }
+
   getAllEnvironments(){
     return this.environments;
   }
