@@ -1,39 +1,51 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Environment } from 'src/app/models/environment.model';
 import { Resource } from 'src/app/models/resource.model';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResourceService {
 
-  constructor(
-    private http : HttpClient
-  ) { }
+  //endPoint:String = 'http://localhost:8081/api/resource'
+  endPoint:String = 'api/resource'
 
-  endPoint:String = 'http://localhost:8080/resource'
-
-  resourceTypes:string[]=['TECNOLOGICO','PEDAGOGICO'];
+  resourceTypes:string[]=['all','TECNOLOGICO','PEDAGOGICO'];
   resources:Resource[]=[
     {'id':1,'name':'Televisor','resourceType':this.resourceTypes[0],'resourceLocations':[]},
     {'id':2,'name':'Computador','resourceType':this.resourceTypes[0],'resourceLocations':[]},
     {'id':3,'name':'Video bean','resourceType':this.resourceTypes[0],'resourceLocations':[]}
-
-
   ]
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      Authorization: 'my-auth-token'
+    })
+  };
+
+  constructor(
+    private http : HttpClient
+  ) { }
+
+  ngOnInit(){
+
+  }
+
+
   getAllResources(){
     return this.resources;
   }
-  getAllEnvironmentsPage(page:number, pageSize:number):Observable<any>{
+  getAllResourcesPage(page:number, pageSize:number):Observable<any>{
     console.log("llegan page y size ",page, " ", pageSize)
-    //{ headers: this.userServie.agregarAuthorizationHeader() }
-    return this.http.get<any>(this.endPoint+`?page=${page}&size=${pageSize}`).pipe(
-      catchError((e) => {
-        // this.router.navigate(['/documentos']);
 
-        console.log('Error obteniendo todos los ambientes', e.error.mensaje, 'error');
+    return this.http.get<any>(this.endPoint+`?page=${page-1}&size=${pageSize}&sort=id&order=asc`).pipe(
+      catchError((e) => {
+
+        console.log('Error obteniendo todos los RECURSOS', e.error.mensaje, 'error');
         return throwError(e);
 
       })
@@ -44,10 +56,20 @@ export class ResourceService {
     //obtener todos los recursos que no estan en un ambiente
   }
   getResourceByResourceId(idResource:number){
+
     return this.resources[idResource-1];
+
   }
-  getResourcesByResourceType(resourceType:string){
-    return this.resources.filter(reosurce => reosurce.resourceType ==resourceType);
+  getResourcesByResourceType(resourceType:string,page:number, pageSize:number):Observable<any>{
+    return this.http.get<any>(this.endPoint+'/byType'+`?resourceType=${resourceType}&page=${page-1}&size=${pageSize}&sort=id&order=ASC`).pipe(
+      catchError((e) => {
+        // this.router.navigate(['/documentos']);
+
+        console.log('Error obteniendo todos los ambientes', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    );
   }
 
   getAllResourceTypes(){
@@ -59,6 +81,19 @@ export class ResourceService {
     //environment.availableResources.push(resource)
 
   }
+
+  saveResource(resource:Resource): Observable<any>{
+    return this.http.post<Resource>(this.endPoint+'',resource,this.httpOptions)
+    .pipe(
+      catchError((e) => {
+
+        console.log('Error GUARDANDO el RECURSO', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    );
+  }
+  
 
 
 }

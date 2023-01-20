@@ -46,7 +46,7 @@ public class ResourceController {
     @GetMapping
     public ResponseEntity<GenericPageableResponse> getAllResource(@RequestParam Integer page, @RequestParam Integer size, @RequestParam String sort, @RequestParam String order) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(order),sort));
-        return ResponseEntity.status(HttpStatus.FOUND).body(this.resourceService.findAllResource(pageable));
+        return ResponseEntity.status(HttpStatus.OK).body(this.resourceService.findAllResource(pageable));
     }
 
     @GetMapping("/{id}")

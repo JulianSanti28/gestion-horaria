@@ -16,6 +16,8 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
   counter:number=0;
   paginadorResource:any
   totalItems:number=1
+  isTypeSelected:boolean=false
+
   @Output() addedResource = new EventEmitter();
   @Output() removeResource=new EventEmitter();
   @Input('isEdit')isEdit!:boolean;
@@ -39,7 +41,11 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
     }
     //this.totalItems=this.resourceService.getTotalItems()
     this.totalItems=10
+
+
+
   }
+
   ngAfterViewChecked(){
     // for (let index = 0; index < this.resources.length; index++) {
     //   this.inResourceList(this.resources[index])
@@ -57,7 +63,13 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
   updateTableResources(type:string){
     // console.log("entra a ng change")
     //update de la tabla haciendo busqueda en un servicio de los recursos que sean de ese tipo seleccionado
-    this.resources=this.resourceService.getResourcesByResourceType(type);
+   if(type == 'all'){
+      this.isTypeSelected=false
+    }else{
+      this.isTypeSelected=true
+      this.resourceType=type
+    }
+    this.loadTableResource([1,5])
   }
   onAddEnvironment(resource:Resource, e:Event){
     // console.log("llega a onAddEnvironment",resource)
@@ -83,7 +95,7 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
       if(!pageSize){
         pageSize=10
       }
-    this.resourceService.getAllEnvironmentsPage(pageSolicitud,pageSize).subscribe((response) =>{
+    this.resourceService.getAllResourcesPage(pageSolicitud,pageSize).subscribe((response) =>{
 
         this.resources = response.content;
         this.paginadorResource=response;

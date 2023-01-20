@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Resource } from 'src/app/models/resource.model';
+import { ResourceService } from 'src/app/services/resource/resource.service';
 
 @Component({
   selector: 'app-resources-create',
@@ -11,6 +12,10 @@ export class ResourcesCreateComponent {
   public visible = false;
   showResource:string=''
   resource!:Resource;
+  constructor(
+    private resourceService : ResourceService
+  ){}
+
   getResourceForm(resource:Resource){
     //obteniendo el resource del form
     this.resource=resource
@@ -28,4 +33,14 @@ export class ResourcesCreateComponent {
   handleLiveDemoChange(event: any) {
     this.visible = event;
   }
+
+  saveResource(){
+    console.log(this.resourceService.saveResource(this.resource).subscribe(
+      response => {
+        console.log("Data",response)
+      
+      }
+      ));
+  }
+
 }

@@ -10,28 +10,45 @@ import { ResourceService } from 'src/app/services/resource/resource.service';
 export class ResourcesAllComponent implements OnInit {
 
   columns:string[]=['Id','Nombre','Tipo Recurso','Editar'];
-  resources!:Resource[];
+  resources:Resource[]=[];
   resourceTypes:string[]=[]
   totalItems:number=1
   paginadorResource:any
+  isTypeSelected:boolean=false
+  resourceType!: string ;
+
+
   constructor(
     private resourceService: ResourceService
   ){
 
   }
   ngOnInit(): void {
-    this.resources=this.resourceService.getAllResources();
+    //this.resources=this.resourceService.getAllResources();
+
+    this.resourceService.getAllResourcesPage(1,5).subscribe(response =>{
+      //console.log("Data : ",response)
+      this.resources = response.elements as Resource[]
+      this.totalItems = response.pagination.totalNumberElements as number
+
+    })
+
     this.resourceTypes=this.resourceService.getAllResourceTypes();
 
+
     //this.totalItems=this.resourceService.getTotalItems()
-    this.totalItems=10
+    this.totalItems=1
   }
   updateTableResource(type:string){
     if(type == 'all'){
-      this.resources=this.resourceService.getAllResources();
+      this.isTypeSelected=false
     }else{
-      this.resources=this.resourceService.getResourcesByResourceType(type);
+      this.isTypeSelected=true
+      this.resourceType=type
     }
+
+    this.loadTableResource([1,5])
+
   }
 
   loadTableResource(args: number[]) {
@@ -45,10 +62,21 @@ export class ResourcesAllComponent implements OnInit {
       if(!pageSize){
         pageSize=10
       }
-    this.resourceService.getAllEnvironmentsPage(pageSolicitud,pageSize).subscribe((response) =>{
-
-        this.resources = response.content;
+    if(!this.isTypeSelected){
+      this.resourceService.getAllResourcesPage(pageSolicitud,pageSize).subscribe((response) =>{
+        console.log("Data en load Type: ",response)
+        this.resources = response.elements as Resource[];
+        this.totalItems = response.pagination.totalNumberElements as number
         this.paginadorResource=response;
       });
+    }else{
+      this.resourceService.getResourcesByResourceType(this.resourceType,pageSolicitud,pageSize).subscribe(response =>{
+        console.log("Data en load Type: ",response)
+        this.resources = response.elements as Resource[];
+        this.totalItems = response.pagination.totalNumberElements as number
+        this.paginadorResource=response;
+      })
+    }
+    
   }
 }

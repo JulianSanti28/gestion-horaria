@@ -34,9 +34,6 @@ export class EnvironmentService {
   ngOnInit(){
     //llamar metodo para cargar todos los tipos de ambientes
     //this.loadEnvironmentTypes();
-
-
-
   }
 
   getAllEnvironmentsPage(page:number, pageSize:number):Observable<any>{
