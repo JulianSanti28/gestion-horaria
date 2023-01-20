@@ -47,7 +47,8 @@ export class EnvironmentEditComponent {
        params=>{this.environmentId= Number(params.get('environmentId'));
        if(this.environmentId!= null ){
          this.environment=this.environmentService.getEnvironmentsByEnvironmentId(this.environmentId);
-       }
+        // console.log("Respuesta de tener 1 environent : ", this.environmentService.getEnvironmentsByEnvironmentId(this.environmentId))
+      }
        else{
          //this.ambiente=null;
        }

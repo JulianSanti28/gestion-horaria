@@ -1,4 +1,4 @@
-import { Component,Input ,Output,EventEmitter,AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+import { Component,Input ,Output,EventEmitter,AfterViewChecked, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { FormGroup ,FormBuilder,Validators} from '@angular/forms';
 import { ActivatedRoute,Router } from '@angular/router';
 import { Environment } from 'src/app/models/environment.model';
@@ -39,7 +39,7 @@ export class EnvironmentFormComponent {
   environmentTypes:string[]=[]
   // facultys:Faculty[]=[];
   facultys:string[]=[];
-
+  @Input() isSent:boolean=false
   constructor(
     private formBuilder:FormBuilder,
     private router: Router,
@@ -109,8 +109,13 @@ export class EnvironmentFormComponent {
     this.showAddResource.emit(true);
   }
 
-  // formValue(value:boolean){
-  //   this.formIsValid.emit(!value);
-  // }
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['isSent']){
+      if(changes['isSent'].currentValue == true ){
+        // this.form.reset()
+      }
+    }
+
+  }
 
 }

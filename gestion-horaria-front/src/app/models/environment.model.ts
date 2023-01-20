@@ -15,6 +15,19 @@ export interface Environment
 
 
 }
+// private Integer id;
+// private String name;
+// private String location;
+// private Integer capacity;
+// private EnvironmentTypeEnumeration environmentType;
+
+// private String facultyId;
+
+// private Set<ResourceDTO> availableResources;
+export interface EnvironmentDTO extends Omit<Environment,'availableResources'>
+{
+
+}
 
 export interface EnvironmentTypeEnumeration{
   type:string;

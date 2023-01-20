@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Environment } from 'src/app/models/environment.model';
@@ -26,7 +26,12 @@ export class EnvironmentService {
   // endPoint:String = 'http://localhost:8081/api/environment'
   endPoint:String = 'api/environment'
 
-  itemsPerPage:number =10;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      Authorization: 'my-auth-token'
+    })
+  };
 
   constructor(
     private http : HttpClient
@@ -50,7 +55,7 @@ export class EnvironmentService {
     );
   }
   getAllEnvironmentsByEnvironmentTypePage(type:string,page:number, pageSize:number):Observable<any>{
-    
+
     // localhost:8081/api/environment/byEnvironmentType?page=0&size=10&sort=id&order=ASC&environmentType=LABORATORIO
     //{ headers: this.userServie.agregarAuthorizationHeader() }
     return this.http.get<any>(this.endPoint+'/byEnvironmentType'+`?page=${page-1}&size=${pageSize}&sort=id&order=ASC&environmentType=${type}`).pipe(
@@ -58,6 +63,29 @@ export class EnvironmentService {
         // this.router.navigate(['/documentos']);
 
         console.log('Error obteniendo todos los ambientes', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    );
+  }
+  saveEnvironment(environment:Environment){
+    return this.http.post<any>(this.endPoint+'',environment,this.httpOptions)
+    .pipe(
+      catchError((e) => {
+
+        console.log('Error GUARDANDO el ambiente', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    );
+  }
+  addResourceToEnvironment(resourceId:number, environmentId:number){
+    //http://localhost:8081/api/environment/addResource?resourceId=12&environmentId=16
+    return this.http.post<any>(this.endPoint+'/addResource'+`?resourceId=${resourceId}&environmentId=${environmentId}`,this.httpOptions)
+    .pipe(
+      catchError((e) => {
+
+        console.log('Error GUARDANDO el ambiente', e.error.mensaje, 'error');
         return throwError(e);
 
       })
@@ -75,6 +103,10 @@ export class EnvironmentService {
   getEnvironmentsByEnvironmentId(environmentId:number){
     //consultar servicio para traer un ambiente
     return this.environments[environmentId-1];
+
+    // console.log("Sale del response ",this.environments)
+    // console.log("encontrando el indicado", this.environments.filter(x=> x.id==environmentId))
+    // return this.environments.filter(x=> x.id==environmentId)
   }
 
   getAllEnvironmentTypes(){
@@ -107,8 +139,6 @@ export class EnvironmentService {
     return environments.filter(ambiente=>ambiente.environmentType == resourceType)
   }
 
-  addResourceToEnvironment(){
 
-  }
 }
 

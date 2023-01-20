@@ -15,9 +15,9 @@ export class ResourceService {
 
   resourceTypes:string[]=['all','TECNOLOGICO','PEDAGOGICO'];
   resources:Resource[]=[
-    {'id':1,'name':'Televisor','resourceType':this.resourceTypes[0],'resourceLocations':[]},
-    {'id':2,'name':'Computador','resourceType':this.resourceTypes[0],'resourceLocations':[]},
-    {'id':3,'name':'Video bean','resourceType':this.resourceTypes[0],'resourceLocations':[]}
+    {'id':1,'name':'Televisor','resourceType':this.resourceTypes[1],'resourceLocations':[]},
+    {'id':2,'name':'Computador','resourceType':this.resourceTypes[1],'resourceLocations':[]},
+    {'id':3,'name':'Video bean','resourceType':this.resourceTypes[1],'resourceLocations':[]}
   ]
 
   httpOptions = {
@@ -40,7 +40,7 @@ export class ResourceService {
     return this.resources;
   }
   getAllResourcesPage(page:number, pageSize:number):Observable<any>{
-    console.log("llegan page y size ",page, " ", pageSize)
+    // console.log("llegan page y size ",page, " ", pageSize)
 
     return this.http.get<any>(this.endPoint+`?page=${page-1}&size=${pageSize}&sort=id&order=asc`).pipe(
       catchError((e) => {
@@ -93,7 +93,7 @@ export class ResourceService {
       })
     );
   }
-  
+
 
 
 }

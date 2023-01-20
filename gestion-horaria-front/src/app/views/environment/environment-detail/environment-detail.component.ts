@@ -16,6 +16,7 @@ export class EnvironmentDetailComponent implements OnInit {
   environment!:Environment;
   isDisabled:boolean=true;
   showEnvironment:string=' ';
+  isSent:boolean=false
   public visible = false;
   constructor(
     private route:ActivatedRoute,
@@ -65,5 +66,41 @@ export class EnvironmentDetailComponent implements OnInit {
 
   showDetail(env:Environment){
     return 'Id: '+env.id+'\n'+'Nombre: '+env.name
+  }
+
+  onSaveEnvironment(){
+    console.log("entra a save envi")
+    let status :number=0
+    //llamar a recurso de save environment
+  this.environmentService.saveEnvironment(this.environment).subscribe(
+    response => {
+      console.log("Data",response)
+      status=response.status
+      if(response.status ==200){
+  
+        this.environment.id=response.data.id
+
+      }
+
+    }
+    );
+    if(status ==200){
+      this.callingAddResourcesToEnvironment();
+    }
+  }
+  async callingAddResourcesToEnvironment(){
+    const id:number=this.environment.id
+    //iterar por cada recurso que se agrego al add Resource llamar al metodo de on Add Resoruce por cada uno
+    this.environment.availableResources.forEach(recurso=> this.onAddResourceToEnvironment(recurso.id,id))
+
+  }
+
+  onAddResourceToEnvironment(resourceId:number,environmentId:number){
+    console.log("Legan recursos para agregar ",resourceId, " envi ",environmentId)
+    this.environmentService.addResourceToEnvironment(resourceId,environmentId).subscribe(
+      response=> {
+        console.log("Data",response)
+      }
+    )
   }
 }

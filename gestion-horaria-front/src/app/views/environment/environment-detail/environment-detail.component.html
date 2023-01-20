@@ -7,7 +7,7 @@
     <app-environment-form
 
     #child [isEdit]="false" (emitterForm)="getEnvironmentForm($event)"
-
+    [isSent]="isSent"
     ></app-environment-form>
 
     <div class="d-grid gap-2 ">
@@ -53,6 +53,6 @@
     <button (click)="toggleLiveDemo()" cButton color="secondary">
       Seguir editando
     </button>
-    <button cButton color="primary">Confirmar</button>
+    <button cButton color="primary" (click)="onSaveEnvironment()" >Confirmar</button>
   </c-modal-footer>
 </c-modal>

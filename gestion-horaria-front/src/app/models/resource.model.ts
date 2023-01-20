@@ -6,5 +6,9 @@ export interface Resource{
   name:string;
   resourceType:string;
   resourceLocations:Environment[];
-  
+
+}
+export interface ResourceDTO extends Omit<Resource,'resourceLocations'>
+{
+
 }

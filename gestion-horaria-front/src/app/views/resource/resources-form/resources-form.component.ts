@@ -55,14 +55,14 @@ export class ResourcesFormComponent {
       resourceType: ['', [Validators.required]],
     });
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    if(changes['isSent']){
-      if(changes['isSent'].currentValue == true ){
-        this.form.reset()
-      }
-    }
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   if(changes['isSent']){
+  //     if(changes['isSent'].currentValue == true ){
+  //       this.form.reset()
+  //     }
+  //   }
 
-  }
+  // }
   onSelectedValue(event:Event){
 
     this.form.controls['resourceType'].setValue((event.target as HTMLInputElement).value);

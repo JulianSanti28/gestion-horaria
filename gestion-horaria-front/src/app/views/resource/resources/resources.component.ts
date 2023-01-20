@@ -12,7 +12,7 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
   columns:string[]=['Id','Nombre','Tipo recurso','Agregar'];
   colors = ['primary', 'secondary', 'success', 'info', 'warning', 'danger'];
   resourceTypes:string[]=[];
-  resourceType!: string | null;
+  resourceType!: string ;
   counter:number=0;
   paginadorResource:any
   totalItems:number=1
@@ -33,7 +33,13 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
 
   ngOnInit(){
     console.log("los recursos de este ambiente son ",this.environment.availableResources)
-    this.resources= this.resourceService.getAllResources();
+    this.resourceService.getAllResourcesPage(1,5).subscribe(response =>{
+      // console.log("Data Resource: ",response)
+      this.resources = response.elements as Resource[]
+      this.totalItems = response.pagination.totalNumberElements as number
+      this.totalNumberPage=response.pagination.totalNumberPage as number
+      this.pageSize=response.pagination.size as number
+    })
     this.resourceTypes=this.resourceService.getAllResourceTypes();
     if(this.isEdit==true){
       this.counter=this.environment.availableResources.length
@@ -99,12 +105,20 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
       }
     if(!this.isTypeSelected){
       this.resourceService.getAllResourcesPage(pageSolicitud,pageSize).subscribe((response) =>{
-        console.log("llamando al service")
-        this.resources = response.content;
+        console.log("Data en load Type: ",response)
+        this.resources = response.elements as Resource[];
+        this.totalItems = response.pagination.totalNumberElements as number
         this.paginadorResource=response;
+        this.totalNumberPage=response.pagination.totalNumberPage as number
       });
     }else{
-
+      this.resourceService.getResourcesByResourceType(this.resourceType,pageSolicitud,pageSize).subscribe(response =>{
+        console.log("Data en load Type: ",response)
+        this.resources = response.elements as Resource[];
+        this.totalItems = response.pagination.totalNumberElements as number
+        this.paginadorResource=response;
+        this.totalNumberPage=response.pagination.totalNumberPage as number
+      })
     }
 
   }
