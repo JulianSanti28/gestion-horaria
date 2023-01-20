@@ -13,6 +13,8 @@ export class ResourcesAllComponent implements OnInit {
   resources:Resource[]=[];
   resourceTypes:string[]=[]
   totalItems:number=1
+  totalNumberPage:number=1;
+  pageSize:number=0;
   paginadorResource:any
   isTypeSelected:boolean=false
   resourceType!: string ;
@@ -27,10 +29,11 @@ export class ResourcesAllComponent implements OnInit {
     //this.resources=this.resourceService.getAllResources();
 
     this.resourceService.getAllResourcesPage(1,5).subscribe(response =>{
-      //console.log("Data : ",response)
+      console.log("Data Resource: ",response)
       this.resources = response.elements as Resource[]
       this.totalItems = response.pagination.totalNumberElements as number
-
+      this.totalNumberPage=response.pagination.totalNumberPage as number
+      this.pageSize=response.pagination.size as number
     })
 
     this.resourceTypes=this.resourceService.getAllResourceTypes();
@@ -68,6 +71,7 @@ export class ResourcesAllComponent implements OnInit {
         this.resources = response.elements as Resource[];
         this.totalItems = response.pagination.totalNumberElements as number
         this.paginadorResource=response;
+        this.totalNumberPage=response.pagination.totalNumberPage as number
       });
     }else{
       this.resourceService.getResourcesByResourceType(this.resourceType,pageSolicitud,pageSize).subscribe(response =>{
@@ -75,8 +79,9 @@ export class ResourcesAllComponent implements OnInit {
         this.resources = response.elements as Resource[];
         this.totalItems = response.pagination.totalNumberElements as number
         this.paginadorResource=response;
+        this.totalNumberPage=response.pagination.totalNumberPage as number
       })
     }
-    
+
   }
 }

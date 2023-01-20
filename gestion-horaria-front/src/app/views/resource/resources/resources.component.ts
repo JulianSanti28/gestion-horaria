@@ -17,6 +17,8 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
   paginadorResource:any
   totalItems:number=1
   isTypeSelected:boolean=false
+  pageSize:number=0;
+  totalNumberPage:number=1;
 
   @Output() addedResource = new EventEmitter();
   @Output() removeResource=new EventEmitter();
@@ -40,7 +42,7 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
       this.counter =0;
     }
     //this.totalItems=this.resourceService.getTotalItems()
-    this.totalItems=10
+
 
 
 
@@ -95,11 +97,16 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
       if(!pageSize){
         pageSize=10
       }
-    this.resourceService.getAllResourcesPage(pageSolicitud,pageSize).subscribe((response) =>{
-
+    if(!this.isTypeSelected){
+      this.resourceService.getAllResourcesPage(pageSolicitud,pageSize).subscribe((response) =>{
+        console.log("llamando al service")
         this.resources = response.content;
         this.paginadorResource=response;
       });
+    }else{
+
+    }
+
   }
 
 }

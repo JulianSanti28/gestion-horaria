@@ -52,7 +52,10 @@
 
         </table>
         <br>
-        <app-paginador (pageChanged)="loadTableResource($event)" [totalItems]="totalItems"  ></app-paginador>
+        <app-paginador
+        (pageChanged)="loadTableResource($event)" [totalItems]="totalItems" [totalNumberPage]="totalNumberPage" [pageSize]="pageSize"
+
+        ></app-paginador>
 
       </c-card-body>
     </c-card>
