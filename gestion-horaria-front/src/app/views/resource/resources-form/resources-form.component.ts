@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Resource } from 'src/app/models/resource.model';
@@ -18,7 +18,7 @@ export class ResourcesFormComponent {
   @Input('resource') resource!:Resource;
   //emitir al padre el abiente creado en el emmiter form
   @Output()emitterForm= new EventEmitter<Resource>();
-
+  @Input() isSent!:boolean;
   formResource:Resource={
     'id':0,
     'name':'',
@@ -54,6 +54,14 @@ export class ResourcesFormComponent {
       name: ['', [Validators.required]],
       resourceType: ['', [Validators.required]],
     });
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['isSent']){
+      if(changes['isSent'].currentValue == true ){
+        this.form.reset()
+      }
+    }
+
   }
   onSelectedValue(event:Event){
 

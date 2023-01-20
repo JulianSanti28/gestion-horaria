@@ -7,9 +7,8 @@
 
     <app-resources-form
     #child [isEdit]="false" (emitterForm)="getResourceForm($event)"
-    >
-
-    </app-resources-form>
+    [isSent]="isSent"
+    ></app-resources-form>
 
 
   </c-card-body>

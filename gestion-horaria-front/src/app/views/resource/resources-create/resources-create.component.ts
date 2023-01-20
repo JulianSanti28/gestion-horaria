@@ -12,6 +12,7 @@ export class ResourcesCreateComponent {
   public visible = false;
   showResource:string=''
   resource!:Resource;
+  isSent:boolean=false;
   constructor(
     private resourceService : ResourceService
   ){}
@@ -38,7 +39,7 @@ export class ResourcesCreateComponent {
     console.log(this.resourceService.saveResource(this.resource).subscribe(
       response => {
         console.log("Data",response)
-      
+        this.isSent=true
       }
       ));
   }
