@@ -59,7 +59,23 @@ public class EnvironmentServiceImpl implements IEnvironmentService {
 
     @Override
     public Response<EnvironmentDTO> getEnvironmentByCode(Integer code) {
-        return null;
+
+        if(!this.environmentRepository.existsById(code)) throw  new ScheduleBadRequestException("bad.request.environment.id", Integer.toString(code));
+
+
+        Environment environment = this.environmentRepository.findById(code).get();
+
+        EnvironmentDTO environmentDTO1 = modelMapper.map(environment,EnvironmentDTO.class);
+
+        Response<EnvironmentDTO> response = new Response<>();
+        response.setStatus(200);
+        response.setUserMessage("Resource added successfully");
+        response.setDeveloperMessage("Resource added successfully");
+        response.setMoreInfo("localhost:8080/api/subject");
+        response.setErrorCode("");
+        response.setData(environmentDTO1);
+
+        return response;
     }
 
     @Override

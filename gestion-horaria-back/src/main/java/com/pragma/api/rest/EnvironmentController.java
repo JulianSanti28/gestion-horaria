@@ -55,4 +55,10 @@ public class EnvironmentController {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(order),sort));
         return this.environmentService.findAllByEnvironmentType(pageable, environmentType);
     }
+
+
+    @GetMapping("/{id}")
+    public Response<EnvironmentDTO> findById(@PathVariable Integer id){
+        return this.environmentService.getEnvironmentByCode(id);
+    }
 }
