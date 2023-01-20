@@ -42,10 +42,10 @@ export const navItems: INavData[] = [
         name:'Create environment',
         url:'/environment/create'
       },
-      {
-        name:'Edit environment',
-        url:'/environment/edit/1'
-      }
+      // {
+      //   name:'Edit environment',
+      //   url:'/environment/edit/1'
+      // }
     ]
   },
   {
@@ -61,10 +61,10 @@ export const navItems: INavData[] = [
         name:'Create resource',
         url:'/resource/create'
       },
-      {
-        name:'Edit resource',
-        url:'/resource/edit/1'
-      }
+      // {
+      //   name:'Edit resource',
+      //   url:'/resource/edit/1'
+      // }
     ]
   },
   {
