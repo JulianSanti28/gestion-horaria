@@ -16,7 +16,7 @@ export class EnvironmentFormComponent {
 
   //obtener el ambiente cuando me llega de edit
   @Input('environment')environment!:Environment;
-
+  @Input('isSent') isSent!:boolean;
   //obtener el ambiente del form cuando lo va a crear
   @Input('getEnvironment') getEnvironment!:boolean;
 
@@ -39,7 +39,7 @@ export class EnvironmentFormComponent {
   environmentTypes:string[]=[]
   // facultys:Faculty[]=[];
   facultys:string[]=[];
-  @Input() isSent:boolean=false
+
   constructor(
     private formBuilder:FormBuilder,
     private router: Router,
@@ -56,19 +56,25 @@ export class EnvironmentFormComponent {
   ngOnInit():void{
     this.environmentTypes=this.environmentService.getAllEnvironmentTypes();
     this.facultys=this.environmentService.getAllFacultys();
+
+    // this.fillForm();
+
+  }
+  private fillForm(environment:Environment){
+
     if(this.isEdit==true){
+
       const environmentFill={
-        'id':this.environment.id,
-        'name':this.environment.name,
-        'location':this.environment.location,
-        'capacity':this.environment.capacity,
-        'environmentType':this.environment.environmentType,
-        'faculty':this.environment.facultyId
+        'id' :environment.id,
+        'name':environment.name,
+        'location':environment.location,
+        'capacity':environment.capacity,
+        'environmentType':environment.environmentType,
+        'faculty':environment.facultyId
       }
+      console.log("name en fill ",environmentFill.name)
       this.form.patchValue(environmentFill);
     }
-
-
   }
   private buildForm(){
     this.form = this.formBuilder.group({
@@ -110,10 +116,18 @@ export class EnvironmentFormComponent {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['isSent']){
-      if(changes['isSent'].currentValue == true ){
-        // this.form.reset()
+    if(changes['environment']){
+      // console.log("environment cambio para form ",this.environment)
+
+      this.fillForm(this.environment);
+
+    }
+
+    if(changes['isSent'] ){
+      if(changes['isSent'].currentValue==true){
+        this.form.reset()
       }
+
     }
 
   }

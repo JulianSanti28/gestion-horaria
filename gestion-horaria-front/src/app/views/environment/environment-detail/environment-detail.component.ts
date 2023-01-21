@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Environment } from 'src/app/models/environment.model';
 import { Resource } from 'src/app/models/resource.model';
 import { EnvironmentService } from 'src/app/services/environment/environment.service';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-environment-detail',
@@ -74,12 +74,16 @@ export class EnvironmentDetailComponent implements OnInit {
     //llamar a recurso de save environment
   this.environmentService.saveEnvironment(this.environment).subscribe(
     response => {
-      console.log("Data",response)
+
       status=response.status
       if(response.status ==200){
-  
-        this.environment.id=response.data.id
 
+        this.environment.id=response.data.id
+        Swal.fire('Ambiente creado',
+        `El ambiente : ${this.environment.id.toString()} | ${this.environment.facultyId} \nfue creado exitosamente`, 'success');
+
+        this.isSent=true //enviar señal al formulario hijo de que puede limpiarse
+        this.show=false
       }
 
     }

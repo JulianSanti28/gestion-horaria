@@ -80,7 +80,7 @@ export class EnvironmentService {
     );
   }
   addResourceToEnvironment(resourceId:number, environmentId:number){
-    //http://localhost:8081/api/environment/addResource?resourceId=12&environmentId=16
+
     return this.http.post<any>(this.endPoint+'/addResource'+`?resourceId=${resourceId}&environmentId=${environmentId}`,this.httpOptions)
     .pipe(
       catchError((e) => {
@@ -100,13 +100,30 @@ export class EnvironmentService {
     //consultar servicio para obtener los ambientes por tipos
     return this.environments.filter(ambiente=>ambiente.environmentType == type);
   }
-  getEnvironmentsByEnvironmentId(environmentId:number){
-    //consultar servicio para traer un ambiente
-    return this.environments[environmentId-1];
+  updateEnvironment(environment:Environment){
+    //llamar a actualizar ambiente
+    return this.http.post<any>(this.endPoint+'',environment,this.httpOptions)
+    .pipe(
+      catchError((e) => {
 
-    // console.log("Sale del response ",this.environments)
-    // console.log("encontrando el indicado", this.environments.filter(x=> x.id==environmentId))
-    // return this.environments.filter(x=> x.id==environmentId)
+        console.log('Error Actualizando el ambiente', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    );
+  }
+  getEnvironmentsByEnvironmentId(environmentId:number){
+
+    console.log("consumiendo ",this.endPoint+`/${environmentId}`)
+    return this.http.get<any>(this.endPoint+`/${environmentId}`,this.httpOptions)
+    .pipe(
+      catchError((e) => {
+
+        console.log('Error obteniendo  el ambiente', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    )
   }
 
   getAllEnvironmentTypes(){

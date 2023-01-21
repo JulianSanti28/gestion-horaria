@@ -33,14 +33,14 @@
   <br>
 </c-card>
 <br>
-<button cButton color="primary" size="lg" [disabled]= "child.form.invalid" (click)="child.setValues() ;getInfo()" >
+<button cButton color="primary" size="lg" [disabled]= "child.form.invalid" (click)="child.setValues() ;getInfo() ; onSaveEnvironment()" >
   Guardar este ambiente
 </button>
 
 <!--
   cuadro de dialog resumiendo info del ambiente creado
  -->
-<c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+<!-- <c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
   <c-modal-header>
     <h5 cModalTitle>Resumen del ambiente creado</h5>
     <button (click)="toggleLiveDemo()" cButtonClose></button>
@@ -55,4 +55,4 @@
     </button>
     <button cButton color="primary" (click)="onSaveEnvironment()" >Confirmar</button>
   </c-modal-footer>
-</c-modal>
+</c-modal> -->

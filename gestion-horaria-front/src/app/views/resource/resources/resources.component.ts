@@ -23,7 +23,9 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
   @Output() addedResource = new EventEmitter();
   @Output() removeResource=new EventEmitter();
   @Input('isEdit')isEdit!:boolean;
-  @Input('environment')environment!:Environment;
+  @Input('environment')environment:Environment={id:2,name:'Salon prueba',location:'Bloque D',capacity:30,environmentType:'AUDITORIO',facultyId:"FIET",availableResources:[
+    {'id':1,'name':'Video bean','resourceType':'TECNOLOGICO','resourceLocations':[]}
+  ]}
   constructor(
     private resourceService:ResourceService,
 
@@ -32,7 +34,8 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
   }
 
   ngOnInit(){
-    console.log("los recursos de este ambiente son ",this.environment.availableResources)
+    // console.log("los recursos de este ambiente son ",this.environment.availableResources)
+
     this.resourceService.getAllResourcesPage(1,5).subscribe(response =>{
       // console.log("Data Resource: ",response)
       this.resources = response.elements as Resource[]
@@ -51,8 +54,12 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
 
 
 
+  }
+  ngAfterViewInit(){
+
 
   }
+
 
   ngAfterViewChecked(){
     // for (let index = 0; index < this.resources.length; index++) {
