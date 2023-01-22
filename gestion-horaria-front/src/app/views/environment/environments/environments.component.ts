@@ -6,6 +6,9 @@ import {Environment} from 'src/app/models/environment.model'
 import {EnvironmentService} from 'src/app/services/environment/environment.service'
 import { HttpClient } from '@angular/common/http';
 import { ignoreElements } from 'rxjs';
+
+// import '@coreui/icons/css/coreui-icons.min.css';
+
 @Component({
   selector: 'app-environments',
   templateUrl: './environments.component.html',
@@ -15,7 +18,7 @@ import { ignoreElements } from 'rxjs';
 export class EnvironmentsComponent {
 
   environments:Environment[]=[];
-  columns:string[]=['Id','Tipo Ambiente','Nombre','Ubicacion','Capacidad','Facultad','Editar','Recursos'];
+  columns:string[]=['Id','Tipo Ambiente','Nombre','Ubicacion','Capacidad','Facultad','Opciones'];
   environmentTypes:string[]=[];
   environmentType!: string ;
   isTypeSelected:boolean=false
