@@ -1,6 +1,10 @@
 package com.pragma.api.repository;
 
 import com.pragma.api.model.Course;
+import com.pragma.api.model.Program;
+import com.pragma.api.model.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +13,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ICourseRepository extends JpaRepository<Course, Integer> {
+    Page<Course> findAllBySubject_ProgramAndSubject_Semester(Program program,Integer semester, Pageable pageable);
+
+
 }

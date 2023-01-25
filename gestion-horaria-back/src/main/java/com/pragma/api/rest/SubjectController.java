@@ -19,7 +19,6 @@ import javax.validation.Valid;
 public class SubjectController {
 
     private final ISubjectBusiness subjectBusiness;
-    /*TODO*/
 //    @GetMapping
 //    private Response<GenericPageableResponse> findAllByProgramAndSemester(@RequestParam String programId, @RequestParam Integer semester, @RequestParam Integer page, @RequestParam Integer size, @RequestParam String sort, @RequestParam String order){
 //        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(order),sort));

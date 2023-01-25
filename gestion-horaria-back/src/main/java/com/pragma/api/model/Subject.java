@@ -28,7 +28,6 @@ public class Subject {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "program_id")
     private Program program;
-
     @OneToMany(mappedBy = "subject")
     private Set<Course> courses;
 }

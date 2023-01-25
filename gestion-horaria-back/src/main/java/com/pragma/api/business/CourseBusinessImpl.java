@@ -6,21 +6,20 @@ import com.pragma.api.domain.Response;
 import com.pragma.api.domain.SubjectDTO;
 import com.pragma.api.exception.ScheduleBadRequestException;
 import com.pragma.api.model.Course;
-import com.pragma.api.repository.ICourseRepository;
-import com.pragma.api.repository.IPeriodRepository;
-import com.pragma.api.repository.ISubjectRepository;
-import com.pragma.api.repository.ITeacherRepository;
+import com.pragma.api.model.Program;
+import com.pragma.api.repository.*;
 import com.pragma.api.util.PageableUtils;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,20 +28,25 @@ public class CourseBusinessImpl implements ICourseBusiness {
     /** Logger */
     private static final Logger logger = LoggerFactory.getLogger(CourseBusinessImpl.class);
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private ICourseRepository iCourseRepository;
+    private final ICourseRepository iCourseRepository;
 
-    @Autowired
-    private ITeacherRepository iTeacherRepository;
+    private final ITeacherRepository iTeacherRepository;
 
-    @Autowired
-    private ISubjectRepository iSubjectRepository;
+    private final ISubjectRepository iSubjectRepository;
 
-    @Autowired
-    private IPeriodRepository iPeriodRepository;
+    private final IPeriodRepository iPeriodRepository;
+
+    private final IProgramRepository programRepository;
+    public CourseBusinessImpl(ModelMapper modelMapper, ICourseRepository iCourseRepository, ITeacherRepository iTeacherRepository, ISubjectRepository iSubjectRepository, IPeriodRepository iPeriodRepository, IProgramRepository programRepository) {
+        this.modelMapper = modelMapper;
+        this.iCourseRepository = iCourseRepository;
+        this.iTeacherRepository = iTeacherRepository;
+        this.iSubjectRepository = iSubjectRepository;
+        this.iPeriodRepository = iPeriodRepository;
+        this.programRepository = programRepository;
+    }
 
     @Override
     @Transactional
@@ -79,6 +83,8 @@ public class CourseBusinessImpl implements ICourseBusiness {
         return response;
     }
 
+
+
     @Override
     public Response<SubjectDTO> getCourseByCode(String code) {
         return null;
@@ -99,6 +105,13 @@ public class CourseBusinessImpl implements ICourseBusiness {
         response.setData(this.validatePageList(coursePage));
         logger.debug("Finish findAllCourses Business");
         return response;
+    }
+
+    @Override
+    public GenericPageableResponse findAllBySubjectProgramAndSemester(String programId, Integer semester, Pageable pageable) {
+        Program programDb = this.programRepository.findById(programId).orElseThrow(()->new ScheduleBadRequestException("bad.request.program.id", programId));
+        Page<Course> coursePage = this.iCourseRepository.findAllBySubject_ProgramAndSubject_Semester(programDb, semester, pageable);
+        return this.validatePageList(coursePage);
     }
 
     private GenericPageableResponse validatePageList(Page<Course> coursesPage){
