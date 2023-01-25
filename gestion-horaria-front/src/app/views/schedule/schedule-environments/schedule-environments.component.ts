@@ -14,11 +14,18 @@ export class ScheduleEnvironmentsComponent implements OnInit {
   environments:Environment[]=[];
   columns:string[]=['Id','Tipo Ambiente','Nombre','Ubicacion','Capacidad','Facultad','Seleccionar'];
   environmentTypes:string[]=[];
-  environmentType!: string | null;
+  environmentType!: string ;
   isDisabled:boolean=false;
   isEnvironmentSelected:boolean=false;
   showSelectedEnvironment:boolean=false;
   ambiente!:Environment;
+
+
+  isTypeSelected:boolean=false
+  totalItems:number=0;
+  totalNumberPage:number=1;
+  paginadorEnvironment: any;
+  pageSize:number=0;
   @Output()selectedEnvironment = new EventEmitter<Environment|null>();
   @ViewChildren("checkboxes") checkboxes!: QueryList<ElementRef>;
 
@@ -28,23 +35,26 @@ export class ScheduleEnvironmentsComponent implements OnInit {
     private route : ActivatedRoute
   ) { }
   ngOnInit(): void {
-    if(this.environmentType!= null ){
-      this.environments=this.environmentService.getEnvironmentsByEnvironmentType(this.environmentType);
+    this.environmentService.getAllEnvironmentsPage(1,5).subscribe(response =>{
+      console.log("Data : ",response)
+      this.environments=response.data.elements as Environment[]
+      this.totalItems=response.data.pagination.totalNumberElements as number
+      this.totalNumberPage=response.data.pagination.totalNumberPage as number
+      this.pageSize=response.data.pagination.size as number
+    })
 
-    }
-    else{
-      this.environments=this.environmentService.getAllEnvironments();
-    }
-
+    //TODO consumir todos los tipos de ambientes
     this.environmentTypes=this.environmentService.getAllEnvironmentTypes();
   }
 
   updateTableEnvironments(type:string){
     if(type == 'all'){
-      this.environments=this.environmentService.getAllEnvironments();
+      this.isTypeSelected=false
     }else{
-      this.environments=this.environmentService.getEnvironmentsByEnvironmentType(type);
+      this.isTypeSelected=true
+      this.environmentType=type
     }
+    this.loadTableEnvironmentsSchedule([1,5])
 
   }
   onSelectingEnvironment(environment:Environment, e:Event){
@@ -66,4 +76,32 @@ export class ScheduleEnvironmentsComponent implements OnInit {
     this.selectedEnvironment.emit(null)
   }
 
+  loadTableEnvironmentsSchedule(args: number[]){
+    let pageSolicitud:number = args[0];
+    let pageSize: number = args[1]
+      if(!pageSolicitud){
+        pageSolicitud = 0;
+      }
+      if(!pageSize){
+        pageSize=10
+      }
+    if(!this.isTypeSelected){
+      this.environmentService.getAllEnvironmentsPage(pageSolicitud,pageSize).subscribe((response) =>{
+
+        this.environments = response.data.elements as Environment[]
+        this.totalItems=response.data.pagination.totalNumberElements as number
+        this.totalNumberPage=response.data.pagination.totalNumberPage as number
+
+      });
+    }else{
+      this.environmentService.getAllEnvironmentsByEnvironmentTypePage(this.environmentType,pageSolicitud,pageSize).subscribe(response =>{
+        console.log("Data en load Type: ",response)
+        this.environments=response.data.elements as Environment[]
+        this.totalItems=response.data.pagination.totalNumberElements as number
+        this.totalNumberPage=response.data.pagination.totalNumberPage as number
+
+
+      })
+    }
+  }
 }

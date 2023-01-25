@@ -14,6 +14,7 @@ import {ProgramService} from 'src/app/services/program/program.service';
 export class ScheduleCreateFormComponent {
 
   form!: FormGroup;
+  @Output()isFormValid = new EventEmitter<boolean>;
   @Output() progress = new EventEmitter<number>()
   @Output() selectedEnvironment = new EventEmitter<Environment>();
   @Input('selectedProgram')  program!:Program;
@@ -65,6 +66,7 @@ export class ScheduleCreateFormComponent {
 
     this.buildForm();
     this.programs=this.programService.getAllPrograms();
+    this.isFormValid.emit(false)
     console.log("programa y semestre que llegan al create form ", this.program, this.semester)
   }
 
@@ -110,6 +112,7 @@ export class ScheduleCreateFormComponent {
   getSelectedSchedule(schedule:Schedule | null ){
     if(schedule != null){
       this.scheduleSelected=schedule;
+      this.isFormValid.emit(true)
       this.progress.emit(this.sumProgres)
     }else{
       this.progress.emit(-this.sumProgres)

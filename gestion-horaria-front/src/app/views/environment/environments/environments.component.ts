@@ -54,7 +54,7 @@ export class EnvironmentsComponent {
     }
 
 
-    //todos  los tipos de ambientes
+    //TODO todos  los tipos de ambientes
     this.environmentTypes=this.environmentService.getAllEnvironmentTypes();
   }
 

@@ -15,6 +15,7 @@ export class ScheduleCreateComponent {
   progressMadeForm:number=0;
   sumProgress:number=10;
   showForm:boolean=true;
+  createFormIsValid=false
   program:Program={
     'id':'0',
     'name':''
@@ -66,5 +67,13 @@ export class ScheduleCreateComponent {
   getSelectedEnvironment(environment:Environment){
     this.environmentSelected = environment;
   }
+  getCreateFormIsValid(result:boolean){
+    this.createFormIsValid=result
+  }
+  getInfo(){
 
+  }
+  onSaveSchedule(){
+
+  }
 }

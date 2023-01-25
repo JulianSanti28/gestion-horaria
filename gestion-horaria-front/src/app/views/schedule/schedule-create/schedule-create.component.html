@@ -56,7 +56,9 @@
             <br>
             <!-- Llamar al form paxra crear un schedule el avance de este afecta el progress bar, se emite-->
             <app-schedule-create-form
+              #scheduleform
               (progress)="getProgressMadeForm($event)"
+              (isFormValid)="getCreateFormIsValid($event)"
               [selectedProgram]="program"
               [selectedSemester]="semester"
               (selectedEnvironment)="getSelectedEnvironment($event)"
@@ -77,4 +79,9 @@
       [ambiente]="environmentSelected"
     ></app-schedule-view>
   </div>
+</div>
+<div *ngIf="createFormIsValid">
+  <button cButton color="primary" size="lg" [disabled]= "!createFormIsValid" (click)="getInfo() ; onSaveSchedule()" >
+    Guardar esta franja horaria
+  </button>
 </div>

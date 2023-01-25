@@ -37,12 +37,13 @@ export class EnvironmentService {
     private http : HttpClient
   ) { }
   ngOnInit(){
-    //llamar metodo para cargar todos los tipos de ambientes
+    //TODO llamar metodo para cargar todos los tipos de ambientes
+    //TODO llamar para obtener todas las facultades
     //this.loadEnvironmentTypes();
   }
 
   getAllEnvironmentsPage(page:number, pageSize:number):Observable<any>{
-
+    //TODO agregar autorizacion
     //{ headers: this.userServie.agregarAuthorizationHeader() }
     return this.http.get<any>(this.endPoint+`?page=${page-1}&size=${pageSize}&sort=id&order=ASC`).pipe(
       catchError((e) => {
@@ -55,7 +56,7 @@ export class EnvironmentService {
     );
   }
   getAllEnvironmentsByEnvironmentTypePage(type:string,page:number, pageSize:number):Observable<any>{
-
+    //TODO agregar autorizacion
     // localhost:8081/api/environment/byEnvironmentType?page=0&size=10&sort=id&order=ASC&environmentType=LABORATORIO
     //{ headers: this.userServie.agregarAuthorizationHeader() }
     return this.http.get<any>(this.endPoint+'/byEnvironmentType'+`?page=${page-1}&size=${pageSize}&sort=id&order=ASC&environmentType=${type}`).pipe(
@@ -69,6 +70,7 @@ export class EnvironmentService {
     );
   }
   saveEnvironment(environment:Environment){
+    //TODO agregar autorizacion
     return this.http.post<any>(this.endPoint+'',environment,this.httpOptions)
     .pipe(
       catchError((e) => {
@@ -80,7 +82,7 @@ export class EnvironmentService {
     );
   }
   addResourceToEnvironment(resourceId:number, environmentId:number){
-
+    //Todo agregar autorizacion
     return this.http.post<any>(this.endPoint+'/addResource'+`?resourceId=${resourceId}&environmentId=${environmentId}`,this.httpOptions)
     .pipe(
       catchError((e) => {
@@ -90,15 +92,6 @@ export class EnvironmentService {
 
       })
     );
-  }
-
-  getAllEnvironments(){
-    return this.environments;
-  }
-  getEnvironmentsByEnvironmentType(type:string){
-
-    //consultar servicio para obtener los ambientes por tipos
-    return this.environments.filter(ambiente=>ambiente.environmentType == type);
   }
   updateEnvironment(environment:Environment){
     //llamar a actualizar ambiente
@@ -125,6 +118,18 @@ export class EnvironmentService {
       })
     )
   }
+
+  
+
+  getAllEnvironments(){
+    return this.environments;
+  }
+  getEnvironmentsByEnvironmentType(type:string){
+
+    //consultar servicio para obtener los ambientes por tipos
+    return this.environments.filter(ambiente=>ambiente.environmentType == type);
+  }
+
 
   getAllEnvironmentTypes(){
     return this.environmentTypes;

@@ -12,11 +12,12 @@ import {CourseService} from 'src/app/services/course/course.service'
 export class CoursesComponent implements OnInit{
 
   columns:string[]=['Id curso','Grupo','Capacidad','Periodo','Materia','Profesor','Ver detalles','Seleccionar'];
-  courses:Course[]=[];
-  curso!:Course;
+  courses:Course[]=[]; //todos los cursos
+  curso!:Course;  // curso seleccionado
   isCourseSelected:boolean=false;
   isCheckboxDisabled:boolean=false;
   showSelectedCourse:boolean=false;
+  isTypeSelected:boolean=false
 
   totalItems:number=0;
   totalNumberPage:number=1;
@@ -63,6 +64,34 @@ export class CoursesComponent implements OnInit{
   }
 
   loadTableCourses(args: number[]){
+    let pageSolicitud:number = args[0];
+    let pageSize: number = args[1]
+      if(!pageSolicitud){
+        pageSolicitud = 0;
+      }
+      if(!pageSize){
+        pageSize=10
+      }
+      const idPrograma = this.program.id
+      const semestre = this.semester
 
+    if(!this.isTypeSelected){
+        this.courseService.getAllCoursesFromProgramAndSemesterPage(pageSolicitud,pageSize,idPrograma,semestre).subscribe((response) =>{
+
+        this.courses = response.data.elements as Course[]
+        this.totalItems=response.data.pagination.totalNumberElements as number
+        this.totalNumberPage=response.data.pagination.totalNumberPage as number
+
+      });
+    }else{
+      this.courseService.getAllCoursesWithType(pageSolicitud,pageSize).subscribe(response =>{
+        console.log("Data en load Type: ",response)
+        this.courses=response.data.elements as Course[]
+        this.totalItems=response.data.pagination.totalNumberElements as number
+        this.totalNumberPage=response.data.pagination.totalNumberPage as number
+
+
+      })
+    }
   }
 }

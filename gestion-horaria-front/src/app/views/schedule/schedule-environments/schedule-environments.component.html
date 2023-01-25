@@ -60,6 +60,10 @@
       </tbody>
 
     </table>
+    <app-paginador
+        (pageChanged)="loadTableEnvironmentsSchedule($event)" [totalItems]="totalItems" [totalNumberPage]="totalNumberPage" [pageSize]="pageSize"
+
+    ></app-paginador>
   </ng-template>
 
 </c-accordion-item>

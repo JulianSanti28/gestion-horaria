@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, throwError } from 'rxjs';
 import { Course } from 'src/app/models/course.model';
 import { Period } from 'src/app/models/period.model';
 import { Program } from 'src/app/models/program.model';
@@ -14,12 +16,55 @@ export class CourseService {
   subject:Subject={'subjectCode':'1','name':'Programacion orientada a objetos','weeklyOverload':6,'timeBlock':true,'semester':2,'program':this.program}
   teacher:Teacher={'teacherCode':'104618021314','fullName':'PPC','department':{}}
   courses:Course[]=[
-    {'courseId':1,'courseGroup':'A','courseCapacity':20,'period':this.period,'subject':this.subject,'teacher':this.teacher}
+    {'courseId':1,'courseGroup':'A','courseCapacity':20,'period':this.period,'subject':this.subject,'teacher':this.teacher},
+    {'courseId':1,'courseGroup':'A','courseCapacity':20,'period':this.period,'subject':this.subject,'teacher':this.teacher},
+    {'courseId':1,'courseGroup':'A','courseCapacity':20,'period':this.period,'subject':this.subject,'teacher':this.teacher},
+    {'courseId':1,'courseGroup':'A','courseCapacity':20,'period':this.period,'subject':this.subject,'teacher':this.teacher},
+    {'courseId':1,'courseGroup':'A','courseCapacity':20,'period':this.period,'subject':this.subject,'teacher':this.teacher},
+    {'courseId':1,'courseGroup':'A','courseCapacity':20,'period':this.period,'subject':this.subject,'teacher':this.teacher},
+    {'courseId':1,'courseGroup':'A','courseCapacity':20,'period':this.period,'subject':this.subject,'teacher':this.teacher},
+    {'courseId':1,'courseGroup':'A','courseCapacity':20,'period':this.period,'subject':this.subject,'teacher':this.teacher},
+    {'courseId':1,'courseGroup':'A','courseCapacity':20,'period':this.period,'subject':this.subject,'teacher':this.teacher},
+
   ]
-  constructor() { }
+
+  endPoint:String = 'api/course'
+  constructor(
+    private http : HttpClient
+
+  ) {
+
+  }
   getAllCoursesFromProgramAndSemester(programId:string,semester:number){
 
     //consumir servicio que develva todos los cursos del semestre y programa seleccionados
     return this.courses
+  }
+
+  getAllCoursesFromProgramAndSemesterPage(page:number, pageSize:number,programId:string,semester:number){
+
+    return this.http.get<any>(this.endPoint+`?page=${page-1}&size=${pageSize}&sort=id&order=ASC`).pipe(
+      catchError((e) => {
+
+
+
+        console.log('Error obteniendo todos los cursos', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    );
+  }
+  getAllCoursesWithType(page:number, pageSize:number){
+    // TODO consumir este servicio por tipo algun tipo de filtrar
+    return this.http.get<any>(this.endPoint+`?page=${page-1}&size=${pageSize}&sort=id&order=ASC`).pipe(
+      catchError((e) => {
+
+
+
+        console.log('Error obteniendo todos los cursos', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    );
   }
 }
