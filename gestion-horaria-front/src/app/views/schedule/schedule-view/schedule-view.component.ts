@@ -64,10 +64,12 @@ export class ScheduleViewComponent {
   }
 
   timeInRange(inicial:string, final:string,franja:string){
-    //si es el inicial es igual a la franja o si el final es mayor a la franja
+    //lo va a pintar si el
+    //inicial es igual a la franja o si el final es mayor a la franja y el inicial es menor a la franja
     console.log("Llegan a range ",inicial, " ",final, " ",franja)
-    console.log("a ver formato ",parseInt(inicial))
-    if(inicial==franja || parseInt(final)>parseInt(franja)){
+
+    if(inicial==franja || ( parseInt(final)>parseInt(franja) && parseInt(inicial)<parseInt(franja)) ){
+      console.log("retorna true para pintar ")
       return true
     }
     console.log("no pasan")

@@ -42,6 +42,9 @@ import { ScheduleEnvironmentsComponent } from './schedule-environments/schedule-
 import { ScheduleTimeAllComponent } from './schedule-time-all/schedule-time-all.component';
 import { ScheduleViewComponent } from './schedule-view/schedule-view.component';
 import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.component';
+import { ScheduleProfessorDetailComponent } from './schedule-professor-detail/schedule-professor-detail.component';
+import { ScheduleProfessorViewComponent } from './schedule-professor-view/schedule-professor-view.component';
+import { ProfessorAllComponent } from './professor-all/professor-all.component';
 @NgModule({
   declarations: [
     ScheduleCreateComponent,
@@ -51,7 +54,10 @@ import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.compo
     ScheduleEnvironmentsComponent,
     ScheduleTimeAllComponent,
     ScheduleViewComponent,
-    ScheduleDetailComponent
+    ScheduleDetailComponent,
+    ScheduleProfessorDetailComponent,
+    ScheduleProfessorViewComponent,
+    ProfessorAllComponent
   ],
   imports: [
     CommonModule,

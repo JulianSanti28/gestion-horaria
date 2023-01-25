@@ -5,7 +5,8 @@ import { Environment } from 'src/app/models/environment.model';
 import { Program } from 'src/app/models/program.model';
 import { Schedule } from 'src/app/models/schedule.model';
 
-import {ProgramService} from 'src/app/services/program/program.service';
+
+import { ScheduleService } from 'src/app/services/schedule/schedule.service';
 @Component({
   selector: 'app-schedule-create-form',
   templateUrl: './schedule-create-form.component.html',
@@ -21,8 +22,8 @@ export class ScheduleCreateFormComponent {
   @Input('selectedSemester')  semester!:number;
   @Input('isEdit')isEdit!:boolean;
 
-  courseSelected: Course | null = { 'courseId': 0, 'courseGroup': '', 'courseCapacity': 0, 'period': { 'periodId': '', 'state': '' }, 'subject': { 'subjectCode': '', 'name': '', 'weeklyOverload': 0, 'timeBlock': true, 'semester': 0, 'program': { 'id': '', 'name': '' } }, 'teacher': { 'teacherCode': '', 'fullName': '', 'department': {} } }
-  environmentSelected: Environment |null = {
+  courseSelected: Course = { 'courseId': 0, 'courseGroup': '', 'courseCapacity': 0, 'period': { 'periodId': '', 'state': '' }, 'subject': { 'subjectCode': '', 'name': '', 'weeklyOverload': 0, 'timeBlock': true, 'semester': 0, 'program': { 'id': '', 'name': '' } }, 'teacher': { 'teacherCode': '', 'fullName': '', 'department': {} } }
+  environmentSelected: Environment = {
     id: 0,
     name: '',
     location: '',
@@ -31,7 +32,7 @@ export class ScheduleCreateFormComponent {
     facultyId: '',
     availableResources: []
   }
-  scheduleSelected:Schedule | null ={
+  scheduleSelected:Schedule  ={
     id:0,
     day:'',
     startingTime:'',
@@ -48,8 +49,9 @@ export class ScheduleCreateFormComponent {
     }
 
   }
-  programs:Program[]=[];
-  semesters:number[]=[];
+
+  takenEnvironmentSchedules:Schedule[]=[];
+  takenProfessorSchedules:Schedule[]=[];
 
   sumProgres:number=30;
   showEnvironments:boolean=false
@@ -57,7 +59,7 @@ export class ScheduleCreateFormComponent {
 
   constructor(
     private formBuilder:FormBuilder,
-    private programService:ProgramService,
+    private scheduleService:ScheduleService,
 
   ){
 
@@ -65,7 +67,7 @@ export class ScheduleCreateFormComponent {
   ngOnInit(){
 
     this.buildForm();
-    this.programs=this.programService.getAllPrograms();
+
     this.isFormValid.emit(false)
     console.log("programa y semestre que llegan al create form ", this.program, this.semester)
   }
@@ -89,11 +91,14 @@ export class ScheduleCreateFormComponent {
     if(course != null){
         //recibe el curso desde courses
       this.courseSelected=course
-      //emitir progreso curso hasta componente create
-      this.progress.emit(this.sumProgres)
+      //consumir servicio para obtener el horario ocupado del profesor
+      this.fillTakenProfessorSchedule();
+      this.progress.emit(this.sumProgres) //emitir progreso curso hasta componente create
       this.showEnvironments=true
     }else{
       this.progress.emit(-this.sumProgres)
+
+      this.takenEnvironmentSchedules=[]
     }
 
   }
@@ -104,8 +109,10 @@ export class ScheduleCreateFormComponent {
       this.showSelectedEnvironment=true
       this.progress.emit(this.sumProgres)
       this.selectedEnvironment.emit(this.environmentSelected)
+      //TODO consumir servicio que trae el horario ocupado del amibiente
     }else{
       this.progress.emit(-this.sumProgres)
+      //TODO limpiar horario ocupado del ambiente
     }
 
   }
@@ -117,5 +124,21 @@ export class ScheduleCreateFormComponent {
     }else{
       this.progress.emit(-this.sumProgres)
     }
+  }
+  fillTakenProfessorSchedule(){
+    this.scheduleService.getTakenProfessorSchedule(this.courseSelected.courseId).subscribe((response) =>{
+
+      this.takenProfessorSchedules = response.data.elements as Schedule[]
+
+
+    });
+  }
+  fillTakenEnvironmentSchedule(){
+    this.scheduleService.getTakenEnvironmentSchedule(this.environmentSelected.id).subscribe((response) =>{
+
+      this.takenProfessorSchedules = response.data.elements as Schedule[]
+
+
+    });
   }
 }

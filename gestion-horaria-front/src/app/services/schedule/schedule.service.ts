@@ -6,6 +6,8 @@ import { Schedule } from 'src/app/models/schedule.model';
 import { Program } from 'src/app/models/program.model';
 import { Teacher } from 'src/app/models/teacher.model';
 import { Subject } from 'src/app/models/subject.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,9 +24,22 @@ export class ScheduleService {
   schedule:Schedule[]=[
     {id:1,day:"martes",startingTime:'07:00',endingTime:'9:00',course:this.curso,environment:this.envi} ,
     {id:2,day:"lunes",startingTime:'07:00',endingTime:'9:00',course:this.curso,environment:this.envi} ,
+    {id:3,day:"martes",startingTime:'09:00',endingTime:'11:00',course:this.curso,environment:this.envi} ,
+    {id:4,day:"miercoles",startingTime:'07:00',endingTime:'11:00',course:this.curso,environment:this.envi} ,
+    {id:5,day:"jueves",startingTime:'11:00',endingTime:'12:00',course:this.curso,environment:this.envi} ,
+
 
   ]
-  constructor() { }
+  endPoint:String = 'api/schedule'
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      Authorization: 'my-auth-token'
+    })
+  };
+  constructor(
+    private http : HttpClient
+  ) { }
   getAllAvailableScheduleByEnvironment(){
     // Consultar todos los horarios disponibles de este ambiente (donde course es null) p
     return this.schedule;
@@ -37,5 +52,29 @@ export class ScheduleService {
 
   saveSchedule(){
     //guardar el schedule
+  }
+  getTakenProfessorSchedule(courseId: number){
+    //TODO consumir servicio para obtener el horario ocupado del profesor
+    return this.http.get<any>(this.endPoint+`/${courseId}`,this.httpOptions)
+    .pipe(
+      catchError((e) => {
+
+        console.log('Error obteniendo  horario ocupado del profesor ', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    )
+  }
+  getTakenEnvironmentSchedule(environmentId: number){
+    //TODO consumir servicio para obtener el horario ocupado del profesor
+    return this.http.get<any>(this.endPoint+`/${environmentId}`,this.httpOptions)
+    .pipe(
+      catchError((e) => {
+
+        console.log('Error obteniendo  horario ocupado del ambiente ', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    )
   }
 }

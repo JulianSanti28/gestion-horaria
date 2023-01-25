@@ -43,6 +43,8 @@
       <!-- Se debe poder ver la vista del horario -->
       <div *ngIf="showSelectedEnvironment">
         <app-schedule-time-all
+          [takenEnvironmentSchedule]="takenEnvironmentSchedules"
+          [takenProfessorSchedule]="takenProfessorSchedules"
           (selectedSchedule)="getSelectedSchedule($event)"
         ></app-schedule-time-all>
       </div>
