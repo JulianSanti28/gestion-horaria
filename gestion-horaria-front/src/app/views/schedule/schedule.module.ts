@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ScheduleRoutingModule } from './schedule-routing.module';
 import { ScheduleCreateComponent } from './schedule-create/schedule-create.component';
 import { ScheduleCreateFormComponent } from './schedule-create-form/schedule-create-form.component';
+import { ToshareModule } from 'src/app/views/toshare/toshare.module';
 
 import {
   AccordionModule,
@@ -56,6 +57,8 @@ import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.compo
     CommonModule,
     ScheduleRoutingModule,
 
+    ToshareModule,
+    
     FormsModule,
     AlertModule,
     AccordionModule,

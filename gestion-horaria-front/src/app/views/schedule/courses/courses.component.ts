@@ -18,6 +18,11 @@ export class CoursesComponent implements OnInit{
   isCheckboxDisabled:boolean=false;
   showSelectedCourse:boolean=false;
 
+  totalItems:number=0;
+  totalNumberPage:number=1;
+  paginadorEnvironment: any;
+  pageSize:number=0;
+
   @Input('selectedProgram')  program!:Program;
   @Input('selectedSemester')  semester!:number;
   @Output() selectedCourse = new EventEmitter<Course| null>()
@@ -55,5 +60,9 @@ export class CoursesComponent implements OnInit{
       element.nativeElement.checked = false;
     });
     this.selectedCourse.emit(null)
+  }
+
+  loadTableCourses(args: number[]){
+
   }
 }

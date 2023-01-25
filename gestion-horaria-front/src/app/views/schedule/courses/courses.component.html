@@ -36,6 +36,10 @@
         </tbody>
 
       </table>
+      <app-paginador
+        (pageChanged)="loadTableCourses($event)" [totalItems]="totalItems" [totalNumberPage]="totalNumberPage" [pageSize]="pageSize"
+
+        ></app-paginador>
     </ng-template>
 </c-accordion-item>
 
