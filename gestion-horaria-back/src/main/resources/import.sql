@@ -18,6 +18,9 @@ INSERT INTO `subject` (`subject_code`, `name`, `semester`, `time_block`, `weekly
 INSERT INTO `subject` (`subject_code`, `name`, `semester`, `time_block`, `weekly_overload`, `program_id`) VALUES ('ESTR1', 'Estructura de Datos', '1',false, '3', 'PIS');
 --Environment
 INSERT INTO `environment` (`id`, `capacity`, `environmentType`, `location`, `name`, `faculty_id`) VALUES (NULL, '30', 'LABORATORIO', 'Edificio IPET FIET', 'Sala 4', 'FIET');
+
+INSERT INTO `environment` (`id`, `capacity`, `environmentType`, `location`, `name`, `faculty_id`) VALUES (NULL, '30', 'SALON', 'Salon IPET FIET', 'Salon 331', 'FIET');
+
 --Resource
 INSERT INTO `resource` (`id`, `name`, `resource_type`) VALUES (NULL, 'Video Beam', 'TECNOLOGICO');
 
@@ -25,3 +28,5 @@ INSERT INTO `resource` (`id`, `name`, `resource_type`) VALUES (NULL, 'Video Beam
 INSERT INTO `available_resources` (`environment_id`, `resource_id`) VALUES (1,1);
 
 INSERT INTO `course` (`course_id`, `course_capacity`, `course_group`, `period_periodId`, `subject_code`, `teacher_code`) VALUES ('1', '13', 'A', '2022_02', 'POO', '1');
+
+INSERT INTO `course` (`course_id`, `course_capacity`, `course_group`, `period_periodId`, `subject_code`, `teacher_code`) VALUES ('2', '13', 'A', '2022_02', 'POO', '1');
