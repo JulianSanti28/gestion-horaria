@@ -45,6 +45,7 @@ import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.compo
 import { ScheduleProfessorDetailComponent } from './schedule-professor-detail/schedule-professor-detail.component';
 import { ScheduleProfessorViewComponent } from './schedule-professor-view/schedule-professor-view.component';
 import { ProfessorAllComponent } from './professor-all/professor-all.component';
+import { ScheduleRowComponent } from './schedule-row/schedule-row.component';
 @NgModule({
   declarations: [
     ScheduleCreateComponent,
@@ -57,7 +58,8 @@ import { ProfessorAllComponent } from './professor-all/professor-all.component';
     ScheduleDetailComponent,
     ScheduleProfessorDetailComponent,
     ScheduleProfessorViewComponent,
-    ProfessorAllComponent
+    ProfessorAllComponent,
+    ScheduleRowComponent
   ],
   imports: [
     CommonModule,

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Environment } from 'src/app/models/environment.model';
-import { Schedule } from 'src/app/models/schedule.model';
+import { Schedule, ScheduleColor } from 'src/app/models/schedule.model';
 import { ScheduleService } from 'src/app/services/schedule/schedule.service';
 
 @Component({
@@ -12,8 +12,21 @@ export class ScheduleViewComponent {
 
   numeroDia?: number;
   contador: number = 0;
-  headers:string[]=["Hora","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"]
+  headers:string[]=["hora","lunes","martes","miercoles","jueves","viernes","sabado"]
+  weekDays=["lunes","martes","miercoles","jueves","viernes","sabado"]
   horariosAmbiente!:Schedule[];
+  horariosAmbienteColor!:ScheduleColor[];
+  horasDia=["07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00"]
+  colores :{[key:number]:string;}={
+    1:"bg-sky",
+    2:"bg-orange",
+    3:"bg-green",
+    4:"bg-yellow",
+    5:"bg-pink",
+    6:"bg-purple",
+    // 7:"bg-lightred"
+  }
+  iteradorColores:number=1
   @Input('ambiente') ambiente!:Environment;
 
   constructor(
@@ -25,88 +38,33 @@ export class ScheduleViewComponent {
   ngOnInit(){
     //llamar al servicio para traer los horarios disponibles de ese ambiente
     this.horariosAmbiente = this.scheduleService.getAllScheduleFromEnvironment();
+    this.fillColorSchedule()
+  }
+  fillColorSchedule(){
+    this.horariosAmbienteColor = this.horariosAmbiente.map((x)=>{ return {...x, color:""}})
+    this.horariosAmbienteColor.forEach(x=> x.color= this.choseRandomColor())
+
+    console.log("colores de horario ",this.horariosAmbienteColor)
 
   }
-  iniciarContador(){
-    this.contador = 0;
+  choseRandomColor(){
+
+    // let colorKeys:string[] = Object.keys(this.colores);
+    // let randomIndex = Math.floor(Math.random() * colorKeys.length);
+    // let randomColorKey:number = Number(colorKeys[randomIndex]);
+    let randomColorValue:string = this.colores[this.iteradorColores];
+    if(this.iteradorColores< 6){
+      this.iteradorColores += 1
+    }else{
+      this.iteradorColores=1
+    }
+    
+
+    return randomColorValue
+
+
   }
 
-  incrementarContador(){
-    this.contador++;
-  }
-
-  validarNumeroDia(dia:string){
-
-    if(dia == 'lunes'){
-      this.numeroDia = 1;
-    }
-    if(dia == 'martes'){
-      this.numeroDia = 2;
-    }
-    if(this.removeAccents(dia) == 'miercoles'){
-      this.numeroDia = 3;
-    }
-    if(dia == 'jueves'){
-      this.numeroDia = 4;
-    }
-    if(dia == 'viernes'){
-      this.numeroDia = 5;
-    }
-    if(this.removeAccents(dia) == 'sabado'){
-
-      this.numeroDia = 6;
-    }
-    console.log("numero de dia",this.numeroDia)
-  }
-
-  removeAccents = (str:String) => {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  }
-
-  timeInRange(inicial:string, final:string,franja:string){
-    //lo va a pintar si el
-    //inicial es igual a la franja o si el final es mayor a la franja y el inicial es menor a la franja
-    console.log("Llegan a range ",inicial, " ",final, " ",franja)
-
-    if(inicial==franja || ( parseInt(final)>parseInt(franja) && parseInt(inicial)<parseInt(franja)) ){
-      console.log("retorna true para pintar ")
-      return true
-    }
-    console.log("no pasan")
-    return false
-  }
-  // periodos?: Periodo[];
-  // public createForm!: FormGroup;
-  // horarioDocente: HorarioDocente = new HorarioDocente();
-  // horariosPeriodoDocente?: Horario[];
-  // constructor(private router: Router, private periodoService: PeriodoService, private franjaService: FranjaService) { }
-
-  // ngOnInit(): void {
-  //   this.obtenerPeriodos();
-
-  // }
-
-
-  // async obtenerPeriodos() {
-  //   this.periodoService.getPeriodos()
-  //     .subscribe(data => {
-  //       this.periodos = data;
-  //     })
-  // }
-  // consultarHorario() {
-  //   this.horarioDocente.periodo = this.periodo!.value;
-  //   this.horarioDocente.id = localStorage.getItem('id')!;
-  //   console.log(this.horarioDocente);
-  //   this.franjaService.getHorarioDocente(this.horarioDocente)
-  //     .subscribe(data => {
-  //       this.horariosPeriodoDocente = data;
-  //       console.log(this.horariosPeriodoDocente);
-
-  //     }
-  //     )
-  // }
-
-  // get periodo() { return this.createForm.get('periodo'); }
 
 
 }

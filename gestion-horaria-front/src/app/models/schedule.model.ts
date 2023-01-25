@@ -9,4 +9,10 @@ export interface Schedule{
   endingTime:string;
   course:Course;
   environment:Environment;
+
+}
+
+export interface ScheduleColor extends  Schedule// Omit<Schedule,'course'|'environment'>
+{
+  color: string;
 }

@@ -14,173 +14,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="align-middle">07:00am</td>
-                            <td *ngFor="let i of [1,2,3,4,5,6]">
-                                    <div id="franja" *ngFor="let horario of horariosAmbiente">
-                                        <!-- <div *ngIf="horario.startingTime == '07:00'"> -->
-                                      <div *ngIf="timeInRange(horario.startingTime,horario.endingTime,'07:00')">
-                                            {{validarNumeroDia(horario.day!)}}
-                                        <div *ngIf="numeroDia == i" class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13">
-                                          <span>Materia:{{horario.course.subject.subjectCode}}</span>
-                                            <!-- <div class="margin-10px-top font-size14"><span>Semestre:{{horario.course.subject.semester}} </span> </div> -->
-                                            <div class="margin-10px-top font-size14"><strong><span>CursoId:{{horario.course.courseId}}</span> </strong> </div>
-                                            <!-- <div class="margin-10px-top font-size14">{{horario.startingTime}} AM</div> -->
-                                            <!-- <div class="margin-10px-top font-size14">{{horario.endingTime}} AM</div> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                    </tr>
-                    <tr>
-                      <td class="align-middle">08:00am</td>
-                          <td *ngFor="let i of [1,2,3,4,5,6]">
-                                  <div id="franja" *ngFor="let horario of horariosAmbiente">
-                                      <!-- <div *ngIf="horario.startingTime == '08:00' or Number(horario.endingTime) > Number('08:00')"> -->
-                                    <div *ngIf="timeInRange(horario.startingTime,horario.endingTime,'08:00')">
-
-                                        {{validarNumeroDia(horario.day!)}}
-                                      <div *ngIf="numeroDia == i" class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13">
-                                          <span>Materia:{{horario.course.subject.subjectCode}}</span>
-                                          <div class="margin-10px-top font-size14"><strong><span>CursoId:{{horario.course.courseId}}</span> </strong> </div>
-
-                                      </div>
-                                  </div>
-                              </div>
-                          </td>
-                    </tr>
-                    <tr>
-                      <td class="align-middle">09:00am</td>
-                        <td *ngFor="let i of [1,2,3,4,5,6]">
-                            <div id="franja" *ngFor="let horario of horariosAmbiente">
-                              <div *ngIf="timeInRange(horario.startingTime,horario.endingTime,'09:00')">
-                                    {{validarNumeroDia(horario.day!)}}
-                                <div *ngIf="numeroDia == i" class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13">
-
-                                    <span>Materia:{{horario.course.subject.subjectCode}}</span>
-                                    <div class="margin-10px-top font-size14"><strong><span>CursoId:{{horario.course.courseId}}</span> </strong> </div>
-                                </div>
-                            </div>
-                        </div>
+                <!--
+                  Iterar por filas o sea por horas del dia esa es la primera casilla
+                  despues iterar por dias de la semana horizontalemnte ahi llamamos al hijo que despliega la información
+                  del schedule
+                 -->
+                  <tr *ngFor="let hora of horasDia ">
+                    <td class="align-middle">{{hora}}</td>
+                      <td *ngFor="let dia of weekDays ">
+                          <app-schedule-row
+                            [header]="dia"
+                            [hora] = "hora"
+                            [horariosColor]="horariosAmbienteColor"
+                          ></app-schedule-row>
                       </td>
-
-                    </tr>
-                    <tr>
-                      <td class="align-middle">10:00am</td>
-                        <td *ngFor="let i of [1,2,3,4,5,6]">
-                            <div id="franja" *ngFor="let horario of horariosAmbiente">
-                              <div *ngIf="timeInRange(horario.startingTime,horario.endingTime,'10:00')">
-                                    {{validarNumeroDia(horario.day!)}}
-                                <div *ngIf="numeroDia == i" class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13">
-
-                                    <span>Materia:{{horario.course.subject.subjectCode}}</span>
-                                    <div class="margin-10px-top font-size14"><strong><span>CursoId:{{horario.course.courseId}}</span> </strong> </div>
-                                </div>
-                            </div>
-                        </div>
-                      </td>
-
-                    </tr>
-
-                    <tr>
-                        <td class="align-middle">11:00am</td>
-                        <td *ngFor="let i of [1,2,3,4,5,6]">
-                            <div id="franja" *ngFor="let horario of horariosAmbiente">
-                              <div *ngIf="timeInRange(horario.startingTime,horario.endingTime,'11:00')">
-                                    {{validarNumeroDia(horario.day!)}}
-                                <div *ngIf="numeroDia == i" class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13">
-                                  <span>Materia:{{horario.course.subject.subjectCode}}</span>
-                                  <div class="margin-10px-top font-size14"><strong><span>CursoId:{{horario.course.courseId}}</span> </strong> </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    </tr>
-                    <tr>
-                      <td class="align-middle">12:00pm</td>
-                      <td *ngFor="let i of [1,2,3,4,5,6]">
-                          <div id="franja" *ngFor="let horario of horariosAmbiente">
-                            <div *ngIf="timeInRange(horario.startingTime,horario.endingTime,'12:00')">
-                                  {{validarNumeroDia(horario.day!)}}
-                              <div *ngIf="numeroDia == i" class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13">
-                                <span>Materia:{{horario.course.subject.subjectCode}}</span>
-                                <div class="margin-10px-top font-size14"><strong><span>CursoId:{{horario.course.courseId}}</span> </strong> </div>
-                              </div>
-                          </div>
-                      </div>
-                  </td>
                   </tr>
 
-                    <!--<tr>
-                        <td class="align-middle">01:00pm</td>
-                        <td *ngFor="let i of [1,2,3,4,5,6]">
-                            <span class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Break</span>
-                            <div class="margin-10px-top font-size14">01:00PM-02:00PM</div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="align-middle">02:00pm</td>
-                        <td *ngFor="let i of [1,2,3,4,5,6]">
-                            <div id="franja" *ngFor="let horario of horariosPeriodoDocente">
-                                <div *ngIf="horario.horaInicio == '14:00'">
-                                    {{validarNumeroDia(horario.dia!)}}
-                                <div *ngIf="numeroDia == i">
-                                    <span class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">{{horario.ambienteCod}}</span>
-                                    <div class="margin-10px-top font-size14">{{horario.horaInicio}} PM</div>
-                                    <div class="margin-10px-top font-size14">{{horario.horaFin}} PM</div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    </tr>
-                    <tr>
-                        <td class="align-middle">04:00pm</td>
-                        <td *ngFor="let i of [1,2,3,4,5,6]">
-                            <div id="franja" *ngFor="let horario of horariosPeriodoDocente">
-                                <div *ngIf="horario.horaInicio == '16:00'">
-                                    {{validarNumeroDia(horario.dia!)}}
-                                <div *ngIf="numeroDia == i">
-                                    <span class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">{{horario.ambienteCod}}</span>
-                                    <div class="margin-10px-top font-size14">{{horario.horaInicio}} PM</div>
-                                    <div class="margin-10px-top font-size14">{{horario.horaFin}} PM</div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="align-middle">06:00pm</td>
-                    <td *ngFor="let i of [1,2,3,4,5,6]">
-                        <div id="franja" *ngFor="let horario of horariosPeriodoDocente">
-                            <div *ngIf="horario.horaInicio == '18:00'">
-                                {{validarNumeroDia(horario.dia!)}}
-                            <div *ngIf="numeroDia == i">
-                                <span class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">{{horario.ambienteCod}}</span>
-                                <div class="margin-10px-top font-size14">{{horario.horaInicio}} PM</div>
-                                <div class="margin-10px-top font-size14">{{horario.horaFin}} PM</div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                </tr>
-                <tr>
-                    <td class="align-middle">08:00pm</td>
-                    <td *ngFor="let i of [1,2,3,4,5,6]">
-                        <div id="franja" *ngFor="let horario of horariosPeriodoDocente">
-                            <div *ngIf="horario.horaInicio == '20:00'">
-                                {{validarNumeroDia(horario.dia!)}}
-                            <div *ngIf="numeroDia == i">
-                                <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">{{horario.ambienteCod}}</span>
-                                <div class="margin-10px-top font-size14">{{horario.horaInicio}} PM</div>
-                                <div class="margin-10px-top font-size14">{{horario.horaFin}} PM</div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                </tr>
-
-                </tbody> -->
+                </tbody>
             </table>
         </div>
       </div>
