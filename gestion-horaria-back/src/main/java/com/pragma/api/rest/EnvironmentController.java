@@ -5,7 +5,6 @@ import com.pragma.api.domain.EnvironmentDTO;
 import com.pragma.api.domain.GenericPageableResponse;
 import com.pragma.api.domain.Response;
 import com.pragma.api.model.enums.EnvironmentTypeEnumeration;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -18,8 +17,11 @@ import javax.validation.Valid;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EnvironmentController {
 
-    @Autowired()
-    private IEnvironmentService environmentService;
+    private final IEnvironmentService environmentService;
+
+    public EnvironmentController(IEnvironmentService environmentService) {
+        this.environmentService = environmentService;
+    }
 
     @PostMapping()
     public Response<EnvironmentDTO> createEnvironment(@Valid @RequestBody EnvironmentDTO environmentDTO) {

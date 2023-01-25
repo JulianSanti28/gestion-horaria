@@ -34,4 +34,9 @@ public interface ICourseBusiness {
      *         además de la información de las materias consultadas
      */
     Response<GenericPageableResponse> findAll(final Pageable pageable);
+    GenericPageableResponse findAllBySubjectProgramAndSemester(final String programId, final Integer semester, final Pageable pageable);
+
+
+
+
 }
