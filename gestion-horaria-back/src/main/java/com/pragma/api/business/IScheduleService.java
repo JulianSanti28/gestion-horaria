@@ -10,5 +10,6 @@ public interface IScheduleService {
     ScheduleResponseDTO updateSchedule(Long code, ScheduleRequestDTO update);
     Boolean deleteSchedule(Long code);
     List<ScheduleResponseDTO> getAllByEnvironment(Integer environmentId);
+    List<ScheduleResponseDTO> getAllByTeacher(String teacherCode);
 
 }
