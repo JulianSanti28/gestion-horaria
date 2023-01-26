@@ -7,9 +7,11 @@ import com.pragma.api.exception.ScheduleIntegrityException;
 import com.pragma.api.model.Course;
 import com.pragma.api.model.Environment;
 import com.pragma.api.model.Schedule;
+import com.pragma.api.model.Teacher;
 import com.pragma.api.repository.ICourseRepository;
 import com.pragma.api.repository.IEnvironmentRepository;
 import com.pragma.api.repository.IScheduleRepository;
+import com.pragma.api.repository.ITeacherRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +30,14 @@ public class ScheduleServiceImpl implements IScheduleService{
 
     private final ICourseRepository courseRepository;
 
-    public ScheduleServiceImpl(ModelMapper modelMapper, IEnvironmentRepository environmentRepository, IScheduleRepository scheduleRepository, ICourseRepository courseRepository) {
+    private final ITeacherRepository teacherRepository;
+
+    public ScheduleServiceImpl(ModelMapper modelMapper, IEnvironmentRepository environmentRepository, IScheduleRepository scheduleRepository, ICourseRepository courseRepository, ITeacherRepository teacherRepository) {
         this.modelMapper = modelMapper;
         this.environmentRepository = environmentRepository;
         this.scheduleRepository = scheduleRepository;
         this.courseRepository = courseRepository;
+        this.teacherRepository = teacherRepository;
     }
 
 
@@ -88,6 +93,15 @@ public class ScheduleServiceImpl implements IScheduleService{
         Optional<Environment> environmentRequest = this.environmentRepository.findById(environmentId);
         if(environmentRequest.isEmpty()) throw new ScheduleBadRequestException("bad.request.environment.id", environmentId.toString());
         List<Schedule> schedules = this.scheduleRepository.findAllByEnvironment(environmentRequest.get());
+        return schedules.stream().map(x -> this.modelMapper.map(x, ScheduleResponseDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ScheduleResponseDTO> getAllByTeacher(String teacherCode) {
+        Optional<Teacher> teacherRequest = this.teacherRepository.findById(teacherCode);
+        if(teacherRequest.isEmpty()) throw new ScheduleBadRequestException("bad.request.teacher.id", teacherCode);
+        List<Schedule> schedules = this.scheduleRepository.findAllByCourseTeacher(teacherRequest.get());
         return schedules.stream().map(x -> this.modelMapper.map(x, ScheduleResponseDTO.class))
                 .collect(Collectors.toList());
     }

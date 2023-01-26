@@ -29,4 +29,4 @@ INSERT INTO `available_resources` (`environment_id`, `resource_id`) VALUES (1,1)
 
 INSERT INTO `course` (`course_id`, `course_capacity`, `course_group`, `period_periodId`, `subject_code`, `teacher_code`) VALUES ('1', '13', 'A', '2022_02', 'POO', '1');
 
-INSERT INTO `course` (`course_id`, `course_capacity`, `course_group`, `period_periodId`, `subject_code`, `teacher_code`) VALUES ('2', '13', 'A', '2022_02', 'POO', '1');
+INSERT INTO `course` (`course_id`, `course_capacity`, `course_group`, `period_periodId`, `subject_code`, `teacher_code`) VALUES ('2', '13', 'A', '2022_02', 'POO', '2');
