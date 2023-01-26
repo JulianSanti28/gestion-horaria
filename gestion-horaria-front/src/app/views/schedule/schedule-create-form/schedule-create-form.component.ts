@@ -22,7 +22,7 @@ export class ScheduleCreateFormComponent {
   @Input('selectedSemester')  semester!:number;
   @Input('isEdit')isEdit!:boolean;
 
-  courseSelected: Course = { 'courseId': 0, 'courseGroup': '', 'courseCapacity': 0, 'period': { 'periodId': '', 'state': '' }, 'subject': { 'subjectCode': '', 'name': '', 'weeklyOverload': 0, 'timeBlock': true, 'semester': 0, 'program': { 'id': '', 'name': '' } }, 'teacher': { 'teacherCode': '', 'fullName': '', 'department': {} } }
+  courseSelected: Course = {'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':'','subjectCode':'','teacherCode':''}
   environmentSelected: Environment = {
     id: 0,
     name: '',
@@ -37,7 +37,7 @@ export class ScheduleCreateFormComponent {
     day:'',
     startingTime:'',
     endingTime:'',
-    course:{'courseId': 0, 'courseGroup': '', 'courseCapacity': 0, 'period': { 'periodId': '', 'state': '' }, 'subject': { 'subjectCode': '', 'name': '', 'weeklyOverload': 0, 'timeBlock': true, 'semester': 0, 'program': { 'id': '', 'name': '' } }, 'teacher': { 'teacherCode': '', 'fullName': '', 'department': {} } },
+    course:{'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':'','subjectCode':'','teacherCode':''},
     environment: {
       id: 0,
       name: '',

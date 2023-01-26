@@ -17,14 +17,15 @@ export class ScheduleCreateComponent {
   showForm:boolean=true;
   createFormIsValid=false
   program:Program={
-    'id':'0',
-    'name':''
+    'program_id':'0',
+    'name':'',
+    'department_id':''
   };
   @ViewChild('beforeFormAccordion',{static:true}) beforeFormAccordion !:ElementRef ;
   showSelectedProgramAndSemester:boolean=false;
   showScheduleView:boolean=false;
   semester:number=0;
-  course:Course={'courseId':0,'courseGroup':'','courseCapacity':0,'period':{'periodId':'','state':''},'subject':{'subjectCode':'','name':'','weeklyOverload':0,'timeBlock':true,'semester':0,'program':{'id':'','name':''}},'teacher':{'teacherCode':'','fullName':'','department':{}}}
+  course:Course={'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':'','subjectCode':'','teacherCode':''}
   environmentSelected!: Environment;
   // constructor(private ngxService: NgxBootstrapService
   //   ) { }

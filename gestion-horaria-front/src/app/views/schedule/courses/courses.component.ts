@@ -36,8 +36,8 @@ export class CoursesComponent implements OnInit{
   ngOnInit(): void {
 
     // Traer los cursos del programa y semestre seleccionados
-    this.courses= this.courseService.getAllCoursesFromProgramAndSemester(this.program.id,this.semester)
-
+    //this.courses= this.courseService.getAllCoursesFromProgramAndSemester(this.program.id,this.semester)
+    this.loadTableCourses([1,5])
   }
   onSelectingCourse(course:Course , e:Event){
     // console.log("el curso seleccionado en courses es ",course)
@@ -72,23 +72,23 @@ export class CoursesComponent implements OnInit{
       if(!pageSize){
         pageSize=10
       }
-      const idPrograma = this.program.id
+      const idPrograma = this.program.program_id
       const semestre = this.semester
 
     if(!this.isTypeSelected){
         this.courseService.getAllCoursesFromProgramAndSemesterPage(pageSolicitud,pageSize,idPrograma,semestre).subscribe((response) =>{
 
-        this.courses = response.data.elements as Course[]
-        this.totalItems=response.data.pagination.totalNumberElements as number
-        this.totalNumberPage=response.data.pagination.totalNumberPage as number
+        this.courses = response.elements as Course[]
+        this.totalItems=response.pagination.totalNumberElements as number
+        this.totalNumberPage=response.pagination.totalNumberPage as number
 
       });
     }else{
       this.courseService.getAllCoursesWithType(pageSolicitud,pageSize).subscribe(response =>{
         console.log("Data en load Type: ",response)
-        this.courses=response.data.elements as Course[]
-        this.totalItems=response.data.pagination.totalNumberElements as number
-        this.totalNumberPage=response.data.pagination.totalNumberPage as number
+        this.courses=response.elements as Course[]
+        this.totalItems=response.pagination.totalNumberElements as number
+        this.totalNumberPage=response.pagination.totalNumberPage as number
 
 
       })

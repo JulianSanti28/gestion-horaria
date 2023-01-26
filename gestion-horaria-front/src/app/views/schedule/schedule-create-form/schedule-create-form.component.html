@@ -27,7 +27,7 @@
         </svg>
         <c-alert color="success" class="d-flex align-items-center" [dismissible]="true" [fade]="true" >
           <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-          <div>El curso seleccionado cuenta con una intensidad horaria semanal de  <strong>{{courseSelected.subject.weeklyOverload}} horas</strong></div>
+          <!-- <div>El curso seleccionado cuenta con una intensidad horaria semanal de  <strong>{{courseSelected.subject.weeklyOverload}} horas</strong></div> -->
         </c-alert>
       </c-row>
 
@@ -42,7 +42,7 @@
 
       <!-- Se debe poder ver la vista del horario -->
       <div *ngIf="showSelectedEnvironment">
-        
+
         <app-schedule-time-all
           [takenEnvironmentSchedule]="takenEnvironmentSchedules"
           [takenProfessorSchedule]="takenProfessorSchedules"
