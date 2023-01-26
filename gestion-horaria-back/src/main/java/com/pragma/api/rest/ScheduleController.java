@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/schedule")
@@ -22,6 +23,11 @@ public class ScheduleController {
     @PostMapping
     public ResponseEntity<ScheduleResponseDTO> saveSchedule(@Valid @RequestBody ScheduleRequestDTO scheduleRequest) {
         return ResponseEntity.ok(this.scheduleService.saveSchedule(scheduleRequest));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ScheduleResponseDTO>> getAllByEnvironment(@RequestParam Integer environmentId) {
+        return ResponseEntity.ok(this.scheduleService.getAllByEnvironment(environmentId));
     }
 
     @PutMapping

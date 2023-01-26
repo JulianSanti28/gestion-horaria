@@ -12,7 +12,10 @@ import com.pragma.api.repository.IEnvironmentRepository;
 import com.pragma.api.repository.IScheduleRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ScheduleServiceImpl implements IScheduleService{
@@ -78,5 +81,14 @@ public class ScheduleServiceImpl implements IScheduleService{
         }catch (Exception e){
             throw new ScheduleIntegrityException(e.getMessage(),"");
         }
+    }
+
+    @Override
+    public List<ScheduleResponseDTO> getAllByEnvironment(Integer environmentId) {
+        Optional<Environment> environmentRequest = this.environmentRepository.findById(environmentId);
+        if(environmentRequest.isEmpty()) throw new ScheduleBadRequestException("bad.request.environment.id", environmentId.toString());
+        List<Schedule> schedules = this.scheduleRepository.findAllByEnvironment(environmentRequest.get());
+        return schedules.stream().map(x -> this.modelMapper.map(x, ScheduleResponseDTO.class))
+                .collect(Collectors.toList());
     }
 }
