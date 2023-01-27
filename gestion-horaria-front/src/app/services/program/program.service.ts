@@ -9,13 +9,15 @@ export class ProgramService {
   constructor() { }
 
   programs:Program[]=[
-    {id:'1',name:'Licenciatura'},
+    {program_id:'PIS',name:'INGENIERIA DE SISTEMAS',department_id:'1'},
+    {program_id:'PIET',name:'INGENIERIA ELECTRONICA Y TELECOMUNICACIONES',department_id:'2'}
+
   ]
   getAllPrograms(){
     return this.programs;
   }
   getProgramById(id:string){
-    const program: Program =this.programs.find(program=> program.id==id)!;
+    const program: Program =this.programs.find(program=> program.program_id==id)!;
     return program
   }
 }

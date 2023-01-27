@@ -6,7 +6,10 @@ export interface Course{
   courseId: number;
   courseGroup:string;
   courseCapacity:number;
-  period:Period;
-  subject:Subject;
-  teacher:Teacher;
+  periodId:string;
+  subjectCode:string;
+  teacherCode:string;
+  // period:Period;
+  // subject:Subject;
+  // teacher:Teacher;
 }

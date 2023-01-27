@@ -1,5 +1,5 @@
 import { NonNullAssert } from '@angular/compiler';
-import { Component, ElementRef, EventEmitter, OnInit, Output, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, Renderer2, SimpleChanges, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Environment } from 'src/app/models/environment.model';
 import { EnvironmentService } from 'src/app/services/environment/environment.service';
@@ -26,6 +26,7 @@ export class ScheduleEnvironmentsComponent implements OnInit {
   totalNumberPage:number=1;
   paginadorEnvironment: any;
   pageSize:number=0;
+  @Input('continueCreatingSchedule')continueCreatingSchedule:boolean=false
   @Output()selectedEnvironment = new EventEmitter<Environment|null>();
   @ViewChildren("checkboxes") checkboxes!: QueryList<ElementRef>;
 
@@ -43,8 +44,21 @@ export class ScheduleEnvironmentsComponent implements OnInit {
       this.pageSize=response.data.pagination.size as number
     })
 
+    if(this.continueCreatingSchedule==true ){
+      this.changeSelectedEnvironment()
+    }
     //TODO consumir todos los tipos de ambientes
     this.environmentTypes=this.environmentService.getAllEnvironmentTypes();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['continueCreatingSchedule']){
+      if(changes['continueCreatingSchedule'].currentValue == true){
+        this.changeSelectedEnvironment()
+      }
+
+    }
+
   }
 
   updateTableEnvironments(type:string){

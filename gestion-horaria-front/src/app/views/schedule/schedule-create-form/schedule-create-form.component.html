@@ -1,7 +1,7 @@
 <div class="grid-container">
   <div>
 
-    <form  [formGroup]="form"  >
+    <form  [formGroup]="form" #formCreate  >
 
     <c-accordion [alwaysOpen]="false" class="shadow accordion-custom rounded-2 " #beforeFormAccordion>
       <!-- cursos del programa y semestre seleccionado, solo seleccionar 1-->
@@ -13,7 +13,7 @@
         ></app-courses>
       </div>
       <!-- <br> -->
-      <c-row *ngIf="courses.isCourseSelected">
+      <!-- <c-row *ngIf="courses.isCourseSelected">
         <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
           <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -29,7 +29,7 @@
           <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
           <div>El curso seleccionado cuenta con una intensidad horaria semanal de  <strong>{{courseSelected.subject.weeklyOverload}} horas</strong></div>
         </c-alert>
-      </c-row>
+      </c-row> -->
 
     <!-- Seleccionar ambiente -->
       <div *ngIf="courses.isCourseSelected">
@@ -42,7 +42,7 @@
 
       <!-- Se debe poder ver la vista del horario -->
       <div *ngIf="showSelectedEnvironment">
-        
+
         <app-schedule-time-all
           [takenEnvironmentSchedule]="takenEnvironmentSchedules"
           [takenProfessorSchedule]="takenProfessorSchedules"
@@ -57,6 +57,12 @@
 
 
     </form>
+  </div>
+  <br>
+  <div *ngIf="showBtnCreate">
+    <button cButton color="primary" size="lg" [disabled]= "!showBtnCreate" (click)="getInfo()" >
+      Guardar esta franja horaria
+    </button>
   </div>
 
 </div>
