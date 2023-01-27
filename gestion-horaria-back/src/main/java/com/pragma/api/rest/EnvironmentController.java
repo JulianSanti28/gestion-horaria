@@ -3,6 +3,7 @@ package com.pragma.api.rest;
 import com.pragma.api.business.IEnvironmentService;
 import com.pragma.api.domain.EnvironmentDTO;
 import com.pragma.api.domain.GenericPageableResponse;
+import com.pragma.api.domain.ResourceList;
 import com.pragma.api.domain.Response;
 import com.pragma.api.model.enums.EnvironmentTypeEnumeration;
 import org.springframework.data.domain.PageRequest;
@@ -31,8 +32,13 @@ public class EnvironmentController {
     }
 
     @PostMapping("/addResource")
-    public Response<Boolean> addResource(@RequestParam Integer resourceId, @RequestParam Integer environmentId) {
-        return this.environmentService.addResourceToEnvironment(resourceId, environmentId);
+    public Response<Boolean> addResourceToEnvironment(@RequestBody ResourceList resourceList, @RequestParam Integer environmentId) {
+        return this.environmentService.addResourceToEnvironment(resourceList, environmentId);
+    }
+
+    @PutMapping("/updateResource")
+    public Response<Boolean> updateResourceToEnvironment(@RequestBody ResourceList resourceList, @RequestParam Integer environmentId) {
+        return this.environmentService.updateResourceToEnvironment(resourceList, environmentId);
     }
 
     @GetMapping()

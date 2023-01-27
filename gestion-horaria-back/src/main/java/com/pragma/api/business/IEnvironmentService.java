@@ -37,12 +37,20 @@ public interface IEnvironmentService {
     Response<GenericPageableResponse> findAll(final Pageable pageable);
 
     /**
-     * Método que permite agregar un recurso a un ambiente
+     * Método que permite agregar recursos a un ambiente
      *
      * @return {@link Response} Objeto de respuesta para el servicio, el cual contiene información sobre el resultado de la consulta,
      *         además de la información de las materias consultadas
      */
-    Response<Boolean> addResourceToEnvironment(Integer resourceId, Integer environmentId);
+    Response<Boolean> addResourceToEnvironment(ResourceList resourceList, Integer environmentId);
+
+    /**
+     * Método que permite editar los recursos a un ambiente
+     *
+     * @return {@link Response} Objeto de respuesta para el servicio, el cual contiene información sobre el resultado de la consulta,
+     *         además de la información de las materias consultadas
+     */
+    Response<Boolean> updateResourceToEnvironment(ResourceList resourceList, Integer environmentId);
 
     public Response<GenericPageableResponse> findAllByResourceId(Pageable pageable, Integer resourceId);
 
@@ -51,7 +59,6 @@ public interface IEnvironmentService {
     public Response<GenericPageableResponse> findAllByEnvironmentType(Pageable pageable, EnvironmentTypeEnumeration environmentType);
 
     Environment findById(final Integer id);
-
 
     List<EnvironmentTypeEnumeration> findAllTypesEnvironment();
 }

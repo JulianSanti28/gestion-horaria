@@ -22,6 +22,8 @@ public class Course {
     private String courseGroup;
     @Column(name = "course_capacity", nullable = false)
     private Integer courseCapacity;
+    @Column(name = "remaining_hours", nullable = false)
+    private Integer remainingHours;
 
     @ManyToOne
     @JoinColumn()
