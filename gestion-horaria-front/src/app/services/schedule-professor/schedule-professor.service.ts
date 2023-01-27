@@ -8,6 +8,7 @@ import { Teacher } from 'src/app/models/teacher.model';
 import { Subject } from 'src/app/models/subject.model';
 import { Environment } from 'src/app/models/environment.model';
 import { Program } from 'src/app/models/program.model';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class ScheduleProfessorService {
   period:Period={'periodId':'2022.2','state':'true'}
   program:Program={program_id:'PIS','name':'Ingenieria de sistemas','department_id':''}
   subject:Subject={'subjectCode':'1','name':'Programacion orientada a objetos','weeklyOverload':6,'timeBlock':true,'semester':2,'program':this.program}
-  teacher:Teacher={'teacherCode':'104618021314','fullName':'PPC','department':{}}
+  teacher:Teacher={'teacherCode':'104618021314','fullName':'PPC','department':[]}
   curso:Course={'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':this.period.periodId,'subjectCode':this.subject.subjectCode,'teacherCode':this.teacher.teacherCode}
   course!: Course;
   envi!:Environment;
@@ -25,12 +26,26 @@ export class ScheduleProfessorService {
     {id:1,day:"martes",startingTime:'07:00',endingTime:'9:00',course:this.curso,environment:this.envi} 
   ]
 
+  endPoint:String = 'api/teacher'
+
   constructor(
     private http : HttpClient
   ) { }
 
   getAvailableScheduleByProfessor(){
     return this.schedule;
+  }
+
+  getAllProfessorsPage(page:number, pageSize:number):Observable<any>{
+    return this.http.get<any>(this.endPoint+`?page=${page-1}&size=${pageSize}&sort=teacherCode&order=ASC`).pipe(
+      catchError((e) => {
+        // this.router.navigate(['/documentos']);
+
+        console.log('Error obteniendo todos los ProfesoressasAS', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    );
   }
 
   // TODO servicios consultar profesores , obtener horario de ese profesor
