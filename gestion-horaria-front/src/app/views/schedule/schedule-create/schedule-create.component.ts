@@ -7,6 +7,7 @@ import { Program } from 'src/app/models/program.model';
 import { Schedule, ScheduleDTO } from 'src/app/models/schedule.model';
 import { ScheduleService } from 'src/app/services/schedule/schedule.service';
 import { ignoreElements } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-schedule-create',
@@ -34,7 +35,8 @@ export class ScheduleCreateComponent {
   scheduleToCreate!:Schedule;
   continueCreatingSchedule:boolean = false
   constructor(
-    private scheduleService: ScheduleService
+    private scheduleService: ScheduleService,
+    private router: Router,
     ) { }
   getSelectedProgram(program:Program){
 
@@ -95,33 +97,33 @@ export class ScheduleCreateComponent {
         if(response != null){
           scheduleresponse = response
 
-          // Swal.fire('Franja creada',
-          // `La franja : ${scheduleresponse.startingTime} ${scheduleresponse.endingTime}\n Curso: ${scheduleresponse.course.courseId}  \nfue creado exitosamente`, 'success');
-
+          Swal.fire('Franja creada',
+          `La franja : ${scheduleresponse.startingTime} ${scheduleresponse.endingTime}\n Curso: ${scheduleresponse.course.courseId}  \nfue creado exitosamente`, 'success');
+          this.router.navigate(['/schedule/create']);
           //this.isSent=true //enviar señal al formulario hijo de que puede limpiarse
-          Swal.fire({
-            title: ' Franja creada ',
-            text: `¿Seguir creando franjas para este curso   ${this.course.courseId} | ${this.course.courseGroup} ?` ,
-            footer: `<h5> La franja : ${scheduleresponse.startingTime} ${scheduleresponse.endingTime}\n Curso: ${scheduleresponse.course.courseId}  \nfue creado exitosamente </h5> `,
-            icon: 'success',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, continuar!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.changeContinueCreating(true)
-              Swal.fire(
-                'Ok',
-                `Continuar creando le quedan : ${this.course.subjectCode} horas `,
-                'success'
-              )
-            }
-            if(result.isDenied || result.isDismissed){
-              this.changeContinueCreating(false)
-            }
+          // Swal.fire({
+          //   title: ' Franja creada ',
+          //   text: `¿Seguir creando franjas para este curso   ${this.course.courseId} | ${this.course.courseGroup} ?` ,
+          //   footer: `<h5> La franja : ${scheduleresponse.startingTime} ${scheduleresponse.endingTime}\n Curso: ${scheduleresponse.course.courseId}  \nfue creado exitosamente </h5> `,
+          //   icon: 'success',
+          //   showCancelButton: true,
+          //   confirmButtonColor: '#3085d6',
+          //   cancelButtonColor: '#d33',
+          //   confirmButtonText: 'Si, continuar!'
+          // }).then((result) => {
+          //   if (result.isConfirmed) {
+          //     this.changeContinueCreating(true)
+          //     Swal.fire(
+          //       'Ok',
+          //       `Continuar creando le quedan : ${this.course.subjectCode} horas `,
+          //       'success'
+          //     )
+          //   }
+          //   if(result.isDenied || result.isDismissed){
+          //     this.changeContinueCreating(false)
+          //   }
 
-          })
+          // })
         }
 
       }

@@ -33,8 +33,30 @@ export class ScheduleCreateFormComponent {
 
   }
   courseSelected: Course = {'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':'','subjectCode':'','teacherCode':''}
-  environmentSelected: Environment  = this.environmentService.getEmptyEnvironment()
-  scheduleSelected:Schedule   = this.scheduleService.getEmptySchedule()
+  environmentSelected: Environment  = {'id':0,
+  'name':'',
+  'location':'',
+  'capacity':0,
+  'environmentType':'',
+  'facultyId':'',
+  'availableResources':[]
+}
+  scheduleSelected:Schedule   =  {
+    id:0,
+    day:'',
+    startingTime:'',
+    endingTime:'',
+    course:{'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':'','subjectCode':'','teacherCode':''},
+    environment: {
+      id: 0,
+      name: '',
+      location: '',
+      capacity: 0,
+      environmentType: '',
+      facultyId: '',
+      availableResources: []
+    }
+  }
 
   takenEnvironmentSchedules:Schedule[]=[];
   takenProfessorSchedules:Schedule[]=[];
