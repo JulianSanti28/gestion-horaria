@@ -46,7 +46,7 @@ export class ScheduleTimeAllComponent {
     console.log(this.takenEnvironmentSchedules)
 
     // obtener todos los horarios vacios
-    this.filteredSchedules=this.filterSchedules()
+   this.filteredSchedules= this.filterSchedules()
     console.log("Filtrados ",this.filteredSchedules)
     // cruzar los horarios ocupados con los vacios y que queden solo los vacios
     // mostrar solo los horarios vacios o mostrar deshabilitado para escoger
@@ -90,6 +90,7 @@ export class ScheduleTimeAllComponent {
   }
 
   loadTableTime(args: number[]){
+
     let pageSolicitud:number = args[0];
     let pageSize: number = args[1]
       if(!pageSolicitud){
@@ -99,7 +100,7 @@ export class ScheduleTimeAllComponent {
         pageSize=10
       }
       const startIndex = (pageSolicitud - 1) * this.pageSize;
-      return this.filteredSchedules.slice(startIndex, startIndex + this.pageSize);
+      return this.filterSchedules().slice(startIndex, startIndex + this.pageSize);
   }
 
 }

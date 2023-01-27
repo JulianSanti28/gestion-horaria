@@ -77,7 +77,7 @@ export const navItems: INavData[] = [
         url:'/schedule/create'
       },
       {
-        name:'Detail',
+        name:'Detail Environment',
         url:'/schedule/detail'
       },
       {
