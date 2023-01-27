@@ -1,7 +1,10 @@
+import { Department } from "./department.model";
+
 export interface Professor{
   // TODO atributos de teacher
-  id:number;
-  name: string;
+  teacherCode:string;
+  fullName: string;
+  department:Department[];
 
 }
   export interface ProfesorDTO extends Omit<Professor,'availableResources'>

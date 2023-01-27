@@ -17,7 +17,7 @@ export class ScheduleService {
   period:Period={'periodId':'2022.2','state':'true'}
   program:Program={program_id:'PIS',name:'INGENIERIA DE SISTEMAS',department_id:'1'}
   subject:Subject={'subjectCode':'1','name':'Programacion orientada a objetos','weeklyOverload':6,'timeBlock':true,'semester':2,'program':this.program}
-  teacher:Teacher={'teacherCode':'104618021314','fullName':'PPC','department':{}}
+  teacher:Teacher={'teacherCode':'104618021314','fullName':'PPC','department':[]}
   curso:Course={'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':this.period.periodId,'subjectCode':this.subject.subjectCode,'teacherCode':this.teacher.teacherCode}
   course!: Course;
   envi!:Environment;

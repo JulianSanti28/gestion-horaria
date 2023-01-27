@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, Renderer2, SimpleChanges, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import{Professor} from 'src/app/models/professor.model'
+import { Teacher } from 'src/app/models/teacher.model';
 import { ScheduleProfessorService } from 'src/app/services/schedule-professor/schedule-professor.service';
 
 @Component({
@@ -8,11 +9,11 @@ import { ScheduleProfessorService } from 'src/app/services/schedule-professor/sc
   templateUrl: './professor-all.component.html',
   styleUrls: ['./professor-all.component.scss']
 })
-export class ProfessorAllComponent {
+export class ProfessorAllComponent implements OnInit{
 
 
-  professors:Professor[]=[];
-  profesor!:Professor;
+  professors:Teacher[]=[];
+  professor!:Teacher;
   isDisabled:boolean=false;
   showSelectedProfessor:boolean=false;
   //emitir el profesor al padre cuando haya checkeado en una casilla
@@ -29,9 +30,16 @@ export class ProfessorAllComponent {
     private render2:Renderer2,
     private route : ActivatedRoute
   ){}
-  ngOnnInit():void{
+  ngOnInit(): void{
+    this.professorService.getAllProfessorsPage(1,5).subscribe((response)=>{
+      console.log("Data : ",response)
+      this.professors = response.elements as Teacher[]
+      this.totalItems=response.pagination.totalNumberElements as number
+      this.totalNumberPage=response.pagination.totalNumberPage as number
+    })
 
   }
+
   changeSelectedProfessor(){
     this.isDisabled=false
     // this.render2.setAttribute(this.casilla.nativeElement,'checked','false')
@@ -40,11 +48,13 @@ export class ProfessorAllComponent {
     });
     this.selectedProfessor.emit(null)
   }
+
+  
   onSelectingProfessor(profesor:Professor, e:Event){
 
     const x = e.target as HTMLInputElement
     if(x.checked){
-      this.profesor = profesor;
+      this.professor = profesor;
       this.selectedProfessor.emit(profesor)
       this.isDisabled=true
       this.showSelectedProfessor=true;
@@ -60,6 +70,11 @@ export class ProfessorAllComponent {
       if(!pageSize){
         pageSize=10
       }
+    this.professorService.getAllProfessorsPage(pageSolicitud,pageSize).subscribe((response)=>{
+      this.professors = response.data.elements as Professor[]
+      this.totalItems=response.data.pagination.totalNumberElements as number
+      this.totalNumberPage=response.data.pagination.totalNumberPage as number
+    })
   }
 
 

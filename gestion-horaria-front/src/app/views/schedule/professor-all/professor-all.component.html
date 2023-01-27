@@ -11,7 +11,7 @@ al seleccionarlo emitirlo al padre schedule-professor-detail
     
         <div class="container" *ngIf="showSelectedProfessor">
           <label  >
-            Profesor seleccionado : <strong>{{profesor.id}} <br></strong>
+            Profesor seleccionado : <strong>{{professor.teacherCode}} <br></strong>
     
           </label>
           <div md="5" *ngIf="isDisabled">
@@ -22,6 +22,7 @@ al seleccionarlo emitirlo al padre schedule-professor-detail
         </div>
       </ng-template>
 
+    <ng-template cTemplateId="accordionBody">
       <table cTable  >
         <thead cTableColor="dark">
         <tr>
@@ -30,14 +31,14 @@ al seleccionarlo emitirlo al padre schedule-professor-detail
         </thead>
         <tbody >
         <tr *ngFor="let professor of professors" >
-          <td>{{profesor.id}} </td>
-          <td>{{profesor.name}} </td>
-          <td><input [disabled]="isDisabled" #checkboxes  id="selectedEnv"  type="checkbox" (click)="onSelectingProfessor(profesor,$event)">  </td>
+          <td>{{professor.teacherCode}} </td>
+          <td>{{professor.fullName}} </td>
+          <td><input [disabled]="isDisabled" #checkboxes  id="selectedEnv"  type="checkbox" (click)="onSelectingProfessor(professor,$event)">  </td>
         </tr>
         </tbody>
         </table>
         <app-paginador
             (pageChanged)="loadTableProfessorsSchedule($event)" [totalItems]="totalItems" [totalNumberPage]="totalNumberPage" [pageSize]="pageSize"
-
         ></app-paginador>
+    </ng-template>
 </c-accordion-item>
