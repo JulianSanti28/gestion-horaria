@@ -119,7 +119,7 @@ export class EnvironmentService {
     )
   }
 
-  
+
 
   getAllEnvironments(){
     return this.environments;
@@ -161,6 +161,17 @@ export class EnvironmentService {
     return environments.filter(ambiente=>ambiente.environmentType == resourceType)
   }
 
+  getEmptyEnvironment(){
+    return {
+    'id':0,
+    'name':'',
+    'location':'',
+    'capacity':0,
+    'environmentType':'',
+    'facultyId':'',
+    'availableResources':[]
 
+    }
+  }
 }
 

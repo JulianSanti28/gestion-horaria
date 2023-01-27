@@ -6,8 +6,9 @@
 
       <div class="container" *ngIf="showSelectedCourse">
         <label  >
-          Curso    : <strong>{{curso.subject.name}}</strong> <br>
-          Semestre : <strong>{{semester}} </strong>
+          Curso    : <strong>{{curso.subjectCode}}</strong> | Grupo    : <strong>{{curso.courseGroup}} </strong><br>
+          Semestre : <strong>{{semester}} </strong> <br>
+
         </label>
           <button cButton  id="btnChangeSelection" color="danger" variant="outline" size="sm" type="submit" (click)="changeSelectedCourse()">
             Cambiar curso
@@ -26,9 +27,9 @@
           <td>{{course.courseId}} </td>
           <td>{{course.courseGroup}} </td>
           <td>{{course.courseCapacity}} </td>
-          <td>{{course.period.periodId}}</td>
-          <td>{{course.subject.name}} </td>
-          <td>{{course.teacher.fullName}} </td>
+          <td>{{course.periodId}}</td>
+          <td>{{course.subjectCode}} </td>
+          <td>{{course.teacherCode}} </td>
           <td><a [routerLink]="['../edit',course.courseId]">Ver detalles</a> </td>
           <td><input [disabled]="isCheckboxDisabled" #checkboxes  id="selectedCourse"  type="checkbox" (click)="onSelectingCourse(course,$event)"></td>
 
