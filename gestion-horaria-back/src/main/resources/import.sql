@@ -4,11 +4,11 @@ INSERT INTO `faculty` (`faculty_id`, `faculty_name`) VALUES ('FIET', 'FACULTAD D
 INSERT INTO `department` (`department_id`, `department_name`, `faculty_id`) VALUES ('1', 'Sistemas', 'FIET');
 INSERT INTO `department` (`department_id`, `department_name`, `faculty_id`) VALUES ('2', 'Telecomunicaciones', 'FIET');
 --Program
-INSERT INTO `program` (`program_id`, `name`, `department_id`) VALUES ('PIS', 'INGENIERIA DE SISTEMAS', '1');
-INSERT INTO `program` (`program_id`, `name`, `department_id`) VALUES ('PIET', 'INGENIERIA ELECTRONICA Y TELECOMUNICACIONES', '2');
+INSERT INTO `program` (`program_id`, `name`, `department_id`, `color`) VALUES ('PIS', 'INGENIERIA DE SISTEMAS', '1','bg-orange');
+INSERT INTO `program` (`program_id`, `name`, `department_id`, `color` ) VALUES ('PIET', 'INGENIERIA ELECTRONICA Y TELECOMUNICACIONES', '2','bg-sky');
 --Teacher
-INSERT INTO `teacher` (`teacherCode`, `full_name`, `department_id`) VALUES ('1', 'DANIEL PAZ', '1');
-INSERT INTO `teacher` (`teacherCode`, `full_name`, `department_id`) VALUES ('2', 'DELIO HURTADO', '2');
+INSERT INTO `teacher` (`teacherCode`, `full_name`, `department_id`, `program_id`) VALUES ('1', 'DANIEL PAZ', '1', 'PIS');
+INSERT INTO `teacher` (`teacherCode`, `full_name`, `department_id`, `program_id`) VALUES ('2', 'DELIO HURTADO', '2', 'PIET');
 --Period
 INSERT INTO `period` (`periodId`, `state`) VALUES ('2021_02', 'FINISHED');
 INSERT INTO `period` (`periodId`, `state`) VALUES ('2022_01', 'FINISHED');
