@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/environment")
@@ -62,5 +63,10 @@ public class EnvironmentController {
     @GetMapping("/{id}")
     public Response<EnvironmentDTO> findById(@PathVariable Integer id){
         return this.environmentService.getEnvironmentByCode(id);
+    }
+
+    @GetMapping("/allTypes")
+    public List<EnvironmentTypeEnumeration> findAllTypes(){
+        return this.environmentService.findAllTypesEnvironment();
     }
 }
