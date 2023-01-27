@@ -17,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -93,6 +96,18 @@ public class EnvironmentServiceImpl implements IEnvironmentService {
     public Environment findById(Integer id) {
         Environment environment = this.environmentRepository.findById(id).orElseThrow(()->new ScheduleBadRequestException("bad.request.environment.id", id.toString()));
         return environment;
+    }
+
+    @Override
+    public List<EnvironmentTypeEnumeration> findAllTypesEnvironment() {
+
+        List<EnvironmentTypeEnumeration> enums = new ArrayList<EnvironmentTypeEnumeration>();
+
+        enums.add(EnvironmentTypeEnumeration.AUDITORIO);
+        enums.add(EnvironmentTypeEnumeration.LABORATORIO);
+        enums.add(EnvironmentTypeEnumeration.SALON);
+
+        return enums;
     }
 
     @Override

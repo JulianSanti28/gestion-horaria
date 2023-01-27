@@ -4,6 +4,7 @@ import com.pragma.api.domain.GenericPageableResponse;
 import com.pragma.api.domain.ResourceDTO;
 import com.pragma.api.exception.ScheduleBadRequestException;
 import com.pragma.api.model.Resource;
+import com.pragma.api.model.enums.EnvironmentTypeEnumeration;
 import com.pragma.api.model.enums.ResourceTypeEnumeration;
 import com.pragma.api.repository.IResourceRepository;
 import com.pragma.api.util.PageableUtils;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -64,6 +67,17 @@ public class ResourceServiceImpl implements IResourceService{
         Page<Resource> resourcesByTypePage = this.resourceRepository.findAllByResourceType(resourceTypeEnum,pageable);
         if(resourcesByTypePage.isEmpty()) throw new ScheduleBadRequestException("bad.request.resource.empty", "");
         return this.validatePageList(resourcesByTypePage);
+    }
+
+    @Override
+    public List<ResourceTypeEnumeration> findAllTypesEnvironment() {
+
+        List<ResourceTypeEnumeration> enums = new ArrayList<ResourceTypeEnumeration>();
+
+        enums.add(ResourceTypeEnumeration.PEDAGOGICO);
+        enums.add(ResourceTypeEnumeration.TECNOLOGICO);
+
+        return enums;
     }
 
     @Override

@@ -3,6 +3,9 @@ package com.pragma.api.rest;
 import com.pragma.api.domain.GenericPageableResponse;
 import com.pragma.api.business.IResourceService;
 import com.pragma.api.domain.ResourceDTO;
+import com.pragma.api.domain.Response;
+import com.pragma.api.model.enums.EnvironmentTypeEnumeration;
+import com.pragma.api.model.enums.ResourceTypeEnumeration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/resource")
@@ -65,5 +69,11 @@ public class ResourceController {
     public ResponseEntity<String> deleteResourceById(@RequestParam("id") Integer id) {
         this.resourceService.deleteResource(id);
         return ResponseEntity.status(HttpStatus.OK).body("Resource deleted successful");
+    }
+
+    @GetMapping("/allTypes")
+    public ResponseEntity<List<ResourceTypeEnumeration>> findAllTypes(){
+        List<ResourceTypeEnumeration> enums = this.resourceService.findAllTypesEnvironment();
+        return ResponseEntity.status(HttpStatus.OK).body(enums);
     }
 }

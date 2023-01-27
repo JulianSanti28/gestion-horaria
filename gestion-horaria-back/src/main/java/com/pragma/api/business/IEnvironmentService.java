@@ -4,7 +4,8 @@ import com.pragma.api.domain.*;
 import com.pragma.api.model.Environment;
 import com.pragma.api.model.enums.EnvironmentTypeEnumeration;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 public interface IEnvironmentService {
     /**
@@ -50,4 +51,7 @@ public interface IEnvironmentService {
     public Response<GenericPageableResponse> findAllByEnvironmentType(Pageable pageable, EnvironmentTypeEnumeration environmentType);
 
     Environment findById(final Integer id);
+
+
+    List<EnvironmentTypeEnumeration> findAllTypesEnvironment();
 }
