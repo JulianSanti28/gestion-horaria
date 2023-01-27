@@ -1,8 +1,38 @@
-<p>schedule-professor-view works!</p>
-<c-accordion-item>
-    <ng-template cTemplateId="accordionHeader">
-        <div *ngIf="!showSelectedProfessor" >
-            <strong>Ambientes </strong>
+<c-card>
+    <c-card-header>
+      <strong>Horario del Profesor </strong>
+    </c-card-header>
+    <c-card-body>
+        <div class="container">
+          <br>
+          <div class="table-responsive">
+              <table class="table table-bordered text-center" >
+                  <thead cTableColor="info">
+                      <tr class="bg-light-gray">
+                          <th class="text-uppercase" *ngFor="let header of headers ">{{header}} </th>
+  
+                      </tr>
+                  </thead>
+                  <tbody>
+                  <!--
+                    Iterar por filas o sea por horas del dia esa es la primera casilla
+                    despues iterar por dias de la semana horizontalemnte ahi llamamos al hijo que despliega la información
+                    del schedule
+                   -->
+                    <tr *ngFor="let hora of horasDia ">
+                      <td class="align-middle">{{hora}}</td>
+                        <td *ngFor="let dia of weekDays ">
+                            <app-schedule-row
+                              [header]="dia"
+                              [hora] = "hora"
+                              [horariosColor]="horariosAmbienteColor"
+                            ></app-schedule-row>
+                        </td>
+                    </tr>
+  
+                  </tbody>
+              </table>
           </div>
-    </ng-template>
-</c-accordion-item>
+        </div>
+    </c-card-body>
+  </c-card>
