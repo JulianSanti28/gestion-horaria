@@ -30,6 +30,8 @@ export class ScheduleTimeAllComponent {
   ngOnInit(){
     // this.weekDays =this.scheduleService.getAllWeekDays();
     this.availableSchedules=this.scheduleService.getAllAvailableScheduleByEnvironment();
+    console.log("Valor de taken profesor y environment ", this.takenProfessorSchedule , "  ")
+    console.log(this.takenEnvironmentSchedule)
     // obtener todos los horarios vacios
     // cruzar los horarios ocupados con los vacios y que queden solo los vacios
     // mostrar solo los horarios vacios o mostrar deshabilitado para escoger

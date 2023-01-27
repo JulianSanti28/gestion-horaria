@@ -150,9 +150,10 @@ export class ScheduleCreateFormComponent {
     this.scheduleCreated.emit(scheduleCreated)
   }
   fillTakenProfessorSchedule(){
-    this.scheduleService.getTakenProfessorSchedule(this.courseSelected.courseId).subscribe((response) =>{
 
-      this.takenProfessorSchedules = response.data.elements as Schedule[]
+    this.scheduleService.getTakenProfessorSchedule(this.courseSelected.teacherCode).subscribe((response) =>{
+      console.log("Response de takenprofesor" ,response)
+      this.takenProfessorSchedules = response as Schedule[]
 
 
     });
@@ -160,7 +161,7 @@ export class ScheduleCreateFormComponent {
   fillTakenEnvironmentSchedule(){
     this.scheduleService.getTakenEnvironmentSchedule(this.environmentSelected.id).subscribe((response) =>{
 
-      this.takenProfessorSchedules = response.data.elements as Schedule[]
+      this.takenProfessorSchedules = response as Schedule[]
 
 
     });
