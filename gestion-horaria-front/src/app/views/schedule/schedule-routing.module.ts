@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ScheduleCreateComponent } from './schedule-create/schedule-create.component';
 import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.component';
+import {ScheduleProfessorDetailComponent} from './schedule-professor-detail/schedule-professor-detail.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -34,6 +36,13 @@ const routes: Routes = [
         component:ScheduleDetailComponent,
         data:{
           title:'detail'
+        }
+      },
+      {
+        path:'detailprofessor',
+        component:ScheduleProfessorDetailComponent,
+        data:{
+          title:'detailprofessor'
         }
       }
     ]

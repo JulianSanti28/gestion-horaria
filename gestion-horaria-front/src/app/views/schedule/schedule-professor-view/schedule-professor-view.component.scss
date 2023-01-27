@@ -1,0 +1,12 @@
+#btnChangeSelection{
+    float: right;
+  }
+  label {
+    float: left;
+  }
+  
+  .container{
+      display: grid;
+      grid-template-columns: 1fr auto;
+  }
+  

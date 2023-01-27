@@ -79,6 +79,10 @@ export const navItems: INavData[] = [
       {
         name:'Detail',
         url:'/schedule/detail'
+      },
+      {
+        name:'Detail Professor',
+        url:'/schedule/detailprofessor'
       }
     ]
   },
