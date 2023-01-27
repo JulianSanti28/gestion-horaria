@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { Environment } from 'src/app/models/environment.model';
 import { Schedule, ScheduleColor } from 'src/app/models/schedule.model';
 import { ScheduleService } from 'src/app/services/schedule/schedule.service';
+import { ScheduleRowComponent } from '../schedule-row/schedule-row.component';
 
 @Component({
   selector: 'app-schedule-view',
@@ -16,66 +17,72 @@ export class ScheduleViewComponent implements AfterViewInit {
   weekDays=["lunes","martes","miercoles","jueves","viernes","sabado"]
   horariosAmbiente!:Schedule[];
   horariosAmbienteColor:ScheduleColor[]=[];
-  horasDia=["07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00"]
-  colores :{[key:number]:string;}={
-    1:"bg-sky",
-    2:"bg-orange",
-    3:"bg-green",
-    4:"bg-yellow",
-    5:"bg-pink",
-    6:"bg-purple",
-    // 7:"bg-lightred"
-  }
-  iteradorColores:number=1
+  horasDia=["07:00:00","08:00:00","09:00:00","10:00:00","11:00:00","12:00:00","13:00:00","14:00:00","15:00:00","16:00:00","17:00:00","18:00:00","19:00:00","20:00:00","21:00:00","22:00:00"]
+  showHorario=false
   @Input('ambiente') ambiente!:Environment;
+  @ViewChild('child') child!: ScheduleRowComponent;
 
+  horariosColor:ScheduleColor[]=[];
   constructor(
-    private scheduleService:ScheduleService
+    private scheduleService:ScheduleService,
+    private cdr: ChangeDetectorRef
   ){
 
   }
+  ngAfterViewInit(): void {
+    // this.scheduleService.getTakenEnvironmentSchedule(this.ambiente.id).subscribe((response) =>{
+    //   console.log("Responseee ",response)
+    //   this.horariosAmbiente = response as Schedule[]
+    //   this.child.callWithData(this.horariosAmbiente)
 
-  //llamar al servicio para traer los horarios disponibles de ese ambiente
-    // this.horariosAmbiente = this.scheduleService.getAllScheduleFromEnvironment();
-  ngOnInit(){
-    console.log("Entra a ngOninit")
+    // });
     this.scheduleService.getTakenEnvironmentSchedule(this.ambiente.id).subscribe((response) =>{
       console.log("Responseee ",response)
       this.horariosAmbiente = response as Schedule[]
-      this.fillColorSchedule()
+      this.callWithData(this.horariosAmbiente)
 
     });
-    console.log("sale a ngOninit")
   }
-  ngAfterViewInit(): void {
-    console.log("Entra a after view ")
-    // this.fillColorSchedule()
-    console.log("sale a after view ")
-  }
-  async fillColorSchedule(){
-    this.horariosAmbienteColor = this.horariosAmbiente.map((x)=>{ return {...x, color:""}})
-    this.horariosAmbienteColor.forEach(x=> x.color= this.choseRandomColor())
 
-    console.log("colores de horario ",this.horariosAmbienteColor)
+  //llamar al servicio para traer los horarios ocupados de ese ambiente
+    // this.horariosAmbiente = this.scheduleService.getAllScheduleFromEnvironment();
+  ngOnInit(){
+
+
 
   }
-  choseRandomColor(){
+  callWithData(schedules: Schedule[]){
+    console.log("horarios desde el padre ",schedules)
+    this.horariosColor = this.scheduleService.getScheduleWithColor(schedules);
+    this.showHorario=true
+    console.log("horarios color ", this.horariosColor)
+    this.cdr.detectChanges();
 
-    // let colorKeys:string[] = Object.keys(this.colores);
-    // let randomIndex = Math.floor(Math.random() * colorKeys.length);
-    // let randomColorKey:number = Number(colorKeys[randomIndex]);
-    let randomColorValue:string = this.colores[this.iteradorColores];
-    if(this.iteradorColores< 6){
-      this.iteradorColores += 1
-    }else{
-      this.iteradorColores=1
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['horariosColor']){
+      this.horariosColor=changes['horariosColor'].currentValue
+
     }
 
-
-    return randomColorValue
-
-
   }
+  getShowHorario(value:boolean){
+    this.showHorario=value
+  }
+  timeInRange(inicial:string, final:string,franja:string){
+    //lo va a pintar si
+    //inicial es igual a la franja o ( si el final es mayor a la franja y el inicial es menor a la franja)
+
+    if(inicial==franja || ( parseInt(final)>parseInt(franja) && parseInt(inicial)<parseInt(franja)) ){
+      // console.log("retorna true para pintar ")
+      return true
+    }
+    // console.log("no pasan")
+    return false
+  }
+
+
 
 
 

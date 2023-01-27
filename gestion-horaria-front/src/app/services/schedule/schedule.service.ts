@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Course } from 'src/app/models/course.model';
 import { Environment } from 'src/app/models/environment.model';
 import { Period } from 'src/app/models/period.model';
-import { Schedule, ScheduleDTO } from 'src/app/models/schedule.model';
+import { Schedule, ScheduleColor, ScheduleDTO } from 'src/app/models/schedule.model';
 import { Program } from 'src/app/models/program.model';
 import { Teacher } from 'src/app/models/teacher.model';
 import { Subject } from 'src/app/models/subject.model';
@@ -72,6 +72,16 @@ export class ScheduleService {
 
 
   ]
+  colores :{[key:number]:string;}={
+    1:"bg-sky",
+    2:"bg-orange",
+    3:"bg-green",
+    4:"bg-yellow",
+    5:"bg-pink",
+    6:"bg-purple",
+    // 7:"bg-lightred"
+  }
+  iteradorColores:number=1
   continueCreatingScheduleForCourse:boolean =false;
   endPoint:String = 'api/schedule'
   httpOptions = {
@@ -131,12 +141,41 @@ export class ScheduleService {
       })
     )
   }
+
+  getScheduleWithColor(schedules:Schedule[]):ScheduleColor[]{
+     return this.fillColorSchedule(schedules);
+  }
+  fillColorSchedule(horariosAmbiente :Schedule[]){
+    let horariosColor = horariosAmbiente.map((x)=>{ return {...x, color:""}})
+    horariosColor.forEach(x=> x.color= this.choseRandomColor())
+
+    console.log("colores de horario ",horariosColor)
+    return horariosColor
+  }
+  choseRandomColor(){
+
+    // let colorKeys:string[] = Object.keys(this.colores);
+    // let randomIndex = Math.floor(Math.random() * colorKeys.length);
+    // let randomColorKey:number = Number(colorKeys[randomIndex]);
+    let randomColorValue:string = this.colores[this.iteradorColores];
+    if(this.iteradorColores< 6){
+      this.iteradorColores += 1
+    }else{
+      this.iteradorColores=1
+    }
+
+
+    return randomColorValue
+
+
+  }
   updateContinueCreatingForCourse(value:boolean){
     this.continueCreatingScheduleForCourse=value;
   }
   getValueContinueCreatingForCourse(){
     return this.continueCreatingScheduleForCourse;
   }
+
 
   getEmptySchedule(){
     return {

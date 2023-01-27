@@ -1,23 +1,27 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Environment } from 'src/app/models/environment.model';
 import { Schedule, ScheduleColor } from 'src/app/models/schedule.model';
 import { ScheduleService } from 'src/app/services/schedule/schedule.service';
+
 
 @Component({
   selector: 'app-schedule-row',
   templateUrl: './schedule-row.component.html',
   styleUrls: ['./schedule-row.component.scss']
 })
-export class ScheduleRowComponent {
+export class ScheduleRowComponent implements OnInit, AfterViewInit{
 
 
   numeroDia?: number;
 
 
-  @Input('horariosColor') horariosColor!:ScheduleColor[];
+  horariosColor:ScheduleColor[]=[];
+  horariosAmbiente:Schedule[]=[]
+ showHorario:boolean=false
   @Input("hora") hora:string="";
   @Input("header") header:string="";
+ 
 
-  horariosColorHijo:ScheduleColor[]=[]
   colores :{[key:number]:string;}={
     1:"bg-sky",
     2:"bg-orange",
@@ -33,18 +37,30 @@ export class ScheduleRowComponent {
 
   }
 
+
   ngOnInit(){
     //Los horarios ya vienen desde el padre y deben estar con el color
-    console.log("horarios desde el padre ",this.horariosColor)
-    this.horariosColorHijo= this.horariosColor
+
+    // this.horariosColorHijo= this.horariosColor
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    if(changes['horariosColor']){
-      this.horariosColorHijo=changes['horariosColor'].currentValue
+  ngAfterViewInit(): void {
 
-    }
+  }
+  callWithData(schedules: Schedule[]){
+    console.log("horarios desde el padre ",schedules)
+    this.horariosColor = this.scheduleService.getScheduleWithColor(schedules);
+    this.showHorario=true
+    console.log("horarios color ", this.horariosColor)
+    this.ngOnInit()
+  }
 
-}
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   if(changes['horariosColor']){
+  //     this.horariosColor=changes['horariosColor'].currentValue
+
+  //   }
+
+  // }
 
   timeInRange(inicial:string, final:string,franja:string){
     //lo va a pintar si
