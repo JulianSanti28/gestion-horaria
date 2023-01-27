@@ -146,13 +146,13 @@ export class ScheduleCreateFormComponent {
     scheduleCreated.endingTime=this.scheduleSelected.endingTime
     scheduleCreated.courseId=this.courseSelected.courseId
     scheduleCreated.environmentId=this.environmentSelected.id
-    console.log("Emitiendo schedule ",scheduleCreated)
+    // console.log("Emitiendo schedule ",scheduleCreated)
     this.scheduleCreated.emit(scheduleCreated)
   }
   fillTakenProfessorSchedule(){
 
     this.scheduleService.getTakenProfessorSchedule(this.courseSelected.teacherCode).subscribe((response) =>{
-      console.log("Response de takenprofesor" ,response)
+    // console.log("Response de takenprofesor" ,response)
       this.takenProfessorSchedules = response as Schedule[]
 
 

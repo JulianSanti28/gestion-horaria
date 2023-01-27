@@ -24,7 +24,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let schedule of availableSchedules">
+      <tr *ngFor="let schedule of filteredSchedules">
         <td>{{schedule.id}} </td>
         <td>{{schedule.day}}</td>
         <td>{{schedule.startingTime}} </td>
@@ -35,5 +35,9 @@
       </tbody>
 
     </table>
+    <app-paginador
+        (pageChanged)="loadTableTime($event)" [totalItems]="totalItems" [totalNumberPage]="totalNumberPage" [pageSize]="pageSize"
+
+    ></app-paginador>
   </ng-template>
 </c-accordion-item>
