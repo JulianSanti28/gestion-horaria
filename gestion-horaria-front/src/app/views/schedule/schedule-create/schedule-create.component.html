@@ -7,11 +7,11 @@
     {{progressMadeForm}}%
   </c-progress-bar>
 </c-progress>
-<div *ngIf="createFormIsValid">
+<!-- <div *ngIf="createFormIsValid">
   <button cButton color="success" size="lg" [disabled]= "!createFormIsValid" (click)="getInfo() ; onSaveSchedule()" >
     Guardar esta franja horaria
   </button>
-</div>
+</div> -->
 <div class="grid-container">
   <div>
       <!-- Llama a before form y form -->
@@ -60,13 +60,19 @@
             </div>
             <br>
             <!-- Llamar al form paxra crear un schedule el avance de este afecta el progress bar, se emite-->
+            <!-- Se le envia programa y semestre y este emite ambiente para mostrar en schedule view
+              y el progreso que afecta la barra de progreso
+            -->
             <app-schedule-create-form
               #scheduleform
               (progress)="getProgressMadeForm($event)"
               (isFormValid)="getCreateFormIsValid($event)"
+              (selectedEnvironment)="getSelectedEnvironment($event)"
+              (scheduleCreated)="onSaveSchedule($event)"
+
               [selectedProgram]="program"
               [selectedSemester]="semester"
-              (selectedEnvironment)="getSelectedEnvironment($event)"
+              
               >
 
             </app-schedule-create-form>

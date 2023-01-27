@@ -16,3 +16,8 @@ export interface ScheduleColor extends  Schedule// Omit<Schedule,'course'|'envir
 {
   color: string;
 }
+
+export interface ScheduleDTO extends  Omit<Schedule ,'course'|'environment'>{
+  courseId:number;
+  environmentId:number;
+}
