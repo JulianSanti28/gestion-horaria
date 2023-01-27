@@ -9,9 +9,8 @@ import { Page500Component } from './page500/page500.component';
 import { ButtonModule, CardModule, FormModule, GridModule } from '@coreui/angular';
 import { IconModule } from '@coreui/icons-angular';
 
-import {
-  NavModule
-}from '@coreui/angular';
+import { NavModule }from '@coreui/angular';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,6 +27,7 @@ import {
     GridModule,
     IconModule,
     FormModule,
+    ReactiveFormsModule
     // DefaultHeaderComponent
   ]
 })
