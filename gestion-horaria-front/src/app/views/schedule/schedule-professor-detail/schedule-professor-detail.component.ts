@@ -8,12 +8,16 @@ import { Professor } from 'src/app/models/professor.model';
 })
 export class ScheduleProfessorDetailComponent {
 
-  showScheduleView:boolean = false // no mostrar el horario hasta que se haya seleccionado un profesor
-  selectedProfessor:Professor={};
+  showScheduleView:boolean = false;// no mostrar el horario hasta que se haya seleccionado un profesor
+  profesor!:Professor;
   // TODO all
 
-  getSelectedProfessor(profesor:Professor){
+  getSelectedProfessor(profesor:Professor |null){
     //obtener al profesor seleccionado que le llega como parametro
-    this.selectedProfessor=profesor
+    if(profesor != null){
+      this.profesor=profesor;
+      this.showScheduleView=true;
+      console.log("el ambiente seleccionado ",this.profesor)
+    }
   }
 }
