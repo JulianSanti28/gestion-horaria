@@ -37,8 +37,9 @@ export class PaginadorComponent implements OnInit,OnChanges{
       }
       if(changes['pageSize']){
         this.pageSize=changes['pageSize'].currentValue
+        console.log("Cambio PageSize ",this.pageSize)
       }
-      
+
       this.paginas = this.fillPaginas();
       // console.log("total Items ",this.totalItems, " total paginas ",this.totalNumberPage , " Items por pagina ",this.pageSize)
   }
@@ -56,7 +57,7 @@ export class PaginadorComponent implements OnInit,OnChanges{
 
   onChangePage(page:number){
     this.currentPage=page;
-    // console.log("Emitiendo ",this.currentPage , " page size ",this.pageSize)
+    console.log("Emitiendo desde paginador",this.currentPage , " page size ",this.pageSize)
     this.pageChanged.emit([this.currentPage,this.pageSize]);
   }
 

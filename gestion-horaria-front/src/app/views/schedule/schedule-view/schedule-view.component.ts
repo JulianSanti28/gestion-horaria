@@ -37,7 +37,7 @@ export class ScheduleViewComponent implements AfterViewInit {
 
     // });
     this.scheduleService.getTakenEnvironmentSchedule(this.ambiente.id).subscribe((response) =>{
-      console.log("Responseee ",response)
+      // console.log("Responseee ",response)
       this.horariosAmbiente = response as Schedule[]
       this.callWithData(this.horariosAmbiente)
 
@@ -52,10 +52,10 @@ export class ScheduleViewComponent implements AfterViewInit {
 
   }
   callWithData(schedules: Schedule[]){
-    console.log("horarios desde el padre ",schedules)
+    // console.log("horarios desde el padre ",schedules)
     this.horariosColor = this.scheduleService.getScheduleWithColor(schedules);
     this.showHorario=true
-    console.log("horarios color ", this.horariosColor)
+    // console.log("horarios color ", this.horariosColor)
     this.cdr.detectChanges();
 
   }

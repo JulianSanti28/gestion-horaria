@@ -46,7 +46,9 @@ export class ScheduleTimeAllComponent {
     console.log(this.takenEnvironmentSchedules)
 
     // obtener todos los horarios vacios
-   this.filteredSchedules= this.filterSchedules()
+    this.loadTableTime([1,7])
+  //  this.filteredSchedules= this.loadTableTime([1,5])
+
     console.log("Filtrados ",this.filteredSchedules)
     // cruzar los horarios ocupados con los vacios y que queden solo los vacios
     // mostrar solo los horarios vacios o mostrar deshabilitado para escoger
@@ -99,8 +101,25 @@ export class ScheduleTimeAllComponent {
       if(!pageSize){
         pageSize=10
       }
-      const startIndex = (pageSolicitud - 1) * this.pageSize;
-      return this.filterSchedules().slice(startIndex, startIndex + this.pageSize);
+      const startIndex = (pageSolicitud - 1) * pageSize;
+      console.log("Le envia al paginador ",startIndex, " y pageSize ",pageSize )
+      this.filteredSchedules.splice(0, this.filteredSchedules.length);
+      // return this.filterSchedules().slice(startIndex, startIndex + this.pageSize);
+      this.scheduleService.filterSchedulesPaged(
+        this.availableSchedules,
+        this.takenProfessorSchedules,
+        this.takenEnvironmentSchedules,
+        startIndex,
+        pageSize
+      ).subscribe(response =>{
+        console.log("Data en load Time: ",response)
+        this.filteredSchedules.splice(0, this.filteredSchedules.length);
+        this.filteredSchedules.push(...response.elements as Schedule[]);
+        this.totalItems=response.paginator.totalItems as number
+        this.totalNumberPage=response.paginator.totalNumberPage as number
+
+
+      })
   }
 
 }

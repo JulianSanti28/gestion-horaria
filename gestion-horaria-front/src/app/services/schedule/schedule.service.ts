@@ -7,7 +7,8 @@ import { Program } from 'src/app/models/program.model';
 import { Teacher } from 'src/app/models/teacher.model';
 import { Subject } from 'src/app/models/subject.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { catchError, Observable, of, throwError } from 'rxjs';
+import {ResponseData} from 'src/app/models/responseData.model'
 @Injectable({
   providedIn: 'root'
 })
@@ -149,9 +150,10 @@ export class ScheduleService {
     let horariosColor = horariosAmbiente.map((x)=>{ return {...x, color:""}})
     horariosColor.forEach(x=> x.color= this.choseRandomColor())
 
-    console.log("colores de horario ",horariosColor)
+    // console.log("colores de horario ",horariosColor)
     return horariosColor
   }
+
   choseRandomColor(){
 
     // let colorKeys:string[] = Object.keys(this.colores);
@@ -169,6 +171,46 @@ export class ScheduleService {
 
 
   }
+  filterSchedulesPaged(
+    availableSchedules:Schedule[],
+    takenProfessorSchedules:Schedule[],
+    takenEnvironmentSchedules:Schedule[],
+    startIndex:number,
+    pageSize:number
+    ):Observable<ResponseData>{
+
+      console.log("Entra a paginado en environments ")
+      const filteredSchedules = availableSchedules.filter(schedule => {
+        // check if the schedule overlaps with any schedules in the takenProfessorSchedules array
+        const professorOverlap = takenProfessorSchedules.some(pSchedule => {
+          return schedule.day === pSchedule.day &&
+            (schedule.startingTime >= pSchedule.startingTime && schedule.startingTime < pSchedule.endingTime ||
+              schedule.endingTime > pSchedule.startingTime && schedule.endingTime <= pSchedule.endingTime);
+        });
+
+        // check if the schedule overlaps with any schedules in the takenEnvironmentSchedules array
+        const environmentOverlap = takenEnvironmentSchedules.some(eSchedule => {
+          return schedule.day === eSchedule.day &&
+            (schedule.startingTime >= eSchedule.startingTime && schedule.startingTime < eSchedule.endingTime ||
+              schedule.endingTime > eSchedule.startingTime && schedule.endingTime <= eSchedule.endingTime);
+        });
+
+        // only return the schedule if it doesn't overlap with either the professor or environment schedules
+        return !professorOverlap && !environmentOverlap;
+      });
+      let numberPages = Math.ceil(filteredSchedules.length/pageSize)
+      console.log("Elementos filtrados es ",filteredSchedules)
+      console.log("Total items es ",filteredSchedules.length, "  y number page es ", numberPages)
+
+      let response: ResponseData = {
+        elements:filteredSchedules.slice(startIndex, startIndex + pageSize),
+        paginator:{
+          totalItems:filteredSchedules.length,
+          totalNumberPage:  numberPages
+        }
+      }
+      return of(response)
+   }
   updateContinueCreatingForCourse(value:boolean){
     this.continueCreatingScheduleForCourse=value;
   }
