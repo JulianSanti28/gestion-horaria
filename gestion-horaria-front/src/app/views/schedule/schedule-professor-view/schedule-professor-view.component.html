@@ -32,7 +32,7 @@
                               [hora] = "hora"
 
                             ></app-schedule-row> -->
-                            <div id="franja" *ngFor="let horario of horariosColor " >
+                            <div id="franja" *ngFor="let horario of horariosProfesorColor " >
 
                               <div *ngIf="timeInRange(horario.startingTime,horario.endingTime,hora)">
 

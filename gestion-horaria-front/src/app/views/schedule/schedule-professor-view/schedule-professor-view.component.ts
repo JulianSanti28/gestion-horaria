@@ -60,8 +60,8 @@ numeroDia?: number;
   contador: number = 0;
   headers:string[]=["hora","lunes","martes","miercoles","jueves","viernes","sabado"]
   weekDays=["lunes","martes","miercoles","jueves","viernes","sabado"]
-  horariosAmbiente!:Schedule[];
-  horariosAmbienteColor:ScheduleColor[]=[];
+  horariosProfesorColor!:ScheduleColor[];
+
   horasDia=["07:00:00","08:00:00","09:00:00","10:00:00","11:00:00","12:00:00","13:00:00","14:00:00","15:00:00","16:00:00","17:00:00","18:00:00","19:00:00","20:00:00","21:00:00","22:00:00"]
   showHorario=false
   @Input('profesor') profesor!:Professor;
@@ -84,8 +84,8 @@ numeroDia?: number;
     // });
     this.scheduleService.getTakenProfessorSchedule(this.profesor.teacherCode).subscribe((response) =>{
       console.log("Responseee ",response)
-      this.horariosAmbiente = response as Schedule[]
-      this.callWithData(this.horariosAmbiente)
+      this.horariosProfesorColor = response as ScheduleColor[]
+      //this.callWithData(this.horariosAmbiente)
 
     });
   }
@@ -97,20 +97,10 @@ numeroDia?: number;
 
 
   }
-  callWithData(schedules: Schedule[]){
-    console.log("horarios desde el padre ",schedules)
-    this.horariosColor = this.scheduleService.getScheduleWithColor(schedules);
-    this.showHorario=true
-    console.log("horarios color ", this.horariosColor)
-    this.cdr.detectChanges();
 
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['horariosColor']){
-      this.horariosColor=changes['horariosColor'].currentValue
-
-    }
+    
 
   }
   getShowHorario(value:boolean){

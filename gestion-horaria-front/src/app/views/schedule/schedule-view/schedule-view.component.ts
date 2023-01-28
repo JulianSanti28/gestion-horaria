@@ -15,14 +15,14 @@ export class ScheduleViewComponent implements AfterViewInit {
   contador: number = 0;
   headers:string[]=["hora","lunes","martes","miercoles","jueves","viernes","sabado"]
   weekDays=["lunes","martes","miercoles","jueves","viernes","sabado"]
-  horariosAmbiente!:Schedule[];
-  horariosAmbienteColor:ScheduleColor[]=[];
+  horariosAmbienteColor!:ScheduleColor[];
+  // horariosAmbienteColor:ScheduleColor[]=[];
   horasDia=["07:00:00","08:00:00","09:00:00","10:00:00","11:00:00","12:00:00","13:00:00","14:00:00","15:00:00","16:00:00","17:00:00","18:00:00","19:00:00","20:00:00","21:00:00","22:00:00"]
   showHorario=false
   @Input('ambiente') ambiente!:Environment;
   @ViewChild('child') child!: ScheduleRowComponent;
 
-  horariosColor:ScheduleColor[]=[];
+
   constructor(
     private scheduleService:ScheduleService,
     private cdr: ChangeDetectorRef
@@ -30,46 +30,38 @@ export class ScheduleViewComponent implements AfterViewInit {
 
   }
   ngAfterViewInit(): void {
-    // this.scheduleService.getTakenEnvironmentSchedule(this.ambiente.id).subscribe((response) =>{
-    //   console.log("Responseee ",response)
-    //   this.horariosAmbiente = response as Schedule[]
-    //   this.child.callWithData(this.horariosAmbiente)
 
-    // });
     this.scheduleService.getTakenEnvironmentSchedule(this.ambiente.id).subscribe((response) =>{
-      // console.log("Responseee ",response)
-      this.horariosAmbiente = response as Schedule[]
-      this.callWithData(this.horariosAmbiente)
+      console.log("Responseee ",response)
+      this.horariosAmbienteColor = response as ScheduleColor[]
+      // this.callWithData(this.horariosAmbiente)
 
     });
   }
 
-  //llamar al servicio para traer los horarios ocupados de ese ambiente
-    // this.horariosAmbiente = this.scheduleService.getAllScheduleFromEnvironment();
+
   ngOnInit(){
 
 
 
   }
-  callWithData(schedules: Schedule[]){
-    // console.log("horarios desde el padre ",schedules)
-    this.horariosColor = this.scheduleService.getScheduleWithColor(schedules);
-    this.showHorario=true
-    // console.log("horarios color ", this.horariosColor)
-    this.cdr.detectChanges();
+  // callWithData(schedules: Schedule[]){
+  //   // console.log("horarios desde el padre ",schedules)
+  //   this.horariosColor = this.scheduleService.getScheduleWithColor(schedules);
+  //   this.showHorario=true
+  //   // console.log("horarios color ", this.horariosColor)
+  //   this.cdr.detectChanges();
 
-  }
+  // }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['horariosColor']){
-      this.horariosColor=changes['horariosColor'].currentValue
-
-    }
+    
 
   }
   getShowHorario(value:boolean){
     this.showHorario=value
   }
+
   timeInRange(inicial:string, final:string,franja:string){
     //lo va a pintar si
     //inicial es igual a la franja o ( si el final es mayor a la franja y el inicial es menor a la franja)

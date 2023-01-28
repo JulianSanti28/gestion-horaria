@@ -99,7 +99,7 @@ export class ScheduleCreateComponent {
 
           Swal.fire('Franja creada',
           `La franja : ${scheduleresponse.startingTime} ${scheduleresponse.endingTime}\n Curso: ${scheduleresponse.course.courseId}  \nfue creado exitosamente`, 'success');
-          this.router.navigate(['//schedule/detailprofessor']);
+          this.router.navigate(['//schedule/detail']);
           //this.isSent=true //enviar señal al formulario hijo de que puede limpiarse
           // Swal.fire({
           //   title: ' Franja creada ',
