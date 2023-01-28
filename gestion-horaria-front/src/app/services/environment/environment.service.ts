@@ -95,11 +95,23 @@ export class EnvironmentService {
   }
   updateEnvironment(environment:Environment){
     //llamar a actualizar ambiente
+    console.log(environment)
     return this.http.post<any>(this.endPoint+'',environment,this.httpOptions)
     .pipe(
       catchError((e) => {
 
         console.log('Error Actualizando el ambiente', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    );
+  }
+  updateResourceOfEnviroment(resourceId:number, environmentId:number){
+    return this.http.post<any>(this.endPoint+'/updateResource'+`?resourceId=${resourceId}&environmentId=${environmentId}`,this.httpOptions)
+    .pipe(
+      catchError((e) => {
+
+        console.log('Error GUARDANDO el ambiente', e.error.mensaje, 'error');
         return throwError(e);
 
       })
