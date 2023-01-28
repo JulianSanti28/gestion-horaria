@@ -37,7 +37,7 @@ export class PaginadorComponent implements OnInit,OnChanges{
       }
       if(changes['pageSize']){
         this.pageSize=changes['pageSize'].currentValue
-        console.log("Cambio PageSize ",this.pageSize)
+        // console.log("Cambio PageSize ",this.pageSize)
       }
 
       this.paginas = this.fillPaginas();

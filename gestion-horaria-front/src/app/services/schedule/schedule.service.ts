@@ -175,12 +175,13 @@ export class ScheduleService {
     availableSchedules:Schedule[],
     takenProfessorSchedules:Schedule[],
     takenEnvironmentSchedules:Schedule[],
+    selectedDay:string,
     startIndex:number,
     pageSize:number
     ):Observable<ResponseData>{
 
       console.log("Entra a paginado en environments ")
-      const filteredSchedules = availableSchedules.filter(schedule => {
+      let filteredSchedules = availableSchedules.filter(schedule => {
         // check if the schedule overlaps with any schedules in the takenProfessorSchedules array
         const professorOverlap = takenProfessorSchedules.some(pSchedule => {
           return schedule.day === pSchedule.day &&
@@ -198,6 +199,10 @@ export class ScheduleService {
         // only return the schedule if it doesn't overlap with either the professor or environment schedules
         return !professorOverlap && !environmentOverlap;
       });
+      // filtrar los disponibles por dia si es que lo enviaron 
+      if(selectedDay != ''){
+        filteredSchedules = filteredSchedules.filter(x => x.day == selectedDay)
+      }
       let numberPages = Math.ceil(filteredSchedules.length/pageSize)
       console.log("Elementos filtrados es ",filteredSchedules)
       console.log("Total items es ",filteredSchedules.length, "  y number page es ", numberPages)

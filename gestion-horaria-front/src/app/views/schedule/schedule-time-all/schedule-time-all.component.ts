@@ -20,8 +20,7 @@ export class ScheduleTimeAllComponent {
   weekDays:string[]=["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"]
 
 
-  environmentType!: string ;
-  isTypeSelected:boolean=false
+  selectedDay: string ='';
   totalItems:number=0;
   totalNumberPage:number=1;
   paginadorEnvironment: any;
@@ -47,9 +46,7 @@ export class ScheduleTimeAllComponent {
 
     // obtener todos los horarios vacios
     this.loadTableTime([1,7])
-  //  this.filteredSchedules= this.loadTableTime([1,5])
 
-    console.log("Filtrados ",this.filteredSchedules)
     // cruzar los horarios ocupados con los vacios y que queden solo los vacios
     // mostrar solo los horarios vacios o mostrar deshabilitado para escoger
   }
@@ -57,27 +54,6 @@ export class ScheduleTimeAllComponent {
       //TODO borrar progreso si cambia de horario volver a mostrar los horarios disponibles
   }
 
-  filterSchedules():Schedule[]{
-   const filteredSchedules = this.availableSchedules.filter(schedule => {
-      // check if the schedule overlaps with any schedules in the takenProfessorSchedules array
-      const professorOverlap = this.takenProfessorSchedules.some(pSchedule => {
-        return schedule.day === pSchedule.day &&
-          (schedule.startingTime >= pSchedule.startingTime && schedule.startingTime < pSchedule.endingTime ||
-           schedule.endingTime > pSchedule.startingTime && schedule.endingTime <= pSchedule.endingTime);
-      });
-
-      // check if the schedule overlaps with any schedules in the takenEnvironmentSchedules array
-      const environmentOverlap = this.takenEnvironmentSchedules.some(eSchedule => {
-        return schedule.day === eSchedule.day &&
-          (schedule.startingTime >= eSchedule.startingTime && schedule.startingTime < eSchedule.endingTime ||
-           schedule.endingTime > eSchedule.startingTime && schedule.endingTime <= eSchedule.endingTime);
-      });
-
-      // only return the schedule if it doesn't overlap with either the professor or environment schedules
-      return !professorOverlap && !environmentOverlap;
-    });
-    return filteredSchedules
-  }
   onSelectingSchedule(schedule:Schedule,e:Event){
 
     const x = e.target as HTMLInputElement
@@ -89,6 +65,17 @@ export class ScheduleTimeAllComponent {
       this.isCheckboxDisabled=true //deshabilitar que peuda seleccionar otros cursos
       this.showSelectedSchedule=true
     }
+  }
+  updateTableTime(type:string){
+
+    if(type == 'all' || type ==''){
+      this.selectedDay=''
+    }else{
+
+      this.selectedDay=type
+    }
+    this.loadTableTime([1,7])
+
   }
 
   loadTableTime(args: number[]){
@@ -109,6 +96,7 @@ export class ScheduleTimeAllComponent {
         this.availableSchedules,
         this.takenProfessorSchedules,
         this.takenEnvironmentSchedules,
+        this.selectedDay,
         startIndex,
         pageSize
       ).subscribe(response =>{

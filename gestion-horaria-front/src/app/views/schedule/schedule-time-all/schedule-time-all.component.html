@@ -15,8 +15,27 @@
     </div>
   </ng-template>
   <ng-template cTemplateId="accordionBody">
-    <label cLabel for="">Horas pares : <input type="checkbox"></label>
-    <label cLabel for="">Horas impares : <input type="checkbox"></label>
+    <c-row class="mb-3">
+
+      <label cLabel class="col-sm-2 col-form-label" >
+        Filtrar por dia:
+      </label>
+      <c-col md="5">
+      <c-dropdown>
+        <button cButton cDropdownToggle color="light">
+          Selecciona el dia
+        </button>
+        <ul cDropdownMenu>
+          <li><h6 cDropdownHeader>Tipos de ambiente</h6></li>
+          <li *ngFor="let tipo of weekDays"><a (click)="updateTableTime(tipo.toUpperCase())" cDropdownItem>{{tipo}}</a></li>
+
+        </ul>
+      </c-dropdown>
+      </c-col>
+
+    </c-row>
+
+
     <table cTable>
       <thead cTableColor="dark">
       <tr>

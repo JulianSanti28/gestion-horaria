@@ -1,4 +1,3 @@
-import { Schedule } from "./schedule.model"
 
 export interface ResponseData{
   elements:any[]
