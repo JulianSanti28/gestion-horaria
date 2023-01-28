@@ -1,4 +1,4 @@
-import { Component, Output,EventEmitter, Input } from '@angular/core';
+import { Component, Output,EventEmitter, Input, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { Environment } from 'src/app/models/environment.model';
 import {Schedule} from 'src/app/models/schedule.model'
 import {ScheduleService} from 'src/app/services/schedule/schedule.service'
@@ -28,8 +28,8 @@ export class ScheduleTimeAllComponent {
   filteredSchedules:Schedule[]=[]
   @Input('takenProfessorSchedule') takenProfessorSchedules:Schedule[]=[];
   @Input('takenEnvironmentSchedule') takenEnvironmentSchedules: Schedule[]=[]
-  @Output() selectedSchedule = new EventEmitter<Schedule>();
-
+  @Output() selectedSchedule = new EventEmitter<Schedule| null>();
+  @ViewChildren("checkboxes") checkboxes!: QueryList<ElementRef>;
 
 
 
@@ -41,8 +41,8 @@ export class ScheduleTimeAllComponent {
   ngOnInit(){
     // this.weekDays =this.scheduleService.getAllWeekDays();
     this.availableSchedules=this.scheduleService.getAllAvailableScheduleByEnvironment();
-    console.log("Valor de taken profesor y environment ", this.takenProfessorSchedules , "  ")
-    console.log(this.takenEnvironmentSchedules)
+    console.log("Valor de taken profesor  ", this.takenProfessorSchedules , "  ")
+    console.log("y environment" ,this.takenEnvironmentSchedules)
 
     // obtener todos los horarios vacios
     this.loadTableTime([1,7])
@@ -50,9 +50,7 @@ export class ScheduleTimeAllComponent {
     // cruzar los horarios ocupados con los vacios y que queden solo los vacios
     // mostrar solo los horarios vacios o mostrar deshabilitado para escoger
   }
-  changeSelectedSchedule(){
-      //TODO borrar progreso si cambia de horario volver a mostrar los horarios disponibles
-  }
+
 
   onSelectingSchedule(schedule:Schedule,e:Event){
 
@@ -65,6 +63,16 @@ export class ScheduleTimeAllComponent {
       this.isCheckboxDisabled=true //deshabilitar que peuda seleccionar otros cursos
       this.showSelectedSchedule=true
     }
+  }
+  changeSelectedSchedule(){
+    //TODO borrar progreso si cambia de horario volver a mostrar los horarios disponibles
+    this.isCheckboxDisabled=false
+    this.isScheduleSelected=false
+    this.showSelectedSchedule=false
+    this.checkboxes.forEach((element) => {
+      element.nativeElement.checked = false;
+    });
+    this.selectedSchedule.emit(null)
   }
   updateTableTime(type:string){
 
@@ -89,7 +97,7 @@ export class ScheduleTimeAllComponent {
         pageSize=10
       }
       const startIndex = (pageSolicitud - 1) * pageSize;
-      console.log("Le envia al paginador ",startIndex, " y pageSize ",pageSize )
+
       this.filteredSchedules.splice(0, this.filteredSchedules.length);
       // return this.filterSchedules().slice(startIndex, startIndex + this.pageSize);
       this.scheduleService.filterSchedulesPaged(
@@ -100,7 +108,7 @@ export class ScheduleTimeAllComponent {
         startIndex,
         pageSize
       ).subscribe(response =>{
-        console.log("Data en load Time: ",response)
+        // console.log("Data en load Time: ",response)
         this.filteredSchedules.splice(0, this.filteredSchedules.length);
         this.filteredSchedules.push(...response.elements as Schedule[]);
         this.totalItems=response.paginator.totalItems as number

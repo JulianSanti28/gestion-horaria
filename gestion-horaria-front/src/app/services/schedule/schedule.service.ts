@@ -130,6 +130,25 @@ export class ScheduleService {
       })
     )
   }
+  fillTakenProfessorSchedule(teacherCode:string):Observable<Schedule[]>{
+    let takenProfessorSchedules : Schedule[]= []
+    this.getTakenProfessorSchedule(teacherCode).subscribe((response) =>{
+    // console.log("Response de takenprofesor" ,response)
+      takenProfessorSchedules = response as Schedule[]
+
+
+    });
+    return of(takenProfessorSchedules)
+  }
+  fillTakenEnvironmentSchedule(environmentId:number):Observable<Schedule[]> {
+    let takenEnvironmentSchedules : Schedule[]=[]
+    this.getTakenEnvironmentSchedule(environmentId).subscribe((response) =>{
+
+     takenEnvironmentSchedules = response as Schedule[]
+
+    });
+    return of(takenEnvironmentSchedules)
+  }
 
   saveSchedule(schedule:ScheduleDTO){
     return this.http.post<any>(this.endPoint+'',schedule,this.httpOptions)
@@ -180,7 +199,7 @@ export class ScheduleService {
     pageSize:number
     ):Observable<ResponseData>{
 
-      console.log("Entra a paginado en environments ")
+
       let filteredSchedules = availableSchedules.filter(schedule => {
         // check if the schedule overlaps with any schedules in the takenProfessorSchedules array
         const professorOverlap = takenProfessorSchedules.some(pSchedule => {
@@ -199,13 +218,13 @@ export class ScheduleService {
         // only return the schedule if it doesn't overlap with either the professor or environment schedules
         return !professorOverlap && !environmentOverlap;
       });
-      // filtrar los disponibles por dia si es que lo enviaron 
+      // filtrar los disponibles por dia si es que lo enviaron
       if(selectedDay != ''){
         filteredSchedules = filteredSchedules.filter(x => x.day == selectedDay)
       }
       let numberPages = Math.ceil(filteredSchedules.length/pageSize)
-      console.log("Elementos filtrados es ",filteredSchedules)
-      console.log("Total items es ",filteredSchedules.length, "  y number page es ", numberPages)
+      // console.log("Elementos filtrados es ",filteredSchedules)
+      // console.log("Total items es ",filteredSchedules.length, "  y number page es ", numberPages)
 
       let response: ResponseData = {
         elements:filteredSchedules.slice(startIndex, startIndex + pageSize),

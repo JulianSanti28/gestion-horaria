@@ -66,7 +66,7 @@ export class ScheduleCreateFormComponent {
   showEnvironments:boolean=false
   showSelectedEnvironment:boolean=false;
   showBtnCreate=false;
-
+  isEnvironmentSelected : boolean = false
   ngOnInit(){
 
     this.buildForm();
@@ -108,8 +108,8 @@ export class ScheduleCreateFormComponent {
       this.showEnvironments=true
     }else{
       this.progress.emit(-this.sumProgres)
-
-      this.takenEnvironmentSchedules=[]
+      this.isEnvironmentSelected=false
+      this.takenProfessorSchedules=[]
     }
 
   }
@@ -118,12 +118,17 @@ export class ScheduleCreateFormComponent {
     if(environment != null){
       this.environmentSelected=environment
       this.showSelectedEnvironment=true
+      // consumir servicio que trae el horario ocupado del amibiente
+      this.fillTakenEnvironmentSchedule()
       this.progress.emit(this.sumProgres)
+      this.isEnvironmentSelected=false
       this.selectedEnvironment.emit(this.environmentSelected)
-      //TODO consumir servicio que trae el horario ocupado del amibiente
+
     }else{
       this.progress.emit(-this.sumProgres)
-      //TODO limpiar horario ocupado del ambiente
+      this.isEnvironmentSelected=false
+      //limpiar horario ocupado del ambiente
+      this.takenEnvironmentSchedules=[]
     }
 
   }
@@ -139,6 +144,9 @@ export class ScheduleCreateFormComponent {
 
     }
   }
+  getIfEnvironmentSelected(value:boolean){
+    this.isEnvironmentSelected=value
+  }
   getInfo(){
     let scheduleCreated :ScheduleDTO= {id:0, day:'',startingTime:'',endingTime:'',courseId:0,environmentId:0};
     scheduleCreated.day=this.scheduleSelected.day.toUpperCase()
@@ -152,18 +160,18 @@ export class ScheduleCreateFormComponent {
   fillTakenProfessorSchedule(){
 
     this.scheduleService.getTakenProfessorSchedule(this.courseSelected.teacherCode).subscribe((response) =>{
-    // console.log("Response de takenprofesor" ,response)
-      this.takenProfessorSchedules = response as Schedule[]
+      console.log("Response de takenprofesor create form" ,response)
+        this.takenProfessorSchedules = response as Schedule[]
 
 
-    });
+      });
   }
   fillTakenEnvironmentSchedule(){
+
     this.scheduleService.getTakenEnvironmentSchedule(this.environmentSelected.id).subscribe((response) =>{
+      console.log("Response de taken Envi  " ,response)
+      this.takenEnvironmentSchedules = response as Schedule[]
 
-      this.takenProfessorSchedules = response as Schedule[]
-
-
-    });
+     });
   }
 }
