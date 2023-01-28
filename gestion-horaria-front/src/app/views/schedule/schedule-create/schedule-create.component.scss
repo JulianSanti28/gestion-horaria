@@ -25,3 +25,8 @@ label {
   text-align: center;
   // font-size: 30px;
 }
+@media (max-width: 800px) {
+  .grid-container {
+  grid-template-columns: 1fr;
+  }
+}
