@@ -67,8 +67,7 @@ public class CourseBusinessImpl implements ICourseBusiness {
         }
 
         Course course = modelMapper.map(courseDTO,Course.class);
-
-
+        course.setRemainingHours(iSubjectRepository.findById(courseDTO.getSubjectCode()).get().getWeeklyOverload());
 
         CourseDTO courseDTO1 = modelMapper.map(iCourseRepository.save(course),CourseDTO.class);
 

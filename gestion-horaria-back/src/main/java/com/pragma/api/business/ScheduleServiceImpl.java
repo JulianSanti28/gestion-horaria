@@ -93,7 +93,12 @@ public class ScheduleServiceImpl implements IScheduleService{
         Optional<Environment> environmentRequest = this.environmentRepository.findById(environmentId);
         if(environmentRequest.isEmpty()) throw new ScheduleBadRequestException("bad.request.environment.id", environmentId.toString());
         List<Schedule> schedules = this.scheduleRepository.findAllByEnvironment(environmentRequest.get());
-        return schedules.stream().map(x -> this.modelMapper.map(x, ScheduleResponseDTO.class))
+        return schedules.stream()
+                .map(schedule -> {
+                    ScheduleResponseDTO scheduleResponseDTO = this.modelMapper.map(schedule, ScheduleResponseDTO.class);
+                    scheduleResponseDTO.setColor(schedule.getCourse().getTeacher().getProgram().getColor());
+                    return scheduleResponseDTO;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -102,7 +107,12 @@ public class ScheduleServiceImpl implements IScheduleService{
         Optional<Teacher> teacherRequest = this.teacherRepository.findById(teacherCode);
         if(teacherRequest.isEmpty()) throw new ScheduleBadRequestException("bad.request.teacher.id", teacherCode);
         List<Schedule> schedules = this.scheduleRepository.findAllByCourseTeacher(teacherRequest.get());
-        return schedules.stream().map(x -> this.modelMapper.map(x, ScheduleResponseDTO.class))
+        return schedules.stream()
+                .map(schedule -> {
+                    ScheduleResponseDTO scheduleResponseDTO = this.modelMapper.map(schedule, ScheduleResponseDTO.class);
+                    scheduleResponseDTO.setColor(schedule.getCourse().getTeacher().getProgram().getColor());
+                    return scheduleResponseDTO;
+                })
                 .collect(Collectors.toList());
     }
 }

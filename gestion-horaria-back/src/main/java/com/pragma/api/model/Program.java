@@ -21,6 +21,8 @@ public class Program {
     @Column(name = "name")
     private String name;
 
+    @Column(name="color")
+    private String color;
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;

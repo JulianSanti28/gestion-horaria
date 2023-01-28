@@ -23,6 +23,10 @@ public class Teacher {
     @JoinColumn(name = "department_id")
     private Department department;
 
+    @ManyToOne
+    @JoinColumn(name = "program_id")
+    private Program program;
+
     @OneToMany(mappedBy = "teacher")
     private Set<Course> courses;
 
