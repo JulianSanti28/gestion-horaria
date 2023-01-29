@@ -71,8 +71,8 @@ export class ScheduleCreateComponent {
     }
   }
   changeShowForm(){
-    console.log("entra")
-    this.showForm=!this.showForm
+    this.progressMadeProgramSemester=0
+    this.showSelectedProgramAndSemester =false;
   }
   getSelectedEnvironment(environment:Environment){
     this.environmentSelected = environment;

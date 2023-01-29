@@ -27,9 +27,11 @@
                 Programa seleccionado : <strong>{{program.name}}</strong> <br>
                 Semestre : <strong>{{semester}} </strong>
               </label>
-                <button cButton  id="btnChangeSelection" color="danger" variant="outline" size="sm" type="submit" (click)="changeShowForm()">
-                  Cambiar programa y semestre seleccionados
-                </button>
+              <div md="5" >
+                  <button cButton  id="btnChangeSelection" color="danger" variant="outline" shape="rounded-pill" size="sm" type="submit" (click)="changeShowForm()">
+                    Cambiar Selección
+                  </button>
+              </div>
             </div>
           </ng-template>
           <ng-template cTemplateId="accordionBody">
@@ -72,7 +74,7 @@
 
               [selectedProgram]="program"
               [selectedSemester]="semester"
-              
+
               >
 
             </app-schedule-create-form>

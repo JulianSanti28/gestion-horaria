@@ -11,13 +11,14 @@ import {ScheduleService} from 'src/app/services/schedule/schedule.service'
 export class ScheduleTimeAllComponent {
 
   columns:string[]=["Id","Dia","Hora Inicio","Hora Fin","Seleccionado"]
+  weekDays:string[]=["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"]
   showSelectedSchedule:boolean=false;
   availableSchedules:Schedule[]=[];
   allSchedules:Schedule[]=[];
   isCheckboxDisabled:boolean=false;
   schedule!:Schedule;
   isScheduleSelected:boolean=false;
-  weekDays:string[]=["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"]
+
 
 
   selectedDay: string ='';

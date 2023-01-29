@@ -32,7 +32,7 @@ export class ScheduleViewComponent implements AfterViewInit {
   ngAfterViewInit(): void {
 
     this.scheduleService.getTakenEnvironmentSchedule(this.ambiente.id).subscribe((response) =>{
-      console.log("Responseee ",response)
+      // console.log("Responseee ",response)
       this.horariosAmbienteColor = response as ScheduleColor[]
       // this.callWithData(this.horariosAmbiente)
 
@@ -55,7 +55,7 @@ export class ScheduleViewComponent implements AfterViewInit {
   // }
 
   ngOnChanges(changes: SimpleChanges): void {
-    
+
 
   }
   getShowHorario(value:boolean){
