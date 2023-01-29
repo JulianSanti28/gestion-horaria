@@ -3,6 +3,7 @@ package com.pragma.api;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -17,6 +18,7 @@ import java.util.Collections;
  * Clase principal de la aplicacion. Permite ejecutar el proyecto.
  */
 @EnableSwagger2
+@EnableWebSecurity
 @SpringBootApplication
 public class ArchetypeMicroserviceApplication {
 

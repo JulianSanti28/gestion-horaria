@@ -4,12 +4,54 @@
       <app-schedule-environments
             #environments
             (selectedEnvironment)="getSelectedEnvironment($event)"
+            (isEnvironmentSelected)="getIfEnvironmentSelected($event)"
       ></app-schedule-environments>
+    </div>
+
+
+    <div *ngIf="isEnvironmentSelected">
+
+      <app-schedule-list
+        [takenSchedules]="takenEnvironmentSchedules"
+        (selectedSchedule)="getSelectedSchedule($event)"
+      ></app-schedule-list>
+    </div>
+
+    <c-card *ngIf="showBtnAccion">
+
+      <br>
+      <br>
+        <div *ngIf="showBtnAccion" class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <!-- botones paraeliminar el schedule seleccionado actualizar ese schedule  -->
+          <button cButton class="mb-3" variant="outline" color="primary" color="primary" size="lg" (click)="onUpdateSchedule()" >
+            Actualizar Franja
+          </button>
+
+          <button cButton class="mb-3" variant="outline" color="secondary" color="danger" disabled size="lg">
+            Eliminar Franja
+          </button>
+        </div>
+    </c-card>
+
+    <div *ngIf="updateIsSelected">
+      <!-- Si seleccionan update aqui se renderizan los horarios disponibles de ese ambiente para reasignarlo -->
+      <!-- <div *ngIf="isEnvironmentSelected"> -->
+
+        <app-schedule-time-all
+          [takenEnvironmentSchedule]="takenEnvironmentSchedules"
+          [takenProfessorSchedule]="takenProfessorSchedules"
+          (selectedSchedule)="getSelectedUpdateSchedule($event)"
+        ></app-schedule-time-all>
+        <button cButton class="mb-3" variant="outline" color="primary" color="warning" size="lg" (click)="onClickUpdateSchedule()" >
+          Actualizar
+        </button>
+      <!-- </div> -->
     </div>
   </c-accordion>
 
-  <div class="elemnt" *ngIf="showScheduleView" >
-    
+
+  <div class="elemnt" *ngIf="isEnvironmentSelected" >
+
       <app-schedule-view
         [ambiente]="ambiente"
       ></app-schedule-view>

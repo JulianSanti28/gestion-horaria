@@ -155,7 +155,20 @@ export class ScheduleService {
     .pipe(
       catchError((e) => {
 
-        console.log('Error obteniendo  horario ocupado del profesor ', e.error.mensaje, 'error');
+        console.log('Error obteniendo  guardando schedule ', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    )
+  }
+  updateSchedule(schedule:ScheduleDTO){
+    // http://localhost:8081/api/schedule?scheduleId=1
+    console.log("Le llega schedule a update ",schedule )
+    return this.http.put<any>(this.endPoint+`?scheduleId=${schedule.id}`+'' ,schedule,this.httpOptions)
+    .pipe(
+      catchError((e) => {
+
+        console.log('Error obteniendo  actualizando shcedule ', e.error.mensaje, 'error');
         return throwError(e);
 
       })
@@ -235,6 +248,29 @@ export class ScheduleService {
       }
       return of(response)
    }
+   takenSchedulesPaged(
+    takenSchedules:Schedule[],
+    selectedDay:string,
+    startIndex:number,
+    pageSize:number
+   ){
+    if(selectedDay != ''){
+      takenSchedules = takenSchedules.filter(x => x.day == selectedDay)
+    }
+    let numberPages = Math.ceil(takenSchedules.length/pageSize)
+    // console.log("Elementos filtrados es ",filteredSchedules)
+    // console.log("Total items es ",filteredSchedules.length, "  y number page es ", numberPages)
+
+    let response: ResponseData = {
+      elements:takenSchedules.slice(startIndex, startIndex + pageSize),
+      paginator:{
+        totalItems:takenSchedules.length,
+        totalNumberPage:  numberPages
+      }
+    }
+    return of(response)
+   }
+
   updateContinueCreatingForCourse(value:boolean){
     this.continueCreatingScheduleForCourse=value;
   }

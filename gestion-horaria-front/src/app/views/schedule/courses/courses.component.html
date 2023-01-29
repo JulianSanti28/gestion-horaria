@@ -10,9 +10,11 @@
           Semestre : <strong>{{semester}} </strong> <br>
 
         </label>
-          <button cButton  id="btnChangeSelection" color="danger" variant="outline" size="sm" type="submit" (click)="changeSelectedCourse()">
-            Cambiar curso
+        <div md="5" >
+          <button cButton  id="btnChangeSelection" color="danger" variant="outline" shape="rounded-pill" size="sm" type="submit" (click)="changeSelectedCourse()">
+            Cambiar selección
           </button>
+        </div>
       </div>
     </ng-template>
     <ng-template cTemplateId="accordionBody">

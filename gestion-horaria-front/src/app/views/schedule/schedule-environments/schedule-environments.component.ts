@@ -38,7 +38,7 @@ export class ScheduleEnvironmentsComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.environmentService.getAllEnvironmentsPage(1,5).subscribe(response =>{
-      console.log("Data : ",response)
+      // console.log("Data : ",response)
       this.environments=response.data.elements as Environment[]
       this.totalItems=response.data.pagination.totalNumberElements as number
       this.totalNumberPage=response.data.pagination.totalNumberPage as number
