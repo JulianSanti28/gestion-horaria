@@ -105,6 +105,11 @@ export class EnvironmentEditComponent {
     //agregar resource a la lista del environment que ya esta aqui
     this.environmentParent.availableResources.push(resource)
   }
+
+  onremoveResource(resource:Resource){
+    this.environmentParent.availableResources = this.environmentParent.availableResources.filter(item => item.id != resource.id)
+  }
+
   getInfo(){
     console.log("Environment : ",this.environmentParent)
     console.log("recursos ",this.environmentParent.availableResources)
