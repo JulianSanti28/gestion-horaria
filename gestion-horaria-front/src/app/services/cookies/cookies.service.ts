@@ -6,10 +6,20 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class CookiesService {
 
+  expirationDate=1
   constructor(private cookieService:CookieService) {
    }
    test(){
-    console.log(this.cookieService)
+    console.log("En cookie service", this.cookieService)
+   }
+
+   saveToken(token:string){
+    this.cookieService.set('token', token, this.expirationDate);
+
+   }
+   getToken(){
+    const token = this.cookieService.get('token')
+    return token
    }
 
 }
