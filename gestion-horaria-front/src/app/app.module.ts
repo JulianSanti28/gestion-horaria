@@ -49,6 +49,7 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -107,12 +108,12 @@ const APP_CONTAINERS = [
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
+    FormModule,
     IconSetService,
-    Title
+    Title,
+    CookieService
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
 }
-
-

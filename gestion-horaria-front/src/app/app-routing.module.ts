@@ -9,15 +9,27 @@ import { RegisterComponent } from './views/pages/register/register.component';
 import { ScheduleModule } from './views/schedule/schedule.module';
 import {ToshareModule} from './views/toshare/toshare.module';
 
+import {VigilanteGuard} from './vigilante.guard';
+import {EndSessionGuard} from './end-session.guard';
+
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
+    path: 'login',
+    component: LoginComponent,
+    canActivate:[EndSessionGuard],
+    data: {
+      title: 'Login Page'
+    }
   },
+  // {
+  //   path: '',//path vacios al final, buenas practicas
+  //   redirectTo: 'login',
+  //   pathMatch: 'full'
+  // },
   {
     path: '',
     component: DefaultLayoutComponent,
+    canActivate: [VigilanteGuard],
     data: {
       title: 'Home'
     },
@@ -108,13 +120,7 @@ const routes: Routes = [
       title: 'Page 500'
     }
   },
-  {
-    path: 'login',
-    component: LoginComponent,
-    data: {
-      title: 'Login Page'
-    }
-  },
+
   {
     path: 'register',
     component: RegisterComponent,
@@ -122,7 +128,7 @@ const routes: Routes = [
       title: 'Register Page'
     }
   },
-  {path: '**', redirectTo: 'dashboard'}
+  {path: '**', redirectTo: 'login'}
 ];
 
 @NgModule({
