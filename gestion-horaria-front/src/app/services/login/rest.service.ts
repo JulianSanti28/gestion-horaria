@@ -20,13 +20,14 @@ export class RestService {
 
   singin(credential:{username:string,password:string}){
     console.log("ingresa a sing in service en restservice")
-
-    return this.http.post<Auth>(this.endPoint+'/login',{credential})
+    const username = credential.username
+    const password = credential.password
+    return this.http.post<Auth>(this.endPoint+'/login',{username,password})
     .pipe(
-      tap(response => this.cookieService.saveToken(response.access_token))
+      tap(response => this.cookieService.saveToken(response.token))
 
     );
-    
+
     //return of ({accesstoken:"12345ss"})//convierte cualquier obj a observable
 
   }

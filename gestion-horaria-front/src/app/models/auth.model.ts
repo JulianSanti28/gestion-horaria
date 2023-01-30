@@ -1,3 +1,6 @@
 export interface Auth{
-  access_token:string;
+  token:string;
+  bearer: string;
+  username: string,
+  authorities:{authority:string}[]
 }

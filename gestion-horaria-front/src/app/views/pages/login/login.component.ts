@@ -34,26 +34,34 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.buttontouched = false
     this.formlogin = this.fromBuilder.group({
-      email:['',[Validators.required,Validators.email]],
+      //email:['',[Validators.required,Validators.email]],
+      username:['',[Validators.required]],
       password: ['',[Validators.required]],
     });
   }
 
   enviarDatos(): any {
     this.buttontouched = true
+    console.log("En enviar datos ",this.formlogin.value)
     if(!this.formlogin.valid) return
     this.RestService.singin(this.formlogin.value).subscribe((res:any)=>{
       console.log('Login exitoso!');
-      // this.cookieService.set('token_access',res.accesstoken,4);
-      // this.router.navigate(['dashboard'])
-      //this.serviceCookie.saveToken(res.accesstoken)
+      console.log("Res ",res)
+
+      // setTimeout(() => {
+        console.log("entra aqui set Timeout")
+        this.router.navigate(['dashboard'])
+        // this.router.navigateByUrl('404');
+        console.log("Returning cookie ",this.serviceCookie.getToken())
+      // });
+
     })
   }
 
   getError(controlname:string){
     let control = this.formlogin.get(controlname)
     if(control?.hasError("required")) return "campo obligatorio."
-    if(control?.hasError("email")) return "ingrese un correo valido."
+    if(control?.hasError("username")) return "ingrese un correo valido."
     return ""
   }
 

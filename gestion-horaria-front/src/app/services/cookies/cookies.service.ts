@@ -14,11 +14,14 @@ export class CookiesService {
    }
 
    saveToken(token:string){
+    console.log("Guardando token en cookies service ", token)
     this.cookieService.set('token', token, this.expirationDate);
 
    }
    getToken(){
+
     const token = this.cookieService.get('token')
+    console.log("Obteniendo token desde cookies service ",token)
     return token
    }
 

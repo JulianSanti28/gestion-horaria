@@ -13,17 +13,23 @@ import {VigilanteGuard} from './vigilante.guard';
 import {EndSessionGuard} from './end-session.guard';
 
 const routes: Routes = [
-  {
-    path: 'login',
-    component: LoginComponent,
-    canActivate:[EndSessionGuard],
-    data: {
-      title: 'Login Page'
-    }
-  },
+
+  // {
+  //   path: 'login',
+  //   component: LoginComponent,
+  //   canActivate:[EndSessionGuard],
+  //   data: {
+  //     title: 'Login Page'
+  //   }
+  // },
   // {
   //   path: '',//path vacios al final, buenas practicas
   //   redirectTo: 'login',
+  //   pathMatch: 'full'
+  // },
+  // {
+  //   path: '',
+  //   redirectTo: 'dashboard',
   //   pathMatch: 'full'
   // },
   {
@@ -120,7 +126,13 @@ const routes: Routes = [
       title: 'Page 500'
     }
   },
-
+  // {
+  //   path: 'login',
+  //   component: LoginComponent,
+  //   data: {
+  //     title: 'Login Page'
+  //   }
+  // },
   {
     path: 'register',
     component: RegisterComponent,
@@ -128,7 +140,16 @@ const routes: Routes = [
       title: 'Register Page'
     }
   },
-  {path: '**', redirectTo: 'login'}
+  // {
+  //   path:'login',
+  //   component: LoginComponent,
+  //   canActivate:[EndSessionGuard],
+  //   data:{
+  //     title:'Login'
+  //   }
+  // },
+  // {path: '**', redirectTo: 'login'}
+  {path: '**', redirectTo: 'dashboard'}
 ];
 
 @NgModule({

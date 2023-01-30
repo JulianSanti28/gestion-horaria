@@ -50,7 +50,7 @@ import {
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { CookieService } from 'ngx-cookie-service';
-import {TokenInterceptor} from 'src/app/interceptors/token.interceptor'
+// import {TokenInterceptor} from 'src/app/interceptors/token.interceptor'
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -108,11 +108,11 @@ const APP_CONTAINERS = [
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi:true
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: TokenInterceptor,
+    //   multi:true
+    // },
     FormModule,
     IconSetService,
     Title,
