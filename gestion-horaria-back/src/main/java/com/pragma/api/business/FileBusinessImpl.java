@@ -16,6 +16,10 @@ public class FileBusinessImpl implements IFileBusiness {
     @Override
     public String uploadFile(MultipartFile file) throws IOException {
         List<FileRow> logs = FileUtils.getLogs(file);
+        for (FileRow log:logs) {
+            System.out.printf(log.toString());
+            System.out.printf("");
+        }
         return null;
     }
 
