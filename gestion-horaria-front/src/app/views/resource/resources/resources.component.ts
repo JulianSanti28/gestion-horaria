@@ -24,7 +24,7 @@ export class ResourcesComponent implements OnInit,AfterViewChecked{
   @Output() removeResource=new EventEmitter();
   @Input('isEdit')isEdit!:boolean;
   @Input('environment')environment:Environment={id:2,name:'Salon prueba',location:'Bloque D',capacity:30,environmentType:'AUDITORIO',facultyId:"FIET",availableResources:[
-    {'id':1,'name':'Video bean','resourceType':'TECNOLOGICO','resourceLocations':[]}
+    {'id':1,'name':'Video bean','resourceType':'TECNOLOGICO'}
   ]}
   constructor(
     private resourceService:ResourceService,

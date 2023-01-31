@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Resource } from 'src/app/models/resource.model';
 import { ResourceService } from 'src/app/services/resource/resource.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-resources-create',
   templateUrl: './resources-create.component.html',
@@ -14,7 +15,8 @@ export class ResourcesCreateComponent {
   resource!:Resource;
   isSent:boolean=false;
   constructor(
-    private resourceService : ResourceService
+    private resourceService : ResourceService,
+    private router:Router
   ){}
 
   getResourceForm(resource:Resource){
@@ -36,12 +38,21 @@ export class ResourcesCreateComponent {
   }
 
   saveResource(){
-    console.log(this.resourceService.saveResource(this.resource).subscribe(
+    this.resourceService.saveResource(this.resource).subscribe(
       response => {
-        console.log("Data",response)
-        this.isSent=true
+        if(response.id != null){
+          console.log("Data",response)
+          this.isSent=true
+          Swal.fire('Recurso creado',
+          `El Recurso : ${response.id.toString()} | ${response.name} \nfue creado exitosamente`, 'success');
+          this.router.navigate(['//resource/all']);
+        }else{
+          Swal.fire('Problema creando recurso',
+          `verifique que la información sea correcta`, 'warning');
+        }
+
       }
-      ));
+      );
   }
 
 }

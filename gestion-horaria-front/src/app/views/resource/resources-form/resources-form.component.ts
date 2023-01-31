@@ -22,8 +22,7 @@ export class ResourcesFormComponent {
   formResource:Resource={
     'id':0,
     'name':'',
-    'resourceType':'',
-    'resourceLocations':[]
+    'resourceType':''
   }
   constructor(
     private formBuilder:FormBuilder,
@@ -36,7 +35,10 @@ export class ResourcesFormComponent {
   }
   ngOnInit(){
     this.resourceTypes=this.resourceService.getAllResourceTypes()
+    this.fillForm()
 
+  }
+  fillForm(){
     if(this.isEdit==true){
       const resourceFill={
         'id':this.resource.id,
@@ -47,7 +49,6 @@ export class ResourcesFormComponent {
       this.form.patchValue(resourceFill);
     }
   }
-
   private buildForm(){
     this.form = this.formBuilder.group({
       id: ['', []],
@@ -55,14 +56,13 @@ export class ResourcesFormComponent {
       resourceType: ['', [Validators.required]],
     });
   }
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   if(changes['isSent']){
-  //     if(changes['isSent'].currentValue == true ){
-  //       this.form.reset()
-  //     }
-  //   }
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['resource']){
+      this.resource=changes['resource'].currentValue
+      this.fillForm();
+    }
 
-  // }
+  }
   onSelectedValue(event:Event){
 
     this.form.controls['resourceType'].setValue((event.target as HTMLInputElement).value);

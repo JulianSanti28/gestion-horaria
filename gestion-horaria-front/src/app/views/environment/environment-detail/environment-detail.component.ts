@@ -1,5 +1,6 @@
 import { Component, OnInit,ChangeDetectorRef} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { timeStamp } from 'console';
 import { Environment } from 'src/app/models/environment.model';
 import { Resource } from 'src/app/models/resource.model';
 import { EnvironmentService } from 'src/app/services/environment/environment.service';
@@ -19,7 +20,7 @@ export class EnvironmentDetailComponent implements OnInit {
   isSent:boolean=false
   public visible = false;
   constructor(
-    private route:ActivatedRoute,
+    private router:Router,
     private environmentService:EnvironmentService,
     private readonly changeDetectorRef: ChangeDetectorRef
   ) { }
@@ -81,7 +82,7 @@ export class EnvironmentDetailComponent implements OnInit {
         this.environment.id=response.data.id
         Swal.fire('Ambiente creado',
         `El ambiente : ${this.environment.id.toString()} | ${this.environment.facultyId} \nfue creado exitosamente`, 'success');
-
+        this.router.navigate(['//environment/all']);
         this.isSent=true //enviar señal al formulario hijo de que puede limpiarse
         this.show=false
       }

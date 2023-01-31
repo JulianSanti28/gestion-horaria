@@ -15,14 +15,14 @@
 
 </c-card>
 <br>
-<button cButton color="primary" size="lg" [disabled]= "child.form.invalid" (click)="child.setValues() ;getInfoResource()" >
+<button cButton color="primary" size="lg" [disabled]= "child.form.invalid" (click)="child.setValues() ;getInfoResource();saveResource()" >
   Guardar este recurso
 </button>
 
 <!--
   cuadro de dialog resumiendo info del ambiente creado
  -->
- <c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+ <!-- <c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
   <c-modal-header>
     <h5 cModalTitle>Resumen del recurso creado</h5>
     <button (click)="toggleLiveDemo()" cButtonClose></button>
@@ -37,4 +37,4 @@
     </button>
     <button cButton (click)="saveResource()" color="primary">Confirmar</button>
   </c-modal-footer>
-</c-modal>
+</c-modal> -->

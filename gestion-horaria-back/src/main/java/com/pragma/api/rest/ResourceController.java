@@ -56,7 +56,7 @@ public class ResourceController {
     @GetMapping("/{id}")
     public ResponseEntity<ResourceDTO> getResourceById(@PathVariable Integer id) {
         ResourceDTO resourceDTO = this.resourceService.getResourceById(id);
-        return ResponseEntity.status(HttpStatus.FOUND).body(resourceDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(resourceDTO);
     }
 
     @PutMapping

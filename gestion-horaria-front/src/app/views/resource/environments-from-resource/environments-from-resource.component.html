@@ -2,8 +2,8 @@
 
   <c-col xs="12">
 
-    <c-row class="mb-3">
-    <!-- <div class="col-auto"> -->
+    <!-- <c-row class="mb-3">
+
       <label cLabel class="col-sm-2 col-form-label" >
         Filtrar por tipo de ambiente :
       </label>
@@ -15,12 +15,12 @@
         <ul cDropdownMenu>
           <li><h6 cDropdownHeader>Tipos de ambiente</h6></li>
           <li *ngFor="let tipo of environmentTypes"><a (click)="updateTableEnvironments(tipo)" cDropdownItem>{{tipo}}</a></li>
-          <!-- routerLink="./{{tipo}}" -->
+
         </ul>
       </c-dropdown>
       </c-col>
-    <!-- </div> -->
-    </c-row>
+
+    </c-row> -->
 
 
     <table cTable>
@@ -37,15 +37,15 @@
         <td>{{ambiente.location}}</td>
         <td>{{ambiente.capacity}} </td>
         <td>{{ambiente.facultyId}} </td>
-        <!-- <td><a [routerLink]="['../edit',ambiente.id]">Editar</a> </td>
-        <td><a [routerLink]="['../edit',ambiente.id]">Ver detalles</a> </td> -->
-
-        <!-- <td><a [routerLink]="['../ambiente',ambiente.idAmbiente]">Ver</a> </td> -->
+        
       </tr>
       </tbody>
 
     </table>
+    <app-paginador
+        (pageChanged)="loadTableEnvironments($event)" [totalItems]="totalItems" [totalNumberPage]="totalNumberPage" [pageSize]="pageSize"
 
+    ></app-paginador>
   </c-col>
 
 </c-row>

@@ -15,9 +15,9 @@ export class ResourceService {
 
   resourceTypes:string[]=['all','TECNOLOGICO','PEDAGOGICO'];
   resources:Resource[]=[
-    {'id':1,'name':'Televisor','resourceType':this.resourceTypes[1],'resourceLocations':[]},
-    {'id':2,'name':'Computador','resourceType':this.resourceTypes[1],'resourceLocations':[]},
-    {'id':3,'name':'Video bean','resourceType':this.resourceTypes[1],'resourceLocations':[]}
+    {'id':1,'name':'Televisor','resourceType':this.resourceTypes[1]},
+    {'id':2,'name':'Computador','resourceType':this.resourceTypes[1]},
+    {'id':3,'name':'Video bean','resourceType':this.resourceTypes[1]}
   ]
 
   httpOptions = {
@@ -57,8 +57,25 @@ export class ResourceService {
   }
   getResourceByResourceId(idResource:number){
 
-    return this.resources[idResource-1];
+    return this.http.get<any>(this.endPoint+`/${idResource}`).pipe(
+      catchError((e) => {
 
+        console.log('Error obteniendo un recurso', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    );
+
+  }
+  updateResource(idResource:number,resource:Resource){
+    return this.http.put<any>(this.endPoint+`?id=${idResource}`,resource).pipe(
+      catchError((e) => {
+
+        console.log('Error actualizando todos los RECURSOS', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    );
   }
   getResourcesByResourceType(resourceType:string,page:number, pageSize:number):Observable<any>{
     return this.http.get<any>(this.endPoint+'/byType'+`?resourceType=${resourceType}&page=${page-1}&size=${pageSize}&sort=id&order=ASC`).pipe(

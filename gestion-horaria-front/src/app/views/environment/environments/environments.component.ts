@@ -24,7 +24,6 @@ export class EnvironmentsComponent {
   isTypeSelected:boolean=false
   totalItems:number=0;
   totalNumberPage:number=1;
-  paginadorEnvironment: any;
   pageSize:number=0;
 
   @Input('fromResource') fromResource:boolean=false;

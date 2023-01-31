@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Environment } from 'src/app/models/environment.model';
 import { Faculty } from 'src/app/models/faculty.model';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,11 @@ export class EnvironmentService {
   environments:Environment[]=[
     {id:1,name:'Salon fundador',location:'Bloque C',capacity:30,environmentType:'SALON',facultyId:"FIET",availableResources:[]},
     {id:2,name:'Salon prueba',location:'Bloque D',capacity:30,environmentType:'AUDITORIO',facultyId:"FIET",availableResources:[
-      {'id':3,'name':'Video bean','resourceType':'TECNOLOGICO','resourceLocations':[]}
+      {'id':3,'name':'Video bean','resourceType':'TECNOLOGICO'}
     ]},
     {id:3,name:'Salon prueba',location:'Bloque D',capacity:30,environmentType:'SALON',facultyId:"FIET",availableResources:[
-      {'id':2,'name':'Computador','resourceType':'TECNOLOGICO','resourceLocations':[]},
-      {'id':3,'name':'Video bean','resourceType':'TECNOLOGICO','resourceLocations':[]}
+      {'id':2,'name':'Computador','resourceType':'TECNOLOGICO'},
+      {'id':3,'name':'Video bean','resourceType':'TECNOLOGICO'}
     ]},
   ]
 
@@ -130,7 +131,20 @@ export class EnvironmentService {
       })
     )
   }
+  getEnvironmentsFromResourcePaged(resourceId:number,page:number, pageSize:number):Observable<any>{
+    // localhost:8081/api/environment/byResource?page=0&size=10&sort=id&order=ASC&resourceId=1
+    return this.http.get<any>(this.endPoint+'/byResource'+`?page=${page-1}&size=${pageSize}&sort=id&order=ASC&resourceId=${resourceId}`)
+    .pipe(
+      catchError((e) => {
+        // this.router.navigate(['/documentos']);
+        Swal.fire('Recurso en ningun ambiente',
+          `Este recurso no se encuentra en ningun ambiente`, 'warning');
+        console.log('Error obteniendo todos los ambientes del recurso ', e.error.mensaje, 'error');
+        return e;
 
+      })
+    );
+  }
 
 
   getAllEnvironments(){
