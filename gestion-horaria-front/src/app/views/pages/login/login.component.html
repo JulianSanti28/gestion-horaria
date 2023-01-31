@@ -65,14 +65,14 @@
 <body>
   <div class="background"></div>
   <div class="card">
-      <img class="logo" src='../../../../assets/png/unicauca.png'/>
+      <img class="logo" src="../../../../assets/png/unicauca.png"/>
       <h2>Login to SIMCA 2.0</h2>
-      <form class="form" [formGroup]="formlogin" (submit)="enviarDatos()">
-          <input type="email"   formControlName="username"/>
-          <p *ngIf="formlogin.get('username')?.touched || buttontouched">{{getError("email")}}</p>
-          <input type="password" formControlName="password"/>
-          <p *ngIf="formlogin.get('password')?.touched || buttontouched">{{getError("password")}}</p>
-          <button>Sing in</button>
+      <form class="form" [formGroup]="formLogin" >
+          <input type="text" placeholder="usuario" formControlName="email" />
+          <p *ngIf="formLogin.get('email')?.touched || buttontouched">{{getError("email")}}</p>
+          <input type="password" placeholder="Password" formControlName="password"/>
+          <p *ngIf="formLogin.get('password')?.touched || buttontouched">{{getError("password")}}</p>
+          <button type="submit" (click)="enviarDatos()" >Sing in</button>
       </form>
       <footer>
           New user, sing in

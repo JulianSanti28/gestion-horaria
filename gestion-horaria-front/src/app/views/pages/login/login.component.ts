@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators,FormsModule,ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { access } from 'fs';
-import { CookieService } from 'ngx-cookie-service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { navItems } from 'src/app/containers/default-layout/_nav';
-import {CookiesService} from 'src/app/services/cookies/cookies.service'
-import { Router } from '@angular/router';
-import { RestService} from '../../../services/login/rest.service'
-
+import{LoginService} from 'src/app/services/login/login.service'
+import {AuthService} from 'src/app/services/auth/auth.service'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,54 +12,51 @@ import { RestService} from '../../../services/login/rest.service'
 })
 export class LoginComponent implements OnInit {
   public navItems = navItems;
-  public formlogin!: FormGroup;
-  buttontouched!: boolean;
+  public formLogin!: FormGroup;
+  buttontouched!:boolean;
 
   public perfectScrollbarConfig = {
     suppressScrollX: true,
   };
-
   constructor(
-    private fromBuilder: FormBuilder,
-    private RestService: RestService,
-    private cookieService: CookieService,
-    private router: Router,
-    private serviceCookie: CookiesService
-    ) {
-     }
+    private formBuilder: FormBuilder,
+    private loginService:LoginService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.buttontouched = false
-    this.formlogin = this.fromBuilder.group({
-      //email:['',[Validators.required,Validators.email]],
-      username:['',[Validators.required]],
-      password: ['',[Validators.required]],
+    this.buttontouched=false
+    // this.buildForm();
+    this.formLogin=this.formBuilder.group({
+      email:['',[Validators.required]],
+      password:['',[Validators.required]]
     });
   }
 
-  enviarDatos(): any {
-    this.buttontouched = true
-    console.log("En enviar datos ",this.formlogin.value)
-    if(!this.formlogin.valid) return
-    this.RestService.singin(this.formlogin.value).subscribe((res:any)=>{
-      console.log('Login exitoso!');
-      console.log("Res ",res)
+  buildForm(){
 
-      // setTimeout(() => {
-        console.log("entra aqui set Timeout")
-        this.router.navigate(['dashboard'])
-        // this.router.navigateByUrl('404');
-        console.log("Returning cookie ",this.serviceCookie.getToken())
-      // });
-
-    })
   }
 
+  enviarDatos(){
+    console.log("entra a enviar datos")
+    this.buttontouched=true
+    if(this.formLogin.valid){
+      this.loginService.singin(this.formLogin.value).subscribe(response =>{
+        console.log("Login exitoso!", response)
+        //this.authService.saveToken(response.token)
+        this.router.navigate(['dashboard'])
+      })
+    }
+    //return
+  }
   getError(controlname:string){
-    let control = this.formlogin.get(controlname)
+    let control = this.formLogin.get(controlname)
     if(control?.hasError("required")) return "campo obligatorio."
-    if(control?.hasError("username")) return "ingrese un correo valido."
+    if(control?.hasError("email")) return "ingrese un correo valido."
     return ""
   }
+
+
 
 }

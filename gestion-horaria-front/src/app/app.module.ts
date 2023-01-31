@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -49,8 +49,7 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
-import { CookieService } from 'ngx-cookie-service';
-// import {TokenInterceptor} from 'src/app/interceptors/token.interceptor'
+import {TokenInterceptor} from 'src/app/interceptors/token.interceptor'
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -108,17 +107,17 @@ const APP_CONTAINERS = [
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptor,
-    //   multi:true
-    // },
-    FormModule,
+    {
+      provide :HTTP_INTERCEPTORS,
+      useClass:TokenInterceptor,
+      multi:true
+    },
     IconSetService,
-    Title,
-    CookieService
+    Title
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
 }
+
+
