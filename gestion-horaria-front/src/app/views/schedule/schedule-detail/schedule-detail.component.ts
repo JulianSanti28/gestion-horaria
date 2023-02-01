@@ -23,7 +23,7 @@ export class ScheduleDetailComponent {
     day:'',
     startingTime:'',
     endingTime:'',
-    course:{'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':'','subjectCode':'','teacherCode':''},
+    course:{'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':'','subjectCode':'','teacherCode':'','remainingHours':0},
     environment: {
       id: 0,
       name: '',
@@ -70,7 +70,7 @@ export class ScheduleDetailComponent {
       this.scheduleSelected=schedule;
       console.log("schedule seleccionaod ",this.scheduleSelected)
       this.showBtnAccion=true
-      this.fillTakenProfessorSchedule(this.scheduleSelected.course.teacherCode);
+      // this.fillTakenProfessorSchedule(this.scheduleSelected.course.teacherCode);
     }else{
 
       this.showBtnAccion=false
@@ -86,7 +86,7 @@ export class ScheduleDetailComponent {
       this.scheduleSelectedUpdate.environment=this.ambiente
       console.log("Updated schedule es ",schedule)
       this.showBtnAccion=true
-      this.fillTakenProfessorSchedule(this.scheduleSelectedUpdate.course.teacherCode);
+      // this.fillTakenProfessorSchedule(this.scheduleSelectedUpdate.course.teacherCode);
     }else{
 
       this.showBtnAccion=false
@@ -98,41 +98,54 @@ export class ScheduleDetailComponent {
   }
   onUpdateSchedule(){
     this.updateIsSelected=true
-  }
-  onClickUpdateSchedule(){
-    let scheduleresponse:Schedule;
-    //consumir servicio de update shcedule
-    this.scheduleService.updateSchedule(this.getInfo(this.scheduleSelectedUpdate)).subscribe( response => {
-      if(response != null){
-        scheduleresponse = response
 
-        Swal.fire('Franja Actualizada',
-        `La franja : ${scheduleresponse.startingTime} ${scheduleresponse.endingTime}\n Curso: ${scheduleresponse.course.courseId}  \nfue actualizada exitosamente`, 'success');
-        this.router.navigate(['//schedule/detail']);
+   this.router.navigate([ `/schedule/update/${this.ambiente.id}/${this.scheduleSelected.id}`]);
+  }
+  // onClickUpdateSchedule(){
+  //   let scheduleresponse:Schedule;
+  //   //consumir servicio de update shcedule
+  //   this.scheduleService.updateSchedule(this.getInfo(this.scheduleSelectedUpdate)).subscribe( response => {
+  //     if(response != null){
+  //       scheduleresponse = response
+
+  //       Swal.fire('Franja Actualizada',
+  //       `La franja : ${scheduleresponse.startingTime} ${scheduleresponse.endingTime}\n Curso: ${scheduleresponse.course.courseId}  \nfue actualizada exitosamente`, 'success');
+  //       this.router.navigate(['./']);
+  //     }
+  //   })
+  // }
+  onDeleteSchedule(){
+    this.scheduleService.deleteSchedule(this.scheduleSelected.id).subscribe(response=>{
+      if(response.status==500){
+
+      }else if(response){
+        Swal.fire('Franja Eliminada',
+        `La franja : fue eliminada exitosamente`, 'success');
+        this.router.navigate(['/schedule/create']);
       }
     })
   }
-  getInfo(scheduleSelected:Schedule){
-    let scheduleCreated :ScheduleDTO= {id:0, day:'',startingTime:'',endingTime:'',courseId:0,environmentId:0};
-    scheduleCreated.id=scheduleSelected.id
-    scheduleCreated.day=scheduleSelected.day.toUpperCase()
-    scheduleCreated.startingTime=scheduleSelected.startingTime
-    scheduleCreated.endingTime=scheduleSelected.endingTime
-    scheduleCreated.courseId=scheduleSelected.course.courseId
-    scheduleCreated.environmentId=scheduleSelected.environment.id
-    // console.log("Emitiendo schedule ",scheduleCreated)
-    return scheduleCreated
-  }
-  fillTakenProfessorSchedule(teacherCode:string){
+  // getInfo(scheduleSelected:Schedule){
+  //   let scheduleCreated :ScheduleDTO= {id:0, day:'',startingTime:'',endingTime:'',courseId:0,environmentId:0};
+  //   scheduleCreated.id=scheduleSelected.id
+  //   scheduleCreated.day=scheduleSelected.day.toUpperCase()
+  //   scheduleCreated.startingTime=scheduleSelected.startingTime
+  //   scheduleCreated.endingTime=scheduleSelected.endingTime
+  //   scheduleCreated.courseId=scheduleSelected.course.courseId
+  //   scheduleCreated.environmentId=scheduleSelected.environment.id
+  //   // console.log("Emitiendo schedule ",scheduleCreated)
+  //   return scheduleCreated
+  // }
+  // fillTakenProfessorSchedule(teacherCode:string){
 
 
-      this.scheduleService.getTakenProfessorSchedule(teacherCode).subscribe((response) =>{
-      console.log("Response de takenprofesor detail Envi" ,response)
-        this.takenProfessorSchedules = response as Schedule[]
+  //     this.scheduleService.getTakenProfessorSchedule(teacherCode).subscribe((response) =>{
+  //     console.log("Response de takenprofesor detail Envi" ,response)
+  //       this.takenProfessorSchedules = response as Schedule[]
 
 
-      });
-  }
+  //     });
+  // }
   fillTakenEnvironmentSchedule(){
     // console.log("En fill Taken de detail ")
     this.scheduleService.getTakenEnvironmentSchedule(this.ambiente.id).subscribe((response) =>{

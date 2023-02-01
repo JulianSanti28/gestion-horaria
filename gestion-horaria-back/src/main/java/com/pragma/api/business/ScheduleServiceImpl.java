@@ -115,4 +115,17 @@ public class ScheduleServiceImpl implements IScheduleService{
                 })
                 .collect(Collectors.toList());
     }
+    @Override
+    public ScheduleResponseDTO getScheduleById(Long code){
+        try {
+            Optional<Schedule> scheduleOptRequest = this.scheduleRepository.findById(code);
+            if (scheduleOptRequest.isEmpty())
+                throw new ScheduleBadRequestException("bad.request.schedule.id", code.toString());
+
+            return this.modelMapper.map(scheduleOptRequest.get(), ScheduleResponseDTO.class);
+
+        }catch (Exception e){
+            throw new ScheduleIntegrityException(e.getMessage(),"");
+        }
+    }
 }

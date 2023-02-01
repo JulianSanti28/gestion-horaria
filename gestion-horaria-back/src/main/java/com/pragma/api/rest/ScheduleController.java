@@ -1,6 +1,7 @@
 package com.pragma.api.rest;
 
 import com.pragma.api.business.IScheduleService;
+import com.pragma.api.domain.EnvironmentDTO;
 import com.pragma.api.domain.Response;
 import com.pragma.api.domain.ScheduleRequestDTO;
 import com.pragma.api.domain.ScheduleResponseDTO;
@@ -44,6 +45,11 @@ public class ScheduleController {
     public ResponseEntity<String> deleteSchedule(@RequestParam Long scheduleId) {
         this.scheduleService.deleteSchedule(scheduleId);
         return ResponseEntity.ok("Schedule was deleted successful!");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDTO> findById(@PathVariable Long id){
+        return ResponseEntity.ok(this.scheduleService.getScheduleById(id));
     }
 
 }

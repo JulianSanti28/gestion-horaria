@@ -37,6 +37,7 @@ export class ScheduleBeforeCreateFormComponent implements OnInit{
   }
 
   private buildForm(){
+    console.log("entra a build form")
     this.form = this.formBuilder.group({
       program:['', [Validators.required]],
       semester:['', [Validators.required]]
@@ -53,6 +54,7 @@ export class ScheduleBeforeCreateFormComponent implements OnInit{
     this.progress.emit(this.sumProgres)
   }
   onSelectedSemester(event:Event){
+    console.log("valor a emitir desde before create ",(event.target as HTMLOptionElement).value )
     this.form.controls['semester'].setValue((event.target as HTMLOptionElement).value);
     this.selectedSemester = Number((event.target as HTMLOptionElement).value)
     this.progress.emit(this.sumProgres)
