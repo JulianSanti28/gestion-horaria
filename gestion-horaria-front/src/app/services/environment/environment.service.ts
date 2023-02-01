@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Environment } from 'src/app/models/environment.model';
 import { Faculty } from 'src/app/models/faculty.model';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -24,8 +25,8 @@ export class EnvironmentService {
 
   environmentTypes=['all','AUDITORIO', 'LABORATORIO', 'SALON'];
   facultys=["FIET","Ciencias"];
-  // endPoint:String = 'http://localhost:8081/api/environment'
-  endPoint:String = 'api/environment'
+  endPoint:String = environment.urlEnv
+  // endPoint:String = 'api/environment'
 
   httpOptions = {
     headers: new HttpHeaders({

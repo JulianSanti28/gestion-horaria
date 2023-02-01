@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+    //URLs Bases 
+    urlRsc: 'http://localhost:8081/api/resource',
+    urlCrs: 'http://localhost:8081/api/course',
+    urlEnv: 'http://localhost:8081/api/environment',
+    urlAuth: 'http://localhost:8081/api/auth'
 };
 
 /*

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   saveToken(token:string){
     // console.log("Asignando token en local storage ",token)
@@ -17,10 +18,11 @@ export class AuthService {
     // console.log("Obteniendo token en auth service ",token)
     return token
   }
+  
   logout(): void {
 
     localStorage.clear();
-    localStorage.removeItem('token');
-
+    //localStorage.removeItem('token');
+    this.router.navigate(['login']);
   }
 }

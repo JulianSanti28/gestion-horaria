@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http'
 import {Auth} from 'src/app/models/auth.model'
 import { AuthService } from '../auth/auth.service';
 import { tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { tap } from 'rxjs';
 
 export class LoginService {
 
-  endpPoint='api/auth'
+  // endpPoint='api/auth'
+  endpPoint = environment.urlAuth
   constructor(
     private http: HttpClient,
     private authService: AuthService

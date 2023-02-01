@@ -9,15 +9,27 @@ import { RegisterComponent } from './views/pages/register/register.component';
 import { ScheduleModule } from './views/schedule/schedule.module';
 import {ToshareModule} from './views/toshare/toshare.module';
 
+import { OpenSesionGuard } from './guards/open-sesion.guard'
+import { CloseSessionGuard } from './guards/close-session.guard'
+
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [CloseSessionGuard],
+    data: {
+      title: 'Login Page'
+    }
   },
   {
     path: '',
     component: DefaultLayoutComponent,
+    canActivate:[OpenSesionGuard],
     data: {
       title: 'Home'
     },
@@ -108,13 +120,14 @@ const routes: Routes = [
       title: 'Page 500'
     }
   },
-  {
-    path: 'login',
-    component: LoginComponent,
-    data: {
-      title: 'Login Page'
-    }
-  },
+  // {
+  //   path: 'login',
+  //   component: LoginComponent,
+  //   canActivate: [CloseSessionGuard],
+  //   data: {
+  //     title: 'Login Page'
+  //   }
+  // },
   {
     path: 'register',
     component: RegisterComponent,
@@ -122,7 +135,7 @@ const routes: Routes = [
       title: 'Register Page'
     }
   },
-  {path: '**', redirectTo: 'dashboard'}
+  {path: '**', redirectTo: 'login'}
 ];
 
 @NgModule({

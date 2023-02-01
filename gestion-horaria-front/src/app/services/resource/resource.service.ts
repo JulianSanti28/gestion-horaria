@@ -4,14 +4,15 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { Environment } from 'src/app/models/environment.model';
 import { Resource } from 'src/app/models/resource.model';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResourceService {
 
-  //endPoint:String = 'http://localhost:8081/api/resource'
-  endPoint:String = 'api/resource'
+  endPoint:String = environment.urlRsc
+  //endPoint:String = 'api/resource'
 
   resourceTypes:string[]=['all','TECNOLOGICO','PEDAGOGICO'];
   resources:Resource[]=[

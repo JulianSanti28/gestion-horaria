@@ -6,6 +6,7 @@ import { Period } from 'src/app/models/period.model';
 import { Program } from 'src/app/models/program.model';
 import { Subject } from 'src/app/models/subject.model';
 import { Teacher } from 'src/app/models/teacher.model';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -29,7 +30,8 @@ export class CourseService {
 
   ]
 
-  endPoint:String = 'api/course'
+  endPoint:String = environment.urlCrs
+  // endPoint:String = 'api/course'
   constructor(
     private http : HttpClient
 

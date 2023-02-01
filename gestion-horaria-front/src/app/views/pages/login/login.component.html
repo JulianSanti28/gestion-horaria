@@ -69,9 +69,9 @@
       <h2>Login to SIMCA 2.0</h2>
       <form class="form" [formGroup]="formLogin" >
           <input type="text" placeholder="usuario" formControlName="email" />
-          <p *ngIf="formLogin.get('email')?.touched || buttontouched">{{getError("email")}}</p>
+          <p *ngIf="(formLogin.get('email')?.touched || buttontouched) && formLogin.get('email')?.invalid">{{getError("email")}}</p>
           <input type="password" placeholder="Password" formControlName="password"/>
-          <p *ngIf="formLogin.get('password')?.touched || buttontouched">{{getError("password")}}</p>
+          <p *ngIf="(formLogin.get('password')?.touched || buttontouched) && formLogin.get('password')?.invalid">{{getError("password")}}</p>
           <button type="submit" (click)="enviarDatos()" >Sing in</button>
       </form>
       <footer>
