@@ -30,7 +30,7 @@ export class ScheduleCreateComponent {
   showSelectedProgramAndSemester:boolean=false;
   showScheduleView:boolean=false;
   semester:number=0;
-  course:Course={'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':'','subjectCode':'','teacherCode':''}
+  course:Course={'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':'','subjectCode':'','teacherCode':'','remainingHours':0}
   environmentSelected!: Environment;
   scheduleToCreate!:Schedule;
   continueCreatingSchedule:boolean = false
@@ -100,30 +100,7 @@ export class ScheduleCreateComponent {
           Swal.fire('Franja creada',
           `La franja : ${scheduleresponse.startingTime} ${scheduleresponse.endingTime}\n Curso: ${scheduleresponse.course.courseId}  \nfue creado exitosamente`, 'success');
           this.router.navigate(['//schedule/detail']);
-          //this.isSent=true //enviar señal al formulario hijo de que puede limpiarse
-          // Swal.fire({
-          //   title: ' Franja creada ',
-          //   text: `¿Seguir creando franjas para este curso   ${this.course.courseId} | ${this.course.courseGroup} ?` ,
-          //   footer: `<h5> La franja : ${scheduleresponse.startingTime} ${scheduleresponse.endingTime}\n Curso: ${scheduleresponse.course.courseId}  \nfue creado exitosamente </h5> `,
-          //   icon: 'success',
-          //   showCancelButton: true,
-          //   confirmButtonColor: '#3085d6',
-          //   cancelButtonColor: '#d33',
-          //   confirmButtonText: 'Si, continuar!'
-          // }).then((result) => {
-          //   if (result.isConfirmed) {
-          //     this.changeContinueCreating(true)
-          //     Swal.fire(
-          //       'Ok',
-          //       `Continuar creando le quedan : ${this.course.subjectCode} horas `,
-          //       'success'
-          //     )
-          //   }
-          //   if(result.isDenied || result.isDismissed){
-          //     this.changeContinueCreating(false)
-          //   }
-
-          // })
+          
         }
 
       }

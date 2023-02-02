@@ -19,7 +19,9 @@ export class ScheduleService {
   program:Program={program_id:'PIS',name:'INGENIERIA DE SISTEMAS',department_id:'1'}
   subject:Subject={'subjectCode':'1','name':'Programacion orientada a objetos','weeklyOverload':6,'timeBlock':true,'semester':2,'program':this.program}
   teacher:Teacher={'teacherCode':'104618021314','fullName':'PPC','department':[]}
-  curso:Course={'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':this.period.periodId,'subjectCode':this.subject.subjectCode,'teacherCode':this.teacher.teacherCode}
+  curso:Course={
+    'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':this.period.periodId,
+    'subjectCode':this.subject.subjectCode,'teacherCode':this.teacher.teacherCode,'remainingHours':2}
   course!: Course;
   envi!:Environment;
   schedule:Schedule[]=[
@@ -164,12 +166,24 @@ export class ScheduleService {
   updateSchedule(schedule:ScheduleDTO){
     // http://localhost:8081/api/schedule?scheduleId=1
     console.log("Le llega schedule a update ",schedule )
-    return this.http.put<any>(this.endPoint+`?scheduleId=${schedule.id}`+'' ,schedule,this.httpOptions)
+    return this.http.put<any>(this.endPoint+`?scheduleId=${schedule.id}`+'' ,schedule)
     .pipe(
       catchError((e) => {
 
         console.log('Error obteniendo  actualizando shcedule ', e.error.mensaje, 'error');
         return throwError(e);
+
+      })
+    )
+  }
+  deleteSchedule(scheduleId:number){
+    // http://localhost:8081/api/schedule?scheduleId=1
+    return this.http.delete<any>(this.endPoint+`?scheduleId=${scheduleId}`)
+    .pipe(
+      catchError((e) => {
+
+        console.log('Error eliminando shcedule ', e.error.mensaje, 'error');
+        return of(e);
 
       })
     )
@@ -270,6 +284,23 @@ export class ScheduleService {
     }
     return of(response)
    }
+   getScheduleById(scheduleId:number){
+    return this.http.get<any>(this.endPoint+`/${scheduleId}`,this.httpOptions)
+    .pipe(
+      catchError((e) => {
+
+        console.log('Error obteniendo  el schedule', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    )
+   }
+   mapScheduleToDTO(schedule:Schedule):ScheduleDTO{
+    return Object.assign({}, schedule, {
+      courseId: schedule.course.courseId,
+      environmentId: schedule.environment.id
+    });
+   }
 
   updateContinueCreatingForCourse(value:boolean){
     this.continueCreatingScheduleForCourse=value;
@@ -279,13 +310,14 @@ export class ScheduleService {
   }
 
 
+
   getEmptySchedule(){
     return {
       id:0,
       day:'',
       startingTime:'',
       endingTime:'',
-      course:{'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':'','subjectCode':'','teacherCode':''},
+      course:{'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':'','subjectCode':'','teacherCode':'','remainingHours':0},
       environment: {
         id: 0,
         name: '',
@@ -294,7 +326,8 @@ export class ScheduleService {
         environmentType: '',
         facultyId: '',
         availableResources: []
-      }
-    }
+      },
+
   }
+}
 }

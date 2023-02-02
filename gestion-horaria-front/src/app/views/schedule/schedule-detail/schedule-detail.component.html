@@ -27,15 +27,14 @@
             Actualizar Franja
           </button>
 
-          <button cButton class="mb-3" variant="outline" color="secondary" color="danger" disabled size="lg">
+          <button cButton class="mb-3" variant="outline" color="secondary" color="danger"  size="lg" (click)="onDeleteSchedule()">
             Eliminar Franja
           </button>
         </div>
     </c-card>
 
-    <div *ngIf="updateIsSelected">
-      <!-- Si seleccionan update aqui se renderizan los horarios disponibles de ese ambiente para reasignarlo -->
-      <!-- <div *ngIf="isEnvironmentSelected"> -->
+    <!-- <div *ngIf="updateIsSelected">
+
 
         <app-schedule-time-all
           [takenEnvironmentSchedule]="takenEnvironmentSchedules"
@@ -45,8 +44,8 @@
         <button cButton class="mb-3" variant="outline" color="primary" color="warning" size="lg" (click)="onClickUpdateSchedule()" >
           Actualizar
         </button>
-      <!-- </div> -->
-    </div>
+
+    </div> -->
   </c-accordion>
 
 

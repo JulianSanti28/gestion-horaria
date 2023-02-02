@@ -9,7 +9,9 @@ export interface Course{
   periodId:string;
   subjectCode:string;
   teacherCode:string;
+  remainingHours:number;
   // period:Period;
   // subject:Subject;
   // teacher:Teacher;
 }
+// INSERT INTO `course` (`course_id`, `course_capacity`, `course_group`, `period_periodId`, `subject_code`, `teacher_code`, `remaining_hours`) VALUES ('1', '13', 'A', '2022_02', 'POO', '1', '2');

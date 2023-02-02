@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ScheduleCreateComponent } from './schedule-create/schedule-create.component';
 import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.component';
 import {ScheduleProfessorDetailComponent} from './schedule-professor-detail/schedule-professor-detail.component';
-
+import { ScheduleUpdateComponent } from './schedule-update/schedule-update.component';
 const routes: Routes = [
   {
     path: '',
@@ -43,6 +43,13 @@ const routes: Routes = [
         component:ScheduleProfessorDetailComponent,
         data:{
           title:'detailprofessor'
+        }
+      },
+      {
+        path:'update/:ambienteId/:scheduleData',
+        component: ScheduleUpdateComponent,
+        data:{
+          title :'updateSchedule'
         }
       }
     ]

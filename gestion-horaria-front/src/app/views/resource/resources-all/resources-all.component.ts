@@ -29,7 +29,7 @@ export class ResourcesAllComponent implements OnInit {
     //this.resources=this.resourceService.getAllResources();
 
     this.resourceService.getAllResourcesPage(1,5).subscribe(response =>{
-      console.log("Data Resource: ",response)
+      // console.log("Data Resource: ",response)
       this.resources = response.elements as Resource[]
       this.totalItems = response.pagination.totalNumberElements as number
       this.totalNumberPage=response.pagination.totalNumberPage as number

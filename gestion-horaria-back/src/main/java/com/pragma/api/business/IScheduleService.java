@@ -11,5 +11,5 @@ public interface IScheduleService {
     Boolean deleteSchedule(Long code);
     List<ScheduleResponseDTO> getAllByEnvironment(Integer environmentId);
     List<ScheduleResponseDTO> getAllByTeacher(String teacherCode);
-
+    ScheduleResponseDTO getScheduleById(Long id);
 }

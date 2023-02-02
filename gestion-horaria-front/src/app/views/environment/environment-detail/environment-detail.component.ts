@@ -50,8 +50,8 @@ export class EnvironmentDetailComponent implements OnInit {
   }
 
   getInfo(){
-    console.log("Environment : ",this.environment)
-    console.log("recursos ",this.environment.availableResources)
+    // console.log("Environment : ",this.environment)
+    // console.log("recursos ",this.environment.availableResources)
     this.showEnvironment= JSON.stringify(this.environment)
     this.visible=true
   }
@@ -70,7 +70,7 @@ export class EnvironmentDetailComponent implements OnInit {
   }
 
   onSaveEnvironment(){
-    console.log("entra a save envi")
+    // console.log("entra a save envi")
     let status :number=0
     //llamar a recurso de save environment
   this.environmentService.saveEnvironment(this.environment).subscribe(
@@ -101,7 +101,7 @@ export class EnvironmentDetailComponent implements OnInit {
   }
 
   onAddResourceToEnvironment(resourceId:number,environmentId:number){
-    console.log("Legan recursos para agregar ",resourceId, " envi ",environmentId)
+    // console.log("Legan recursos para agregar ",resourceId, " envi ",environmentId)
     this.environmentService.addResourceToEnvironment(resourceId,environmentId).subscribe(
       response=> {
         console.log("Data",response)

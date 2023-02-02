@@ -32,7 +32,7 @@ export class ScheduleCreateFormComponent {
   ){
 
   }
-  courseSelected: Course = {'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':'','subjectCode':'','teacherCode':''}
+  courseSelected: Course = {'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':'','subjectCode':'','teacherCode':'','remainingHours':0}
   environmentSelected: Environment  = {'id':0,
   'name':'',
   'location':'',
@@ -46,7 +46,7 @@ export class ScheduleCreateFormComponent {
     day:'',
     startingTime:'',
     endingTime:'',
-    course:{'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':'','subjectCode':'','teacherCode':''},
+    course:{'courseId':1,'courseGroup':'A','courseCapacity':20,'periodId':'','subjectCode':'','teacherCode':'','remainingHours':0},
     environment: {
       id: 0,
       name: '',
