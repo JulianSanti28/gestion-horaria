@@ -48,6 +48,7 @@ import { ProfessorAllComponent } from './professor-all/professor-all.component';
 import { ScheduleRowComponent } from './schedule-row/schedule-row.component';
 import { ScheduleListComponent } from './schedule-list/schedule-list.component';
 import { ScheduleUpdateComponent } from './schedule-update/schedule-update.component';
+import { OaUploadComponent } from './oa-upload/oa-upload.component';
 @NgModule({
   declarations: [
     ScheduleCreateComponent,
@@ -63,7 +64,8 @@ import { ScheduleUpdateComponent } from './schedule-update/schedule-update.compo
     ProfessorAllComponent,
     ScheduleRowComponent,
     ScheduleListComponent,
-    ScheduleUpdateComponent
+    ScheduleUpdateComponent,
+    OaUploadComponent
   ],
   imports: [
     CommonModule,
