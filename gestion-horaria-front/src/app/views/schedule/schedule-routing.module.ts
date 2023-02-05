@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { OaUploadComponent } from './oa-upload/oa-upload.component';
 import { ScheduleCreateComponent } from './schedule-create/schedule-create.component';
 import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.component';
 import {ScheduleProfessorDetailComponent} from './schedule-professor-detail/schedule-professor-detail.component';
 import { ScheduleUpdateComponent } from './schedule-update/schedule-update.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -50,6 +52,13 @@ const routes: Routes = [
         component: ScheduleUpdateComponent,
         data:{
           title :'updateSchedule'
+        }
+      },
+      {
+        path:'upload-oa',
+        component: OaUploadComponent,
+        data : {
+          title:'upload-oa'
         }
       }
     ]

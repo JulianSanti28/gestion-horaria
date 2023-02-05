@@ -14,11 +14,11 @@ export const navItems: INavData[] = [
   //   title: true,
   //   name: 'Theme'
   // },
-  // {
-  //   name: 'Colors',
-  //   url: '/theme/colors',
-  //   iconComponent: { name: 'cil-drop' }
-  // },
+  {
+    name: 'Upload Carga academica',
+    url: '/schedule/upload-oa',
+    iconComponent: { name: 'cil-drop' }
+  },
   // {
   //   name: 'Typography',
   //   url: '/theme/typography',
