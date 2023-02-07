@@ -15,7 +15,7 @@ export class OfertaAcademicaService {
   uploadFile(file:Blob){
     const dto =  new FormData();
     dto.append('file',file);
-    return this.http.post<File>(`${this.endPoint}/upload`,dto,{
+    return this.http.post<File>(this.endPoint+'file/upload',dto,{
       // headers:{
       //   'Content-type':"multipart/form-data"
       // }

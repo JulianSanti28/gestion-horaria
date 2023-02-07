@@ -16,6 +16,7 @@
           or
           <input type="file" id="images" accept="image/*" (change)="onUpload($event)" required >
         </label>
+
       </div>
 
       <br>
@@ -30,7 +31,6 @@
                 <ul>
                   <li *ngFor="let pendiente of colaPendientes"> <a href="">{{pendiente}}</a> </li>
                 </ul>
-
             </div>
 
           </c-card-body>
