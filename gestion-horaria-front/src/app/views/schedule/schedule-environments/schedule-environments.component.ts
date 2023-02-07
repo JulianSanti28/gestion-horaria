@@ -70,8 +70,9 @@ export class ScheduleEnvironmentsComponent implements OnInit {
       this.environmentType=type
     }
     this.loadTableEnvironmentsSchedule([1,5])
-
   }
+
+
   onSelectingEnvironment(environment:Environment, e:Event){
 
     const x = e.target as HTMLInputElement

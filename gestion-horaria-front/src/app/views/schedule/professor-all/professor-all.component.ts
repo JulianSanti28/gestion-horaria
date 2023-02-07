@@ -18,6 +18,7 @@ export class ProfessorAllComponent implements OnInit{
   showSelectedProfessor:boolean=false;
   //emitir el profesor al padre cuando haya checkeado en una casilla
   @Output()selectedProfessor= new EventEmitter<Professor|null>();
+  @Output()isProfessorSelected = new EventEmitter<boolean>();
   @ViewChildren("checkboxes") checkboxes!: QueryList<ElementRef>;
 
   totalItems:number=0;
@@ -47,15 +48,18 @@ export class ProfessorAllComponent implements OnInit{
       element.nativeElement.checked = false;
     });
     this.selectedProfessor.emit(null)
+    this.isProfessorSelected.emit(false);
+    this.showSelectedProfessor=false;
   }
 
-  
+
   onSelectingProfessor(profesor:Professor, e:Event){
 
     const x = e.target as HTMLInputElement
     if(x.checked){
       this.professor = profesor;
       this.selectedProfessor.emit(profesor)
+      this.isProfessorSelected.emit(true)
       this.isDisabled=true
       this.showSelectedProfessor=true;
     }
