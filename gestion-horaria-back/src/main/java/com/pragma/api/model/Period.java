@@ -3,6 +3,7 @@ package com.pragma.api.model;
 import com.pragma.api.model.enums.PeriodStateEnumeration;
 import lombok.*;
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,6 +20,12 @@ public class Period {
     @Enumerated(EnumType.STRING)
     private PeriodStateEnumeration state;
 
+
+    public Period(String periodId, PeriodStateEnumeration state) {
+        this.periodId = periodId;
+        this.state = state;
+    }
+
     @OneToMany(mappedBy = "period")
-    private Set<Course> courses;
+    private Set<Course> courses = new HashSet<>();
 }
