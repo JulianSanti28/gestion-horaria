@@ -16,6 +16,11 @@
     <div class="col-sm-10">
       <input formControlName="name" id="environmentName" type="text"  required />
     </div>
+    <div class="alert alert-danger" *ngIf="isNameInvalid">
+      <div *ngIf="name?.hasError('required')">
+        Nombre es requerido
+      </div>
+    </div>
   </c-row>
   <c-row class="mb-3">
     <label cLabel class="col-sm-2 col-form-label" for="environmentLocation" >
@@ -24,6 +29,11 @@
     <div class="col-sm-10">
       <input formControlName="location" id="environmentLocation" type="text"  required/>
     </div>
+    <div class="alert alert-danger" *ngIf="isLocationInvalid">
+      <div *ngIf="location?.hasError('required')">
+        Ubicacion es requerido
+      </div>
+    </div>
   </c-row>
   <c-row class="mb-3">
     <label cLabel class="col-sm-2 col-form-label" for="environmentCapacity">
@@ -31,6 +41,14 @@
     </label>
     <div class="col-sm-10">
       <input formControlName="capacity" id="environmentCapacity" type="number"  required />
+    </div>
+    <div class="alert alert-danger" *ngIf="isCapacityInvalid">
+      <div *ngIf="capacity?.hasError('required')">
+        Capacidad es requerido
+      </div>
+      <div *ngIf="capacity?.hasError('min')">
+        Capacidad debe ser mayor o igual a 2
+      </div>
     </div>
   </c-row>
   <c-row class="mb-3">
@@ -48,7 +66,11 @@
     <c-col md="4">
       <!-- <input formControlName="environmentType"  required type="text" readonly="true" [value]="selectedValueType" [hidden]="!isEdit"/> -->
       <input formControlName="environmentType"   touched type="text" readonly="true" [hidden]="!isEdit" required/>
-
+      <div class="alert alert-danger" *ngIf="isEnvironmentTypeInvalid">
+        <div *ngIf="environmentType?.hasError('required')">
+         Tipo de ambiente es requerido
+        </div>
+      </div>
       <!-- <c-form-feedback [valid]="false">Porfavor proveer un tipo de ambiente valido</c-form-feedback> -->
     </c-col>
 
@@ -68,7 +90,11 @@
     <c-col md="4">
       <!-- <input formControlName="faculty" id="environmentFaculty" required type="text" readonly="true" [value]="selectedFaculty"  [hidden]="!isEdit"/> -->
       <input formControlName="faculty" id="environmentFaculty"  type="text"  readonly="true"  [hidden]="!isEdit" required/>
-
+      <div class="alert alert-danger" *ngIf="isFacultyInvalid">
+        <div *ngIf="faculty?.hasError('required')">
+         Facultad es requerido
+        </div>
+      </div>
       <!-- <c-form-feedback [valid]="false">Porfavor proveer una facultad valida</c-form-feedback> -->
     </c-col>
   </c-row>

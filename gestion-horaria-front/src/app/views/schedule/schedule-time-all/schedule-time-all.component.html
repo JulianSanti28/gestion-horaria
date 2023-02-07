@@ -20,6 +20,25 @@
     <c-row class="mb-3">
 
       <label cLabel class="col-sm-2 col-form-label" >
+        Bloques :
+      </label>
+      <c-col md="5">
+      <c-dropdown>
+        <button cButton cDropdownToggle color="light">
+          Selecciona el bloque
+        </button>
+        <ul cDropdownMenu>
+          <li><h6 cDropdownHeader>Tipos de bloques</h6></li>
+          <li *ngFor="let bloque of bloques"><a (click)="updateTableTime('all',bloque)" cDropdownItem>{{bloque}}</a></li>
+
+        </ul>
+      </c-dropdown>
+      </c-col>
+
+    </c-row>
+    <c-row class="mb-3">
+
+      <label cLabel class="col-sm-2 col-form-label" >
         Filtrar por dia:
       </label>
       <c-col md="5">
@@ -28,8 +47,8 @@
           Selecciona el dia
         </button>
         <ul cDropdownMenu>
-          <li><h6 cDropdownHeader>Tipos de ambiente</h6></li>
-          <li *ngFor="let tipo of weekDays"><a (click)="updateTableTime(tipo.toUpperCase())" cDropdownItem>{{tipo}}</a></li>
+          <li><h6 cDropdownHeader>Dias </h6></li>
+          <li *ngFor="let tipo of weekDays"><a (click)="updateTableTime(tipo.toUpperCase(),0)" cDropdownItem>{{tipo}}</a></li>
 
         </ul>
       </c-dropdown>
@@ -57,7 +76,7 @@
 
     </table>
     <app-paginador
-        (pageChanged)="loadTableTime($event)" [totalItems]="totalItems" [totalNumberPage]="totalNumberPage" [pageSize]="pageSize"
+        (pageChanged)="loadTableTime($event,0)" [totalItems]="totalItems" [totalNumberPage]="totalNumberPage" [pageSize]="pageSize"
 
     ></app-paginador>
   </ng-template>

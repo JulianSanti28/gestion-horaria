@@ -1,10 +1,95 @@
 <app-widgets-dropdown></app-widgets-dropdown>
-<c-card class="mb-4">
+<c-row>
+  <c-col xs>
+    <c-card class="mb-4">
+      <c-card-header>Usuarios</c-card-header>
+      <c-card-body>
+        <table
+          [hover]="true"
+          [responsive]="true"
+          [striped]="true"
+          align="middle"
+          cTable
+          class="mb-0 border"
+        >
+          <thead cTableColor="light">
+            <tr>
+              <th class="text-center">
+                <svg cIcon name="cilPeople"></svg>
+              </th>
+              <th>Usuarios</th>
+              <th class="text-center">Facultad</th>
+              <th>Uso</th>
+              <!-- <th class="text-center">Payment Method</th> -->
+              <th>Actividad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users; index as i">
+              <td class="text-center">
+                <c-avatar
+                  size="md"
+                  src="{{ user.avatar }}"
+                  status="{{ user.status }}"
+                ></c-avatar>
+              </td>
+              <td>
+                <div>{{ user.name }}</div>
+                <div class="small text-medium-emphasis text-nowrap">
+                  <span>
+                    {{ user.state }} | Registered: {{ user.registered }}
+                  </span>
+                </div>
+              </td>
+              <td class="text-center">
+                <svg
+                  cIcon
+                  id="{{ user.country + user.name }}"
+                  name="cif{{ user.country }}"
+                  size="xl"
+                  title="{{ user.country }}"
+                ></svg>
+              </td>
+              <td>
+                <div class="d-flex justify-content-between">
+                  <div class="float-start">
+                    <strong>{{ user.usage }}%</strong>
+                  </div>
+                  <div class="float-end ms-1 text-nowrap">
+                    <small class="text-medium-emphasis">
+                      {{ user.period }}
+                    </small>
+                  </div>
+                </div>
+                <c-progress thin>
+                  <c-progress-bar
+                    [value]="user.usage"
+                    color="{{ user.color }}"
+                  ></c-progress-bar>
+                </c-progress>
+              </td>
+              <!-- <td class="text-center">
+                <svg cIcon name="cibCc{{ user.payment }}" size="xl"></svg>
+              </td> -->
+              <td>
+                <div class="small text-medium-emphasis">Ultimo ingreso </div>
+                <div class="fw-semibold text-nowrap">{{ user.activity }}</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
+
+<!-- Vista de trafico  -->
+<!-- <c-card class="mb-4">
   <c-card-body>
     <c-row>
       <c-col sm="5">
-        <h4 class="card-title mb-0" id="traffic">Traffic</h4>
-        <div class="small text-medium-emphasis">January - December 2021</div>
+        <h4 class="card-title mb-0" id="traffic">Trafico</h4>
+        <div class="small text-medium-emphasis">Enero - Diciembre 2022</div>
       </c-col>
       <c-col class="d-none d-md-block" sm="7">
         <button cButton class="float-end" color="primary">
@@ -24,7 +109,7 @@
               cFormCheckLabel
               color="secondary"
               variant="outline"
-            >Day</label>
+            >Dia</label>
 
             <input
               class="btn-check"
@@ -38,7 +123,7 @@
               cFormCheckLabel
               color="secondary"
               variant="outline"
-            >Month</label>
+            >Mes</label>
 
             <input
               class="btn-check"
@@ -52,7 +137,7 @@
               cFormCheckLabel
               color="secondary"
               variant="outline"
-            >Year</label>
+            >Año</label>
           </c-button-group>
         </form>
       </c-col>
@@ -71,28 +156,28 @@
     <c-row class="text-center" [md]="5" [xs]="1">
       <c-col class="mb-sm-2 mb-0">
         <div class="text-medium-emphasis">Visits</div>
-        <strong>29.703 Users (40%)</strong>
+        <strong>29 Users (40%)</strong>
         <c-progress class="mt-2" thin>
           <c-progress-bar color="success" value="40"></c-progress-bar>
         </c-progress>
       </c-col>
       <c-col class="mb-sm-2 mb-0">
         <div class="text-medium-emphasis">Unique</div>
-        <strong>24.093 Users (20%)</strong>
+        <strong>24 (20%)</strong>
         <c-progress class="mt-2" thin>
           <c-progress-bar color="info" value="20"></c-progress-bar>
         </c-progress>
       </c-col>
       <c-col class="mb-sm-2 mb-0">
         <div class="text-medium-emphasis">Page views</div>
-        <strong>78.706 Views (60%)</strong>
+        <strong>78 Views (60%)</strong>
         <c-progress class="mt-2" thin>
           <c-progress-bar color="warning" value="60"></c-progress-bar>
         </c-progress>
       </c-col>
       <c-col class="mb-sm-2 mb-0">
         <div class="text-medium-emphasis">New Users</div>
-        <strong>22.123 Users (80%)</strong>
+        <strong>22 Users (80%)</strong>
         <c-progress class="mt-2" thin>
           <c-progress-bar color="danger" value="80"></c-progress-bar>
         </c-progress>
@@ -106,11 +191,11 @@
       </c-col>
     </c-row>
   </c-card-footer>
-</c-card>
+</c-card> -->
 
-<app-widgets-brand [withCharts]="true"></app-widgets-brand>
+<!-- <app-widgets-brand [withCharts]="true"></app-widgets-brand> -->
 
-<c-row>
+<!-- <c-row>
   <c-col xs>
     <c-card class="mb-4">
       <c-card-header>Traffic {{ "&" }} Sales</c-card-header>
@@ -361,87 +446,5 @@
       </c-card-body>
     </c-card>
   </c-col>
-</c-row>
-<c-row>
-  <c-col xs>
-    <c-card class="mb-4">
-      <c-card-header>Users</c-card-header>
-      <c-card-body>
-        <table
-          [hover]="true"
-          [responsive]="true"
-          [striped]="true"
-          align="middle"
-          cTable
-          class="mb-0 border"
-        >
-          <thead cTableColor="light">
-            <tr>
-              <th class="text-center">
-                <svg cIcon name="cilPeople"></svg>
-              </th>
-              <th>User</th>
-              <th class="text-center">Country</th>
-              <th>Usage</th>
-              <th class="text-center">Payment Method</th>
-              <th>Activity</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let user of users; index as i">
-              <td class="text-center">
-                <c-avatar
-                  size="md"
-                  src="{{ user.avatar }}"
-                  status="{{ user.status }}"
-                ></c-avatar>
-              </td>
-              <td>
-                <div>{{ user.name }}</div>
-                <div class="small text-medium-emphasis text-nowrap">
-                  <span>
-                    {{ user.state }} | Registered: {{ user.registered }}
-                  </span>
-                </div>
-              </td>
-              <td class="text-center">
-                <svg
-                  cIcon
-                  id="{{ user.country + user.name }}"
-                  name="cif{{ user.country }}"
-                  size="xl"
-                  title="{{ user.country }}"
-                ></svg>
-              </td>
-              <td>
-                <div class="d-flex justify-content-between">
-                  <div class="float-start">
-                    <strong>{{ user.usage }}%</strong>
-                  </div>
-                  <div class="float-end ms-1 text-nowrap">
-                    <small class="text-medium-emphasis">
-                      {{ user.period }}
-                    </small>
-                  </div>
-                </div>
-                <c-progress thin>
-                  <c-progress-bar
-                    [value]="user.usage"
-                    color="{{ user.color }}"
-                  ></c-progress-bar>
-                </c-progress>
-              </td>
-              <td class="text-center">
-                <svg cIcon name="cibCc{{ user.payment }}" size="xl"></svg>
-              </td>
-              <td>
-                <div class="small text-medium-emphasis">Last login</div>
-                <div class="fw-semibold text-nowrap">{{ user.activity }}</div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </c-card-body>
-    </c-card>
-  </c-col>
-</c-row>
+</c-row> -->
+

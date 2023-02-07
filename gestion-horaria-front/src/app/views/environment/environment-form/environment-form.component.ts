@@ -81,7 +81,7 @@ export class EnvironmentFormComponent {
       id: ['', []],
       name: ['', [Validators.required]],
       location: ['',[Validators.required]],
-      capacity: ['', [Validators.required]],
+      capacity: ['', [Validators.required, Validators.min(2)]],
       environmentType: ['', [Validators.required]],
       faculty:['',[Validators.required]],
     });
@@ -132,4 +132,34 @@ export class EnvironmentFormComponent {
 
   }
 
+  get name(){
+    return this.form.get("name")
+  }
+  get location(){
+    return this.form.get("location")
+  }
+  get capacity(){
+    return this.form.get("capacity");
+  }
+  get environmentType(){
+    return this.form.get("environmentType")
+  }
+  get faculty(){
+    return this.form.get("faculty")
+  }
+  get isNameInvalid(){
+    return  this.name?.touched && this.name?.invalid
+  }
+  get isLocationInvalid(){
+    return  this.location?.touched && this.location?.invalid
+  }
+  get isCapacityInvalid(){
+    return  this.capacity?.touched && this.capacity?.invalid
+  }
+  get isEnvironmentTypeInvalid(){
+    return  this.environmentType?.touched && this.environmentType?.invalid
+  }
+  get isFacultyInvalid(){
+    return  this.faculty?.touched && this.faculty?.invalid
+  }
 }

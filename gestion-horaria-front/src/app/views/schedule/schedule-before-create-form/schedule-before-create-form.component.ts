@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Program } from 'src/app/models/program.model';
 import { ProgramService } from 'src/app/services/program/program.service';
@@ -14,6 +14,7 @@ export class ScheduleBeforeCreateFormComponent implements OnInit{
   @Output() programa= new EventEmitter<Program>()
   @Output() semestre= new EventEmitter<number>()
   @Input('isEdit')isEdit!:boolean;
+  @Input('changeSelected') changeSelected:boolean=false;
   selectedProgram!:Program;
   selectedSemester!:number;
   progressMade:number=0;
@@ -42,6 +43,13 @@ export class ScheduleBeforeCreateFormComponent implements OnInit{
       program:['', [Validators.required]],
       semester:['', [Validators.required]]
     });
+  }
+  ngOnChange(changes: SimpleChanges){
+    if(changes['changeSelected']){
+      if(changes['changeSelected'].currentValue == true){
+        // this.selectedProgram= null
+      }
+    }
   }
   onSelectedProgram(event:Event){
     //TODO traer el numero de semestres de ese programa

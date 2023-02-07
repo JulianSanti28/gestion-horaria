@@ -12,6 +12,7 @@ export class ScheduleTimeAllComponent {
 
   columns:string[]=["Id","Dia","Hora Inicio","Hora Fin","Seleccionado"]
   weekDays:string[]=["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"]
+  bloques:number[]=[2,4]
   showSelectedSchedule:boolean=false;
   availableSchedules:Schedule[]=[];
   allSchedules:Schedule[]=[];
@@ -20,7 +21,7 @@ export class ScheduleTimeAllComponent {
   isScheduleSelected:boolean=false;
 
 
-
+  selectedBlock:number=0;
   selectedDay: string ='';
   totalItems:number=0;
   totalNumberPage:number=1;
@@ -46,7 +47,7 @@ export class ScheduleTimeAllComponent {
     console.log("y environment" ,this.takenEnvironmentSchedules)
 
     // obtener todos los horarios vacios
-    this.loadTableTime([1,7])
+    this.loadTableTime([1,7],0)
 
     // cruzar los horarios ocupados con los vacios y que queden solo los vacios
     // mostrar solo los horarios vacios o mostrar deshabilitado para escoger
@@ -75,7 +76,7 @@ export class ScheduleTimeAllComponent {
     });
     this.selectedSchedule.emit(null)
   }
-  updateTableTime(type:string){
+  updateTableTime(type:string,bloque:number){
 
     if(type == 'all' || type ==''){
       this.selectedDay=''
@@ -83,11 +84,14 @@ export class ScheduleTimeAllComponent {
 
       this.selectedDay=type
     }
-    this.loadTableTime([1,7])
+    if(bloque == null ){
+      bloque = 2
+    }
+    this.loadTableTime([1,7],bloque)
 
   }
 
-  loadTableTime(args: number[]){
+  loadTableTime(args: number[],bloque:number){
 
     let pageSolicitud:number = args[0];
     let pageSize: number = args[1]
@@ -96,6 +100,9 @@ export class ScheduleTimeAllComponent {
       }
       if(!pageSize){
         pageSize=10
+      }
+      if(bloque ==0){
+        bloque=2;
       }
       const startIndex = (pageSolicitud - 1) * pageSize;
 
@@ -106,6 +113,7 @@ export class ScheduleTimeAllComponent {
         this.takenProfessorSchedules,
         this.takenEnvironmentSchedules,
         this.selectedDay,
+        bloque,
         startIndex,
         pageSize
       ).subscribe(response =>{

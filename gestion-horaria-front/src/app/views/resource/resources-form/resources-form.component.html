@@ -15,6 +15,14 @@
    <div class="col-sm-10">
      <input formControlName="name" id="resourceName" type="text"  required />
    </div>
+   <div class="alert alert-danger" *ngIf="isNameInvalid">
+    <div *ngIf="name?.hasError('required')">
+      Nombre es requerido
+    </div>
+    <div *ngIf="name?.hasError('minlength')">
+      Nombre debe tener mas de 2 carácteres
+    </div>
+  </div>
  </c-row>
 
  <c-row class="mb-3">
@@ -32,7 +40,11 @@
    <c-col md="4">
      <!-- <input formControlName="resourceType"  required type="text" readonly="true" [value]="selectedValueType" [hidden]="!isEdit"/> -->
      <input formControlName="resourceType"   touched type="text" readonly="true" [hidden]="!isEdit" required/>
-
+     <div class="alert alert-danger" *ngIf="isResourceTypeInvalid">
+      <div *ngIf="resourceType?.hasError('required')">
+       Tipo de recurso es requerido
+      </div>
+    </div>
      <!-- <c-form-feedback [valid]="false">Porfavor proveer un tipo de ambiente valido</c-form-feedback> -->
    </c-col>
 

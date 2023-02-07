@@ -73,6 +73,40 @@ export class ScheduleService {
     {id:41,day:"SABADO",startingTime:'18:00:00',endingTime:'20:00:00',course:this.curso,environment:this.envi} ,
     {id:42,day:"SABADO",startingTime:'20:00:00',endingTime:'22:00:00',course:this.curso,environment:this.envi} ,
 
+    {id:43,day:"LUNES",startingTime:'08:00:00',endingTime:'12:00:00',course:this.curso,environment:this.envi},
+    {id:44,day:"LUNES",startingTime:'12:00:00',endingTime:'16:00:00',course:this.curso,environment:this.envi} ,
+    {id:45,day:"LUNES",startingTime:'16:00:00',endingTime:'20:00:00',course:this.curso,environment:this.envi} ,
+    {id:46,day:"LUNES",startingTime:'18:00:00',endingTime:'22:00:00',course:this.curso,environment:this.envi} ,
+
+
+    {id:47,day:"MARTES",startingTime:'08:00:00',endingTime:'12:00:00',course:this.curso,environment:this.envi},
+    {id:48,day:"MARTES",startingTime:'12:00:00',endingTime:'16:00:00',course:this.curso,environment:this.envi} ,
+    {id:49,day:"MARTES",startingTime:'16:00:00',endingTime:'20:00:00',course:this.curso,environment:this.envi} ,
+    {id:50,day:"MARTES",startingTime:'18:00:00',endingTime:'22:00:00',course:this.curso,environment:this.envi} ,
+
+
+    {id:51,day:"MIERCOLES",startingTime:'08:00:00',endingTime:'12:00:00',course:this.curso,environment:this.envi},
+    {id:52,day:"MIERCOLES",startingTime:'12:00:00',endingTime:'16:00:00',course:this.curso,environment:this.envi} ,
+    {id:53,day:"MIERCOLES",startingTime:'16:00:00',endingTime:'20:00:00',course:this.curso,environment:this.envi} ,
+    {id:54,day:"MIERCOLES",startingTime:'18:00:00',endingTime:'22:00:00',course:this.curso,environment:this.envi} ,
+
+
+    {id:55,day:"JUEVES",startingTime:'08:00:00',endingTime:'12:00:00',course:this.curso,environment:this.envi},
+    {id:56,day:"JUEVES",startingTime:'12:00:00',endingTime:'16:00:00',course:this.curso,environment:this.envi} ,
+    {id:57,day:"JUEVES",startingTime:'16:00:00',endingTime:'20:00:00',course:this.curso,environment:this.envi} ,
+    {id:58,day:"JUEVES",startingTime:'18:00:00',endingTime:'22:00:00',course:this.curso,environment:this.envi} ,
+
+
+    {id:59,day:"VIERNES",startingTime:'08:00:00',endingTime:'12:00:00',course:this.curso,environment:this.envi},
+    {id:60,day:"VIERNES",startingTime:'12:00:00',endingTime:'16:00:00',course:this.curso,environment:this.envi} ,
+    {id:61,day:"VIERNES",startingTime:'16:00:00',endingTime:'20:00:00',course:this.curso,environment:this.envi} ,
+    {id:62,day:"VIERNES",startingTime:'18:00:00',endingTime:'22:00:00',course:this.curso,environment:this.envi} ,
+
+
+    {id:63,day:"SABADO",startingTime:'08:00:00',endingTime:'12:00:00',course:this.curso,environment:this.envi},
+    {id:64,day:"SABADO",startingTime:'12:00:00',endingTime:'16:00:00',course:this.curso,environment:this.envi} ,
+    {id:65,day:"SABADO",startingTime:'16:00:00',endingTime:'20:00:00',course:this.curso,environment:this.envi} ,
+    {id:66,day:"SABADO",startingTime:'18:00:00',endingTime:'22:00:00',course:this.curso,environment:this.envi} ,
 
   ]
   colores :{[key:number]:string;}={
@@ -222,8 +256,10 @@ export class ScheduleService {
     takenProfessorSchedules:Schedule[],
     takenEnvironmentSchedules:Schedule[],
     selectedDay:string,
+    bloque:number,
     startIndex:number,
     pageSize:number
+
     ):Observable<ResponseData>{
 
 
@@ -248,6 +284,22 @@ export class ScheduleService {
       // filtrar los disponibles por dia si es que lo enviaron
       if(selectedDay != ''){
         filteredSchedules = filteredSchedules.filter(x => x.day == selectedDay)
+      }
+      if(bloque){
+        filteredSchedules = filteredSchedules.filter( x => {
+          const startingTime = new Date('1970-01-01T' + x.startingTime + 'Z');
+          const endingTime = new Date('1970-01-01T' + x.endingTime + 'Z');
+          const timeInMillisecondsStart = startingTime.getTime();
+          const timeInMillisecondsEnd = endingTime.getTime();
+          const timeInHoursStart = timeInMillisecondsStart / 1000 / 60 / 60;
+          const timeInHoursEnd = timeInMillisecondsEnd/ 1000 / 60 / 60;
+          const difference = timeInHoursEnd - timeInHoursStart;
+          // const differenceInMilliseconds = difference;
+          // const differenceInHours = differenceInMilliseconds / 1000 / 60 / 60;
+          console.log("DIFERENCIA : ",difference)
+          return difference == bloque;
+        })
+
       }
       let numberPages = Math.ceil(filteredSchedules.length/pageSize)
       // console.log("Elementos filtrados es ",filteredSchedules)

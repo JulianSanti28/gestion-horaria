@@ -52,7 +52,7 @@ export class ResourcesFormComponent {
   private buildForm(){
     this.form = this.formBuilder.group({
       id: ['', []],
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required , Validators.minLength(2)]],
       resourceType: ['', [Validators.required]],
     });
   }
@@ -75,4 +75,18 @@ export class ResourcesFormComponent {
 
     this.emitterForm.emit(this.formResource)
   }
+
+  get name(){
+    return this.form.get("name")
+  }
+  get resourceType(){
+    return this.form.get("resourceType")
+  }
+  get isNameInvalid(){
+    return  this.name?.touched && this.name?.invalid
+  }
+  get isResourceTypeInvalid(){
+    return  this.resourceType?.touched && this.resourceType?.invalid
+  }
+
 }
