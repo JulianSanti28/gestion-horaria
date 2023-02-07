@@ -46,7 +46,9 @@ export class CourseService {
 
   getAllCoursesFromProgramAndSemesterPage(page:number, pageSize:number,programId:string,semester:number){
     // http://localhost:8081/api/course/byProgramSemester?programId=PIS&semester=1&page=0&size=10&sort=id&order=asc
-    return this.http.get<any>(this.endPoint+`/byProgramSemester`+`?programId=${programId}&semester=${semester}`+`&page=${page-1}&size=${pageSize}&sort=id&order=ASC`).pipe(
+    // return this.http.get<any>(this.endPoint+`/byProgramSemester`+`?programId=${programId}&semester=${semester}`+`&page=${page-1}&size=${pageSize}&sort=id&order=ASC`).pipe(
+    return this.http.get<any>(this.endPoint+`/available`+`?programId=${programId}&semester=${semester}`+`&page=${page-1}&size=${pageSize}&sort=id&order=ASC`).pipe(
+
       catchError((e) => {
 
 
