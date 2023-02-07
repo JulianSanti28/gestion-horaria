@@ -41,8 +41,8 @@ INSERT INTO `resource` (`id`, `name`, `resource_type`) VALUES (NULL, 'Video Beam
 --Resource environment
 INSERT INTO `available_resources` (`environment_id`, `resource_id`) VALUES (1,1);
 
---INSERT INTO `course` (`course_id`, `course_capacity`, `course_group`, `period_periodId`, `subject_code`, `teacher_code`, `remaining_hours`) VALUES ('1', '13', 'A', '2022_02', 'POO', '1', '2');
---INSERT INTO `course` (`course_id`, `course_capacity`, `course_group`, `period_periodId`, `subject_code`, `teacher_code`, `remaining_hours`) VALUES ('2', '20', 'B', '2022_02', 'ESTR1', '1', '4');
+-- INSERT INTO `course` (`course_id`, `course_capacity`, `course_group`, `period_periodId`, `subject_code`, `teacher_code`, `remaining_hours`) VALUES ('1', '13', 'A', '2021_02', 'POO', '1061', '4');
+-- INSERT INTO `course` (`course_id`, `course_capacity`, `course_group`, `period_periodId`, `subject_code`, `teacher_code`, `remaining_hours`) VALUES ('2', '20', 'B', '2021_02', 'ESTR1', '1062', '4');
 --Resource environment
 
 INSERT INTO `roles` (`role_id`, `role_name`) VALUES ('1', 'ROLE_ADMIN');
