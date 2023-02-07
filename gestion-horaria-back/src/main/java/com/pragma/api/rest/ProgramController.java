@@ -31,4 +31,10 @@ public class ProgramController {
         return ResponseEntity.status(HttpStatus.OK).body(this.iProgramService.findAllProgram());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ProgramDTO> getAllPrograms(@PathVariable String id) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(this.iProgramService.findByProgramId(id));
+    }
+
 }

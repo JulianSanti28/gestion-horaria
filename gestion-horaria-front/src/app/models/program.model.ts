@@ -1,5 +1,6 @@
 export interface Program{
-  program_id:string;
+  // program_id:string;
+  programId:string;
   name:string;
   department_id:string;
 }

@@ -48,7 +48,7 @@
         </button>
         <ul cDropdownMenu>
           <li><h6 cDropdownHeader>Dias </h6></li>
-          <li *ngFor="let tipo of weekDays"><a (click)="updateTableTime(tipo.toUpperCase(),0)" cDropdownItem>{{tipo}}</a></li>
+          <li *ngFor="let tipo of weekDays"><a (click)="updateTableTime(tipo.toUpperCase(),-1)" cDropdownItem>{{tipo}}</a></li>
 
         </ul>
       </c-dropdown>
@@ -76,7 +76,7 @@
 
     </table>
     <app-paginador
-        (pageChanged)="loadTableTime($event,0)" [totalItems]="totalItems" [totalNumberPage]="totalNumberPage" [pageSize]="pageSize"
+        (pageChanged)="loadTableTime($event)" [totalItems]="totalItems" [totalNumberPage]="totalNumberPage" [pageSize]="pageSize"
 
     ></app-paginador>
   </ng-template>

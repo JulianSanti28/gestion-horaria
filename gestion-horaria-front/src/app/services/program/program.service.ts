@@ -12,15 +12,15 @@ export class ProgramService {
   constructor(
     private http : HttpClient
   ) { }
-
+    program !:Program
   programs:Program[]=[
-    {program_id:'PIS',name:'INGENIERIA DE SISTEMAS',department_id:'1'},
-    {program_id:'PIET',name:'INGENIERIA ELECTRONICA Y TELECOMUNICACIONES',department_id:'2'}
+    {programId:'PIS',name:'INGENIERIA DE SISTEMAS',department_id:'1'},
+    {programId:'PIET',name:'INGENIERIA ELECTRONICA Y TELECOMUNICACIONES',department_id:'2'}
 
   ]
 
   getAllPrograms(){
-    return of(this.programs);
+    return this.programs;
     // return this.http.get<any>(this.endPoint+``).pipe(
     //   catchError((e) => {
 
@@ -29,9 +29,22 @@ export class ProgramService {
 
     //   })
     // );
+
+
   }
   getProgramById(id:string){
-    const program: Program =this.programs.find(program=> program.program_id==id)!;
-    return program
+    const program: Program =this.programs.find(program=> program.programId==id)!;
+    return program;
+    // return this.http.get<any>(this.endPoint+`/${id}`).pipe(
+    //   catchError((e) => {
+
+    //     console.log('Error obteniendo todos los RECURSOS', e.error.mensaje, 'error');
+    //     return throwError(e);
+
+    //   })
+    // );
+
+
+    // return this.program
   }
 }

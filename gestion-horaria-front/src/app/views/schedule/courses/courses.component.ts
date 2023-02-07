@@ -72,7 +72,7 @@ export class CoursesComponent implements OnInit{
       if(!pageSize){
         pageSize=10
       }
-      const idPrograma = this.program.program_id
+      const idPrograma = this.program.programId
       const semestre = this.semester
 
     if(!this.isTypeSelected){

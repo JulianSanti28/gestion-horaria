@@ -24,7 +24,7 @@ export class ScheduleCreateComponent {
   showForm:boolean=true;
   createFormIsValid=false
   program:Program={
-    'program_id':'0',
+    'programId':'0',
     'name':'',
     'department_id':''
   };

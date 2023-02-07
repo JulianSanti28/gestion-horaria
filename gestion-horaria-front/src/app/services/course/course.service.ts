@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
 export class CourseService {
 
   period:Period={'periodId':'2022.2','state':'true'}
-  program:Program={program_id:'PIS',name:'INGENIERIA DE SISTEMAS',department_id:'1'}
+  program:Program={programId:'PIS',name:'INGENIERIA DE SISTEMAS',department_id:'1'}
   subject:Subject={'subjectCode':'1','name':'Programacion orientada a objetos','weeklyOverload':6,'timeBlock':true,'semester':2,'program':this.program}
   teacher:Teacher={'teacherCode':'104618021314','fullName':'PPC','department':[]}
   // courses:Course[]=[

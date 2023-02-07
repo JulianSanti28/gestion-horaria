@@ -74,10 +74,11 @@ export class ProfessorAllComponent implements OnInit{
       if(!pageSize){
         pageSize=10
       }
+      console.log("Page profesor ", pageSolicitud, " ",pageSize)
     this.professorService.getAllProfessorsPage(pageSolicitud,pageSize).subscribe((response)=>{
-      this.professors = response.data.elements as Professor[]
-      this.totalItems=response.data.pagination.totalNumberElements as number
-      this.totalNumberPage=response.data.pagination.totalNumberPage as number
+      this.professors = response.elements as Professor[]
+      this.totalItems=response.pagination.totalNumberElements as number
+      this.totalNumberPage=response.pagination.totalNumberPage as number
     })
   }
 
