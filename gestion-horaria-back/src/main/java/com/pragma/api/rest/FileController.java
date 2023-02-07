@@ -24,9 +24,6 @@ public class FileController {
 
     @PostMapping("/upload")
     ResponseEntity<List<String>> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-
-        this.iFileBusiness.uploadFile(file);
-
         return new ResponseEntity<>(this.iFileBusiness.uploadFile(file), HttpStatus.OK);
     }
 
