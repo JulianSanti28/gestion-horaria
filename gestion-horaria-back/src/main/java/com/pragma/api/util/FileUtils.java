@@ -48,7 +48,6 @@ public class FileUtils {
 
         }
 
-        System.out.println("Sali");
 
         return fileRows;
     }
@@ -57,7 +56,7 @@ public class FileUtils {
     private static FileRow convertCellsToFileRow(List<Cell> cells){
         FileRow fileRow = new FileRow();
 
-        fileRow.setPeriod(String.valueOf(cells.get(0).getNumericCellValue()));
+        fileRow.setPeriod(cells.get(0).getStringCellValue());
         fileRow.setProgram(cells.get(1).getStringCellValue());
         fileRow.setSemester((int)cells.get(2).getNumericCellValue());
         fileRow.setSubjectCode(cells.get(3).getStringCellValue());
@@ -67,7 +66,7 @@ public class FileUtils {
         fileRow.setGroup(cells.get(7).getStringCellValue());
         fileRow.setCapacity((int)cells.get(8).getNumericCellValue());
         fileRow.setEnvironment(cells.get(9).getStringCellValue());
-        fileRow.setTeacherName(cells.get(10).getStringCellValue());
+        fileRow.setTeacherCode(String.valueOf((int)cells.get(10).getNumericCellValue()));
         fileRow.setDescription(cells.get(11).getStringCellValue());
         fileRow.setDepartment(cells.get(12).getStringCellValue());
 

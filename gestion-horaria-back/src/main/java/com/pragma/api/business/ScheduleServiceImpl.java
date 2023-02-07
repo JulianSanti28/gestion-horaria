@@ -15,6 +15,8 @@ import com.pragma.api.repository.ITeacherRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,6 +49,9 @@ public class ScheduleServiceImpl implements IScheduleService{
         if(courseOptRequest.isEmpty()) throw new ScheduleBadRequestException("bad.request.course.id", saveRequest.getCourseId().toString());
         Optional<Environment> environmentOptRequest = this.environmentRepository.findById(saveRequest.getEnvironmentId());
         if(environmentOptRequest.isEmpty()) throw new ScheduleBadRequestException("bad.request.environment.id", saveRequest.getEnvironmentId().toString());
+        Course courseDb = courseOptRequest.get();
+        int differenceHours = (int) getDifferenceHours(saveRequest.getStartingTime(), saveRequest.getEndingTime());
+        if(differenceHours>courseDb.getRemainingHours()) throw new ScheduleBadRequestException("bad.request.schedule.hours",courseDb.getId().toString());
         Schedule requestSchedule = Schedule
                 .builder()
                 .startingTime(saveRequest.getStartingTime())
@@ -54,8 +59,14 @@ public class ScheduleServiceImpl implements IScheduleService{
                 .day(saveRequest.getDay())
                 .build();
         requestSchedule.setEnvironment(environmentOptRequest.get());
-        requestSchedule.setCourse(courseOptRequest.get());
+        requestSchedule.setCourse(courseDb);
+        courseDb.setRemainingHours((courseDb.getRemainingHours()-differenceHours));
         return modelMapper.map(this.scheduleRepository.save(requestSchedule), ScheduleResponseDTO.class);
+    }
+
+    private long getDifferenceHours(LocalTime startTime, LocalTime endTime) {
+        Duration duration = Duration.between(startTime, endTime);
+        return duration.toHours();
     }
 
     @Override
@@ -66,6 +77,8 @@ public class ScheduleServiceImpl implements IScheduleService{
         if(courseOptRequest.isEmpty()) throw new ScheduleBadRequestException("bad.request.course.id", updateRequest.getCourseId().toString());
         Optional<Environment> environmentOptRequest = this.environmentRepository.findById(updateRequest.getEnvironmentId());
         if(environmentOptRequest.isEmpty()) throw new ScheduleBadRequestException("bad.request.environment.id", updateRequest.getEnvironmentId().toString());
+        int differenceHours = (int) getDifferenceHours(updateRequest.getStartingTime(), updateRequest.getEndingTime());
+        if(differenceHours>courseOptRequest.get().getRemainingHours()) throw new ScheduleBadRequestException("bad.request.schedule.hours",courseOptRequest.get().getId().toString());
         Schedule scheduleDb = scheduleOptRequest.get();
         scheduleDb.setCourse(courseOptRequest.get());
         scheduleDb.setEnvironment(environmentOptRequest.get());
@@ -81,7 +94,11 @@ public class ScheduleServiceImpl implements IScheduleService{
             Optional<Schedule> scheduleOptRequest = this.scheduleRepository.findById(code);
             if (scheduleOptRequest.isEmpty())
                 throw new ScheduleBadRequestException("bad.request.schedule.id", code.toString());
+            Course courseDb = scheduleOptRequest.get().getCourse();
+            int differenceHours = (int) getDifferenceHours(scheduleOptRequest.get().getStartingTime(), scheduleOptRequest.get().getEndingTime());
+            courseDb.setRemainingHours((courseDb.getRemainingHours()+differenceHours));
             this.scheduleRepository.deleteById(code);
+            this.courseRepository.save(courseDb);
             return true;
         }catch (Exception e){
             throw new ScheduleIntegrityException(e.getMessage(),"");

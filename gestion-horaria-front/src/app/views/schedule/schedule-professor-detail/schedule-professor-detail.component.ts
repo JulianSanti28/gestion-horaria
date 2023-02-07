@@ -18,6 +18,8 @@ export class ScheduleProfessorDetailComponent {
       this.profesor=profesor;
       this.showScheduleView=true;
       console.log("el ambiente seleccionado ",this.profesor)
+    }else{
+      this.showScheduleView = false;
     }
   }
 }

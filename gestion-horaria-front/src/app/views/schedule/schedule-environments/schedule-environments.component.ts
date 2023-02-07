@@ -28,7 +28,7 @@ export class ScheduleEnvironmentsComponent implements OnInit {
   pageSize:number=0;
   @Input('continueCreatingSchedule')continueCreatingSchedule:boolean=false
   @Output()selectedEnvironment = new EventEmitter<Environment|null>();
-  @Output()isEnvironmentSelected = new EventEmitter<boolean>() ;
+  @Output()isEnvironmentSelected = new EventEmitter<boolean>();
   @ViewChildren("checkboxes") checkboxes!: QueryList<ElementRef>;
 
   constructor(
@@ -70,8 +70,9 @@ export class ScheduleEnvironmentsComponent implements OnInit {
       this.environmentType=type
     }
     this.loadTableEnvironmentsSchedule([1,5])
-
   }
+
+
   onSelectingEnvironment(environment:Environment, e:Event){
 
     const x = e.target as HTMLInputElement
