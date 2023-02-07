@@ -9,6 +9,7 @@ import { ScheduleService } from 'src/app/services/schedule/schedule.service';
 import { ignoreElements } from 'rxjs';
 import { Router } from '@angular/router';
 import { error } from 'console';
+import { ScheduleBeforeCreateFormComponent } from '../schedule-before-create-form/schedule-before-create-form.component';
 
 @Component({
   selector: 'app-schedule-create',
@@ -27,7 +28,8 @@ export class ScheduleCreateComponent {
     'name':'',
     'department_id':''
   };
-  @ViewChild('beforeFormAccordion',{static:true}) beforeFormAccordion !:ElementRef ;
+  // @ViewChild('beforeFormAccordion',{static:true}) beforeFormAccordion !:ElementRef ;
+  @ViewChild('beforeForm', { static: false }) beforeForm!: ScheduleBeforeCreateFormComponent;
   showSelectedProgramAndSemester:boolean=false;
   showScheduleView:boolean=false;
   semester:number=0;
@@ -35,6 +37,9 @@ export class ScheduleCreateComponent {
   environmentSelected!: Environment;
   scheduleToCreate!:Schedule;
   continueCreatingSchedule:boolean = false
+  changeValue:boolean = true
+
+
   constructor(
     private scheduleService: ScheduleService,
     private router: Router,
@@ -74,6 +79,15 @@ export class ScheduleCreateComponent {
   changeShowForm(){
     this.progressMadeProgramSemester=0
     this.showSelectedProgramAndSemester =false;
+    this.changeValue=false
+    this.beforeForm.cleanSelect()
+  }
+
+  change(){
+    console.log("Entra aqui ",this.changeValue)
+    if(this.changeValue ==false){
+      this.changeValue=true
+    }
   }
   getSelectedEnvironment(environment:Environment){
     this.environmentSelected = environment;

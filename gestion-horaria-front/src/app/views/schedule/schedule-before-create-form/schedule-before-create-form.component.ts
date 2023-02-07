@@ -13,8 +13,11 @@ export class ScheduleBeforeCreateFormComponent implements OnInit{
   @Output() progress = new EventEmitter<number>()
   @Output() programa= new EventEmitter<Program>()
   @Output() semestre= new EventEmitter<number>()
+  @Output() activateFunction = new EventEmitter();
   @Input('isEdit')isEdit!:boolean;
   @Input('changeSelected') changeSelected:boolean=false;
+  @ViewChild('selectRefPrograma') selectRefPrograma !:ElementRef;
+  @ViewChild('selectRefSemestre') selectRefSemestre !:ElementRef;
   selectedProgram!:Program;
   selectedSemester!:number;
   progressMade:number=0;
@@ -23,7 +26,8 @@ export class ScheduleBeforeCreateFormComponent implements OnInit{
 
   programs:Program[]=[];
   semesters:number[]=[1,2,3,4,5,6,7,8,9,10];
-
+  opcionSeleccionado: string  = '0';
+  verSeleccion: string        = '';
   constructor(
     private formBuilder:FormBuilder,
     private programService:ProgramService,
@@ -34,7 +38,12 @@ export class ScheduleBeforeCreateFormComponent implements OnInit{
   ngOnInit(){
 
     this.buildForm();
-    this.programs=this.programService.getAllPrograms();
+    this.programService.getAllPrograms().subscribe(x=>{
+      this.programs = x
+      console.log("Programas cargados ",this.programs)
+    })
+
+
   }
 
   private buildForm(){
@@ -44,20 +53,20 @@ export class ScheduleBeforeCreateFormComponent implements OnInit{
       semester:['', [Validators.required]]
     });
   }
-  ngOnChange(changes: SimpleChanges){
-    if(changes['changeSelected']){
-      if(changes['changeSelected'].currentValue == true){
-        // this.selectedProgram= null
-      }
-    }
+
+  cleanSelect(){
+    this.selectRefPrograma.nativeElement.value = '';
+    this.selectRefSemestre.nativeElement.value = '';
   }
   onSelectedProgram(event:Event){
     //TODO traer el numero de semestres de ese programa
 
+    console.log("EVNT  ",event.target)
     this.form.controls['program'].setValue((event.target as HTMLOptionElement).value);
     //emitir el programa
     console.log("valor a emitir desde before create ",(event.target as HTMLOptionElement).value )
     this.selectedProgram=this.programService.getProgramById( (event.target as HTMLOptionElement).value)
+    console.log("Programa ", this.selectedProgram )
     this.programa.emit(this.selectedProgram)
     this.progress.emit(this.sumProgres)
   }
