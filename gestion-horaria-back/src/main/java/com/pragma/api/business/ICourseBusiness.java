@@ -36,6 +36,9 @@ public interface ICourseBusiness {
     Response<GenericPageableResponse> findAll(final Pageable pageable);
     GenericPageableResponse findAllBySubjectProgramAndSemester(final String programId, final Integer semester, final Pageable pageable);
 
+    GenericPageableResponse findAllByAvailable(final String programId, final Integer semester, final Pageable pageable);
+
+
 
 
 

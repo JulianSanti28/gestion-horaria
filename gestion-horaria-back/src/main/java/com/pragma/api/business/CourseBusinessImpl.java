@@ -113,6 +113,13 @@ public class CourseBusinessImpl implements ICourseBusiness {
         return this.validatePageList(coursePage);
     }
 
+    @Override
+    public GenericPageableResponse findAllByAvailable(String programId, Integer semester, Pageable pageable) {
+        Program programDb = this.programRepository.findById(programId).orElseThrow(()->new ScheduleBadRequestException("bad.request.program.id", programId));
+        Page<Course> coursePage = this.iCourseRepository.findAllBySubject_ProgramAndSubject_SemesterAndRemainingHoursGreaterThan(programDb, semester,0, pageable);
+        return this.validatePageList(coursePage);
+    }
+
     private GenericPageableResponse validatePageList(Page<Course> coursesPage){
         List<CourseDTO> coursesDTOS = coursesPage.stream().map(x->modelMapper.map(x, CourseDTO.class)).collect(Collectors.toList());
         return PageableUtils.createPageableResponse(coursesPage, coursesDTOS);

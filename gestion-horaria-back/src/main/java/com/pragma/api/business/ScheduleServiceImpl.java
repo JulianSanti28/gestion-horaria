@@ -47,6 +47,7 @@ public class ScheduleServiceImpl implements IScheduleService{
         if(courseOptRequest.isEmpty()) throw new ScheduleBadRequestException("bad.request.course.id", saveRequest.getCourseId().toString());
         Optional<Environment> environmentOptRequest = this.environmentRepository.findById(saveRequest.getEnvironmentId());
         if(environmentOptRequest.isEmpty()) throw new ScheduleBadRequestException("bad.request.environment.id", saveRequest.getEnvironmentId().toString());
+        Course courseDb = courseOptRequest.get();
         Schedule requestSchedule = Schedule
                 .builder()
                 .startingTime(saveRequest.getStartingTime())
@@ -54,7 +55,8 @@ public class ScheduleServiceImpl implements IScheduleService{
                 .day(saveRequest.getDay())
                 .build();
         requestSchedule.setEnvironment(environmentOptRequest.get());
-        requestSchedule.setCourse(courseOptRequest.get());
+        requestSchedule.setCourse(courseDb);
+        courseDb.setRemainingHours(courseDb.getRemainingHours()-2);
         return modelMapper.map(this.scheduleRepository.save(requestSchedule), ScheduleResponseDTO.class);
     }
 
@@ -81,7 +83,10 @@ public class ScheduleServiceImpl implements IScheduleService{
             Optional<Schedule> scheduleOptRequest = this.scheduleRepository.findById(code);
             if (scheduleOptRequest.isEmpty())
                 throw new ScheduleBadRequestException("bad.request.schedule.id", code.toString());
+            Course courseDb = scheduleOptRequest.get().getCourse();
+            courseDb.setRemainingHours(courseDb.getRemainingHours()+2);
             this.scheduleRepository.deleteById(code);
+            this.courseRepository.save(courseDb);
             return true;
         }catch (Exception e){
             throw new ScheduleIntegrityException(e.getMessage(),"");
