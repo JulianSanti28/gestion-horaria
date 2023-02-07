@@ -20,29 +20,29 @@ export class ProgramService {
   ]
 
   getAllPrograms(){
-    return this.programs;
-    // return this.http.get<any>(this.endPoint+``).pipe(
-    //   catchError((e) => {
+    // return this.programs;
+    return this.http.get<any>(this.endPoint+``).pipe(
+      catchError((e) => {
 
-    //     console.log('Error obteniendo todos los RECURSOS', e.error.mensaje, 'error');
-    //     return throwError(e);
+        console.log('Error obteniendo todos los RECURSOS', e.error.mensaje, 'error');
+        return throwError(e);
 
-    //   })
-    // );
+      })
+    );
 
 
   }
   getProgramById(id:string){
-    const program: Program =this.programs.find(program=> program.programId==id)!;
-    return program;
-    // return this.http.get<any>(this.endPoint+`/${id}`).pipe(
-    //   catchError((e) => {
+    // const program: Program =this.programs.find(program=> program.programId==id)!;
+    // return program;
+    return this.http.get<any>(this.endPoint+`/${id}`).pipe(
+      catchError((e) => {
 
-    //     console.log('Error obteniendo todos los RECURSOS', e.error.mensaje, 'error');
-    //     return throwError(e);
+        console.log('Error obteniendo todos los RECURSOS', e.error.mensaje, 'error');
+        return throwError(e);
 
-    //   })
-    // );
+      })
+    );
 
 
     // return this.program
