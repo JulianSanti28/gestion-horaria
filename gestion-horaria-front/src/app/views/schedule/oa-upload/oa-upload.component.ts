@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OfertaAcademicaService } from 'src/app/services/oferta-academica/oferta-academica.service'
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-oa-upload',
   templateUrl: './oa-upload.component.html',
@@ -23,6 +24,10 @@ export class OaUploadComponent implements OnInit{
       this.oaService.uploadFile(file)
       .subscribe(rta => {
         this.imgRta=rta.location;
+        Swal.fire('Archivo creado',
+          `Archivo subido correctamente`, 'success');
+          // this.router.navigate(['//schedule/detail']);
+
       })
     }
 

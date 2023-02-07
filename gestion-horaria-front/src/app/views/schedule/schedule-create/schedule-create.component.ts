@@ -8,6 +8,7 @@ import { Schedule, ScheduleDTO } from 'src/app/models/schedule.model';
 import { ScheduleService } from 'src/app/services/schedule/schedule.service';
 import { ignoreElements } from 'rxjs';
 import { Router } from '@angular/router';
+import { error } from 'console';
 
 @Component({
   selector: 'app-schedule-create',
@@ -100,10 +101,16 @@ export class ScheduleCreateComponent {
           Swal.fire('Franja creada',
           `La franja : ${scheduleresponse.startingTime} ${scheduleresponse.endingTime}\n Curso: ${scheduleresponse.course.courseId}  \nfue creado exitosamente`, 'success');
           this.router.navigate(['//schedule/detail']);
-          
+
         }
 
+
+      }, err=>{
+        Swal.fire('No se pudo crear la franja',
+          `La franja : ${scheduleresponse.startingTime} ${scheduleresponse.endingTime}\n Curso: ${scheduleresponse.course.courseId}  \n`, 'warning');
+          this.router.navigate(['//schedule/detail']);
       }
+
     );
   }
 }

@@ -12,7 +12,7 @@ export class ScheduleTimeAllComponent {
 
   columns:string[]=["Id","Dia","Hora Inicio","Hora Fin","Seleccionado"]
   weekDays:string[]=["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"]
-  bloques:number[]=[2,4]
+  bloques:number[]=[2,4,13]
   showSelectedSchedule:boolean=false;
   availableSchedules:Schedule[]=[];
   allSchedules:Schedule[]=[];
