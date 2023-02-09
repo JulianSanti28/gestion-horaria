@@ -15,7 +15,7 @@
 
 # Propósito del proyecto
 
-Este proyecto tiene como propósito proporcionar al programador Java un arquetipo de API REST con una arquitectura simple y unas dependencias básicas que son especialmente útiles y casi imprescindibles al momento de elaborar proyectos en Java, estableciendo un kit de herramientas básicas para crear nuevos proyectos a partir de esta estructura propuesta por ingenieros de Pragma S.A.
+Este proyecto tiene como propósito proporcionar una aplicación basa en servicios de API REST con una arquitectura simple y unas dependencias básicas que son especialmente útiles y casi imprescindibles al momento de elaborar proyectos en Java, estableciendo un kit de herramientas básicas para crear el proeycto de gestión horaria de las facultades de la Universidad del Cauca
 
 # Estructura del proyecto
 
