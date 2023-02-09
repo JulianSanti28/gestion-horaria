@@ -1,7 +1,7 @@
 ### Características
 
 - Proyecto hecho en Java 11.
-- Arquetipo de proyecto en Java elaborado por ingenieros de Pragma S.A.
+- Proyecto elaborado por estudiantes de la Universidad del Cauca
 - Contiene dependencias básicas y  esenciales para la construcción de un API REST.
 - Utiliza Gradle como herramienta de automatización de compilación de código.
 - Construido utilizando Spring Boot.
