@@ -6,6 +6,7 @@ import com.pragma.api.domain.ScheduleResponseDTO;
 import java.util.List;
 
 public interface IScheduleService {
+
     ScheduleResponseDTO saveSchedule(ScheduleRequestDTO save);
     ScheduleResponseDTO updateSchedule(Long code, ScheduleRequestDTO update);
     Boolean deleteSchedule(Long code);

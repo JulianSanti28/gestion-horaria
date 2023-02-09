@@ -50,6 +50,8 @@ public class ScheduleServiceImpl implements IScheduleService{
         Optional<Environment> environmentOptRequest = this.environmentRepository.findById(saveRequest.getEnvironmentId());
         if(environmentOptRequest.isEmpty()) throw new ScheduleBadRequestException("bad.request.environment.id", saveRequest.getEnvironmentId().toString());
         Course courseDb = courseOptRequest.get();
+        if(this.scheduleRepository.existsByCourseAndDay(courseDb, saveRequest.getDay())) throw new ScheduleBadRequestException("bad.request.schedule.course.day", saveRequest.getDay().toString());
+        if(this.scheduleRepository.existsByStartingTimeAndEndingTimeAndDayAndEnvironment(saveRequest.getStartingTime(), saveRequest.getEndingTime(),saveRequest.getDay(),environmentOptRequest.get())) throw new ScheduleBadRequestException("bad.request.schedule.course.day.time.environment", environmentOptRequest.get().getName());
         int differenceHours = (int) getDifferenceHours(saveRequest.getStartingTime(), saveRequest.getEndingTime());
         if(differenceHours>courseDb.getRemainingHours()) throw new ScheduleBadRequestException("bad.request.schedule.hours",courseDb.getId().toString());
         Schedule requestSchedule = Schedule
@@ -61,6 +63,7 @@ public class ScheduleServiceImpl implements IScheduleService{
         requestSchedule.setEnvironment(environmentOptRequest.get());
         requestSchedule.setCourse(courseDb);
         courseDb.setRemainingHours((courseDb.getRemainingHours()-differenceHours));
+        this.courseRepository.save(courseDb);
         return modelMapper.map(this.scheduleRepository.save(requestSchedule), ScheduleResponseDTO.class);
     }
 
@@ -75,16 +78,28 @@ public class ScheduleServiceImpl implements IScheduleService{
         if(scheduleOptRequest.isEmpty()) throw new ScheduleBadRequestException("bad.request.schedule.id", code.toString());
         Optional<Course> courseOptRequest = this.courseRepository.findById(updateRequest.getCourseId());
         if(courseOptRequest.isEmpty()) throw new ScheduleBadRequestException("bad.request.course.id", updateRequest.getCourseId().toString());
+        Course concreteCourse = courseOptRequest.get();
         Optional<Environment> environmentOptRequest = this.environmentRepository.findById(updateRequest.getEnvironmentId());
         if(environmentOptRequest.isEmpty()) throw new ScheduleBadRequestException("bad.request.environment.id", updateRequest.getEnvironmentId().toString());
         int differenceHours = (int) getDifferenceHours(updateRequest.getStartingTime(), updateRequest.getEndingTime());
-        if(differenceHours>courseOptRequest.get().getRemainingHours()) throw new ScheduleBadRequestException("bad.request.schedule.hours",courseOptRequest.get().getId().toString());
+        int oldScheduleDifferenceHours = (int) getDifferenceHours(scheduleOptRequest.get().getStartingTime(),scheduleOptRequest.get().getEndingTime());
+        if(concreteCourse.equals(scheduleOptRequest.get().getCourse())){
+            concreteCourse.setRemainingHours(concreteCourse.getRemainingHours()+oldScheduleDifferenceHours);
+        }
+        if(differenceHours>concreteCourse.getRemainingHours()) throw new ScheduleBadRequestException("bad.request.schedule.hours",courseOptRequest.get().getId().toString());
+        if (!concreteCourse.equals(scheduleOptRequest.get().getCourse())){
+            Course oldCourse = scheduleOptRequest.get().getCourse();
+            oldCourse.setRemainingHours(oldCourse.getRemainingHours()+oldScheduleDifferenceHours);
+            this.courseRepository.save(scheduleOptRequest.get().getCourse());
+        }
         Schedule scheduleDb = scheduleOptRequest.get();
         scheduleDb.setCourse(courseOptRequest.get());
         scheduleDb.setEnvironment(environmentOptRequest.get());
         scheduleDb.setStartingTime(updateRequest.getStartingTime());
         scheduleDb.setEndingTime(updateRequest.getEndingTime());
         scheduleDb.setDay(updateRequest.getDay());
+        concreteCourse.setRemainingHours(concreteCourse.getRemainingHours()-differenceHours);
+        this.courseRepository.save(concreteCourse);
         return modelMapper.map(this.scheduleRepository.save(scheduleDb), ScheduleResponseDTO.class);
     }
 
