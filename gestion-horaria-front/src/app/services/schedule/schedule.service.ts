@@ -26,7 +26,7 @@ export class ScheduleService {
   course!: Course;
   envi!:Environment;
   schedule:Schedule[]=[
-    {id:1,day:"LUNES",startingTime:'07:00:00',endingTime:'20:00:00',course:this.curso,environment:this.envi},
+    {id:1,day:"LUNES",startingTime:'07:00:00',endingTime:'09:00:00',course:this.curso,environment:this.envi},
     {id:2,day:"LUNES",startingTime:'09:00:00',endingTime:'11:00:00',course:this.curso,environment:this.envi} ,
     {id:3,day:"LUNES",startingTime:'11:00:00',endingTime:'13:00:00',course:this.curso,environment:this.envi} ,
     {id:4,day:"LUNES",startingTime:'14:00:00',endingTime:'16:00:00',course:this.curso,environment:this.envi} ,
@@ -192,9 +192,9 @@ export class ScheduleService {
     .pipe(
       catchError((e) => {
 
-        console.log('Error obteniendo  guardando schedule ', e.error.mensaje, 'error');
-        Swal.fire('No se pudo crear la franja',
-          `La franja : ${schedule.startingTime} ${schedule.endingTime}\n Curso: ${schedule.courseId}  \n`, 'warning');
+        console.log('Error obteniendo  guardando schedule ', e, 'error');
+        Swal.fire(`No se pudo crear la franja  ${schedule.startingTime} ${schedule.endingTime}` ,
+        `Error: ${e.error.message} \n`, 'warning');
         return throwError(e);
 
           // this.router.navigate(['//schedule/detail']);
@@ -208,9 +208,10 @@ export class ScheduleService {
     .pipe(
       catchError((e) => {
 
-        console.log('Error obteniendo  actualizando shcedule ', e.error.mensaje, 'error');
-        Swal.fire('No se pudo crear la franja',
-          `La franja : ${schedule.startingTime} ${schedule.endingTime}\n Curso: ${schedule.courseId}  \n`, 'warning');
+        console.log('Error obteniendo  actualizando shcedule ', e, 'error');
+        Swal.fire( `No se pudo crear la franja ${schedule.startingTime} ${schedule.endingTime}`,
+        `Error: ${e.error.message} `, 'warning');
+
         return throwError(e);
 
           // this.router.navigate(['//schedule/detail']);

@@ -144,9 +144,9 @@ export class ScheduleCreateFormComponent {
 
     }
   }
-  getIfEnvironmentSelected(value:boolean){
-    this.isEnvironmentSelected=value
-  }
+  // getIfEnvironmentSelected(value:boolean){
+  //   this.isEnvironmentSelected=value
+  // }
   getInfo(){
     let scheduleCreated :ScheduleDTO= {id:0, day:'',startingTime:'',endingTime:'',courseId:0,environmentId:0};
     scheduleCreated.day=this.scheduleSelected.day.toUpperCase()
@@ -169,9 +169,9 @@ export class ScheduleCreateFormComponent {
   fillTakenEnvironmentSchedule(){
 
     this.scheduleService.getTakenEnvironmentSchedule(this.environmentSelected.id).subscribe((response) =>{
-      // console.log("Response de taken Envi  " ,response)
+      console.log("Response de taken Envi  " ,response)
       this.takenEnvironmentSchedules = response as Schedule[]
-
+      this.isEnvironmentSelected=true
      });
   }
 }

@@ -11,7 +11,7 @@ import {CourseService} from 'src/app/services/course/course.service'
 })
 export class CoursesComponent implements OnInit{
 
-  columns:string[]=['Id curso','Grupo','Capacidad','Periodo','Materia','Profesor','Ver detalles','Seleccionar'];
+  columns:string[]=['Id curso','Grupo','Capacidad','Periodo','Materia','Profesor','Horas por asignar','Seleccionar'];
   courses:Course[]=[]; //todos los cursos
   curso!:Course;  // curso seleccionado
   isCourseSelected:boolean=false;

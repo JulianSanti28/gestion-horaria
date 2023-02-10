@@ -32,7 +32,7 @@
           <td>{{course.periodId}}</td>
           <td>{{course.subjectCode}} </td>
           <td>{{course.teacherCode}} </td>
-          <td><a [routerLink]="['../edit',course.courseId]">Ver detalles</a> </td>
+          <td>{{course.remainingHours}} </td>
           <td><input [disabled]="isCheckboxDisabled" #checkboxes  id="selectedCourse"  type="checkbox" (click)="onSelectingCourse(course,$event)"></td>
 
         </tr>

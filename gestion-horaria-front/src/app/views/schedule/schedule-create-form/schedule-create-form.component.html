@@ -13,19 +13,21 @@
         ></app-courses>
       </div>
 
-    <!-- Seleccionar ambiente -->
+    <!-- Seleccionar ambiente
+        (isEnvironmentSelected)="getIfEnvironmentSelected($event)"
+    -->
       <div *ngIf="courses.isCourseSelected">
         <app-schedule-environments
           #scheduleenvironments
           (selectedEnvironment)="getSelectedEnvironment($event)"
-          (isEnvironmentSelected)="getIfEnvironmentSelected($event)"
+
         ></app-schedule-environments>
       </div>
 
 
       <!-- Se debe poder ver la vista del horario -->
       <div *ngIf="isEnvironmentSelected">
-        
+
         <app-schedule-time-all
           [takenEnvironmentSchedule]="takenEnvironmentSchedules"
           [takenProfessorSchedule]="takenProfessorSchedules"

@@ -35,5 +35,6 @@ public class CourseDTO {
     /** Codigo profesor del curso */
     @NotNull(message = "El codigo del profesor no puede ser vacio")
     private String teacherCode;
-
+    @NotNull(message = "")
+    private Integer remainingHours;
 }

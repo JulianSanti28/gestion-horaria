@@ -78,6 +78,7 @@ export class ScheduleCreateComponent {
   }
   changeShowForm(){
     this.progressMadeProgramSemester=0
+    this.progressMadeForm=0
     this.showSelectedProgramAndSemester =false;
     this.changeValue=false
     this.beforeForm.cleanSelect()
@@ -110,9 +111,9 @@ export class ScheduleCreateComponent {
 
 
         if(response != null){
-          scheduleresponse = response
+          scheduleresponse = response as Schedule
 
-          Swal.fire('Franja creada',
+          Swal.fire(`Franja creada, por asignar ${scheduleresponse.course.remainingHours} horas`,
           `La franja : ${scheduleresponse.startingTime} ${scheduleresponse.endingTime}\n Curso: ${scheduleresponse.course.courseId}  \nfue creado exitosamente`, 'success');
           this.router.navigate(['//schedule/detail']);
 
@@ -120,7 +121,7 @@ export class ScheduleCreateComponent {
 
 
       }, err=>{
-        Swal.fire('No se pudo crear la franja',
+        Swal.fire(`Error: ${err.message} `,
           `La franja : ${scheduleresponse.startingTime} ${scheduleresponse.endingTime}\n Curso: ${scheduleresponse.course.courseId}  \n`, 'warning');
           this.router.navigate(['//schedule/detail']);
       }
